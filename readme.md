@@ -1,6 +1,6 @@
 ## Development
 
-`deno run --allow-net --allow-read index.js`
+`deno run --allow-net --allow-read --watch index.js`
 
 ## Deployment
 
