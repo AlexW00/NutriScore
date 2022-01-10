@@ -4,7 +4,7 @@
 
 ## Deployment
 
-1. Push code to `master` branch
+1. Push code to `main` branch
 2. View at → https://nutriscore.deno.dev/
 
 
