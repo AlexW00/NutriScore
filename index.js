@@ -4,7 +4,7 @@ import { format } from "https://deno.land/std@0.91.0/datetime/mod.ts";
 async function handler(req) {
   sendDiscordMessage();
 
-  const f = await Deno.readFile("index.html");
+  const f = await Deno.readFile("./client/index.html");
   return new Response(f);
 }
 
