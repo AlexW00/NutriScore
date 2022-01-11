@@ -2,7 +2,7 @@ import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
 import { format } from "https://deno.land/std@0.91.0/datetime/mod.ts";
 
 async function handler(req) {
-  sendDiscordMessage();
+  sendDiscordMessage()
   console.log("New visitor");
   const f = await Deno.readFile("./client/index.html");
   return new Response(f);
@@ -13,7 +13,7 @@ function sendDiscordMessage() {
 }
 
 const webHookUrl =
-  "https://discord.com/api/webhooks/930004096222638100/keH8NfAHHtLOEvS1YUQJwMS_mUAhN7xGNO5mc2VXCMHYJigk4M27MJNUfrRXXLDb5cuN";
+  Deno.env.get("WEBHOOK_URL")
 
 const webHookContent = {
   username: "Deno Webhook",
