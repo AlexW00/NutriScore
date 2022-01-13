@@ -1,19 +1,21 @@
-import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
 import { format } from "https://deno.land/std@0.91.0/datetime/mod.ts";
 
-async function handler(req) {
-  sendDiscordMessage()
-  console.log("New visitor");
-  const f = await Deno.readFile("./client/index.html");
-  return new Response(f);
-}
+import pogo from "https://deno.land/x/pogo/main.ts";
+
+const server = pogo.server({ port: 8000 });
+
+server.router.get("/", () => {
+  sendDiscordMessage();
+  return "Hello, world!";
+});
+
+server.start();
 
 function sendDiscordMessage() {
   return fetch(webHookUrl, requestOptions);
 }
 
-const webHookUrl =
-  Deno.env.get("WEBHOOK_URL")
+const webHookUrl = Deno.env.get("WEBHOOK_URL");
 
 const webHookContent = {
   username: "Deno Webhook",
@@ -36,4 +38,3 @@ const requestOptions = {
 };
 
 console.log("Listening on http://localhost:8000");
-await serve(handler);
