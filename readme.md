@@ -1,6 +1,7 @@
 ## Development
+Install [Deno](https://deno.land/)
 
-`deno run --allow-net --allow-read --watch index.js`
+`WEBHOOK_URL="YOUR_DISCORD_WEBHOOK_URL" deno run --allow-net --allow-read --allow-env --watch index.js`
 
 ## Deployment
 
