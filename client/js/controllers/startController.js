@@ -1,4 +1,4 @@
-import ExampleView from "../views/examples/exampleView.js";
+import ExampleView from "../views/examples/ExampleView.js";
 
 // ##################################################################### //
 // ########################## startController ########################## //
