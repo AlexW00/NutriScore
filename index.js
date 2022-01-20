@@ -1,25 +1,50 @@
 import { format } from "https://deno.land/std@0.91.0/datetime/mod.ts";
 import pogo from "https://deno.land/x/pogo/main.ts";
 
+// ##################################################################### //
+// ############################### Server ############################## //
+// ##################################################################### //
+
+const webHookUrl = Deno.env.get("WEBHOOK_URL");
 const server = pogo.server({ port: 8000 });
 
-server.router.get("/", () => {
-  sendDiscordMessage();
-  return "Hello, world!";
+// ====================================================== //
+// ======================= routes ======================= //
+// ====================================================== //
+
+// ~~~~~~~~~~~~ static routes ~~~~~~~~~~~~ //
+
+// all static files in the client folder (css, js, images...)
+server.router.get("/client/{file*}", (request, h) => {
+  return h.directory("client");
 });
 
-server.router.get("/getQuestionnaire/", () => {
-  sendDiscordMessage();
-  return "hi, world!";
+// ~~~~~~~~~~~~ custom routes ~~~~~~~~~~~~ //
+
+// start page
+server.router.get("/", (request, h) => {
+  return h.file("client/html/start.html");
 });
+
+// survey page
+server.router.get("/survey", (request, h) => {
+  return h.file("client/html/survey.html");
+});
+
+// ====================================================== //
+// ==================== server setup ==================== //
+// ====================================================== //
 
 server.start();
+console.log("Listening on http://localhost:" + 8000);
+
+// ====================================================== //
+// ================ legacy stuff (remove) =============== //
+// ====================================================== //
 
 function sendDiscordMessage() {
   return fetch(webHookUrl, requestOptions);
 }
-
-const webHookUrl = Deno.env.get("WEBHOOK_URL");
 
 const webHookContent = {
   username: "Deno Webhook",
@@ -38,7 +63,5 @@ const requestOptions = {
   },
   redirect: "follow", // manual, *follow, error
   referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  body: JSON.stringify(webHookContent), // body data type must match "Content-Type" header
+  body: JSON.stringify(webHookContent),
 };
-
-console.log("Listening on http://localhost:8000");
