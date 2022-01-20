@@ -41,7 +41,7 @@ const handleGetRequest = async (request, pathname) => {
 // ~~~~~~~~~~~~~~~~ routes ~~~~~~~~~~~~~~~ //
 
 const serveStartPage = async () => {
-  const file = await Deno.readFile("client/html/start.html");
+  const file = await Deno.readFile("./client/html/start.html");
   return new Response(file, {
     headers: {
       "content-type": "text/html",
@@ -50,7 +50,7 @@ const serveStartPage = async () => {
 };
 
 const serveStaticFile = async (pathname) => {
-  const filePath = pathname.substring(1);
+  const filePath = "./" + pathname.substring(1);
   // check if the file exists
   if (await fileExists(filePath)) {
     const file = await Deno.readFile(filePath);
