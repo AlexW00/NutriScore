@@ -1,67 +1,86 @@
-import { format } from "https://deno.land/std@0.91.0/datetime/mod.ts";
-import pogo from "https://deno.land/x/pogo/main.ts";
+import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
+import { fileExists, getContentType } from "./server/utilFunctions.js";
 
 // ##################################################################### //
 // ############################### Server ############################## //
 // ##################################################################### //
 
-const webHookUrl = Deno.env.get("WEBHOOK_URL");
-const server = pogo.server({ port: 8000 });
+async function handleRequest(request) {
+  const { pathname } = new URL(request.url);
 
-// ====================================================== //
-// ======================= routes ======================= //
-// ====================================================== //
+  // ~~~ handle different request methods ~~ //
 
-// ~~~~~~~~~~~~ static routes ~~~~~~~~~~~~ //
-
-// all static files in the client folder (css, js, images...)
-server.router.get("/client/{file*}", (request, h) => {
-  return h.directory("client");
-});
-
-// ~~~~~~~~~~~~ custom routes ~~~~~~~~~~~~ //
-
-// start page
-server.router.get("/", (request, h) => {
-  return h.file("client/html/start.html");
-});
-
-// survey page
-server.router.get("/survey", (request, h) => {
-  return h.file("client/html/survey.html");
-});
-
-// ====================================================== //
-// ==================== server setup ==================== //
-// ====================================================== //
-
-server.start();
-console.log("Listening on http://localhost:" + 8000);
-
-// ====================================================== //
-// ================ legacy stuff (remove) =============== //
-// ====================================================== //
-
-function sendDiscordMessage() {
-  return fetch(webHookUrl, requestOptions);
+  switch (request.method) {
+    case "GET":
+      return await handleGetRequest(request, pathname);
+    case "POST":
+      return await handlePostRequest(request, pathname);
+  }
 }
 
-const webHookContent = {
-  username: "Deno Webhook",
-  content:
-    "Sent from Deno playground at " + format(new Date(), "yyyy-MM-dd HH:mm:ss"),
+console.log("Listening on http://localhost:8000");
+serve(handleRequest);
+
+// ====================================================== //
+// ================= GET request routes ================= //
+// ====================================================== //
+
+// ~~~~~~~~~~~~~~~ routing ~~~~~~~~~~~~~~~ //
+
+const handleGetRequest = async (request, pathname) => {
+  switch (pathname) {
+    case "/":
+      return await serveStartPage();
+    // other custom routes go here
+    default: {
+      return await serveStaticFile(pathname);
+    }
+  }
 };
 
-const requestOptions = {
-  method: "POST",
-  mode: "cors", // no-cors, *cors, same-origin
-  cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-  credentials: "same-origin", // include, *same-origin, omit
-  headers: {
-    "Content-Type": "application/json",
-    // 'Content-Type': 'application/x-www-form-urlencoded',
-  },
-  redirect: "follow", // manual, *follow, error
-  referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-  body: JSON.stringify(webHookContent),
+// ~~~~~~~~~~~~~~~~ routes ~~~~~~~~~~~~~~~ //
+
+const serveStartPage = async () => {
+  const file = await Deno.readFile("client/html/start.html");
+  return new Response(file, {
+    headers: {
+      "content-type": "text/html",
+    },
+  });
 };
+
+const serveStaticFile = async (pathname) => {
+  const filePath = pathname.substring(1);
+  // check if the file exists
+  if (await fileExists(filePath)) {
+    const file = await Deno.readFile(filePath);
+    return new Response(file, {
+      headers: {
+        "content-type": getContentType(filePath),
+      },
+    });
+  } else {
+    return new Response("File not found", {
+      status: 404,
+      headers: { "content-type": "text/plain" },
+    });
+  }
+};
+
+// ====================================================== //
+// ================= POST request routes ================ //
+// ====================================================== //
+
+// ~~~~~~~~~~~~~~~ routing ~~~~~~~~~~~~~~~ //
+
+const handlePostRequest = async (request, pathname) => {
+  // TODO: handle post requests
+  return await new Response("", {
+    status: 404,
+    headers: { "content-type": "text/plain" },
+  });
+};
+
+// ~~~~~~~~~~~~~~~~ routes ~~~~~~~~~~~~~~~ //
+
+// TODO: implement custom routes if necessary
