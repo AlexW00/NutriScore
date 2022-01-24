@@ -1,4 +1,6 @@
 import ExampleView from "../views/examples/ExampleView.js";
+import Model from "../models/Model.js";
+import IndexedDbStorageProvider from "../storage/IndexedDbStorageProvider.js";
 
 // ##################################################################### //
 // ########################## startController ########################## //
@@ -19,3 +21,27 @@ exampleView.addEventListener("buttonClicked", (event) => {
 });
 
 document.body.appendChild(exampleView.html()); // append the new view to the body
+
+const m = new Model({ buttonValue: 1 });
+m.updateDataPoint("buttonValue", 1);
+
+// Storage db testing
+
+const sp = IndexedDbStorageProvider;
+await sp.openDB();
+
+await sp
+  .addItem("main-task", {
+    topicID: 1,
+    snippetNumber: 222,
+    snippetText: "dsd",
+    snippetTitle: "dsd",
+    snippetNutriscore: 2,
+    snippetUserScore: 2,
+  })
+  .then((r) => {
+    console.log(r);
+  });
+await sp.getItem("main-task", [1, 22]).then((r) => {
+  console.log(r);
+});
