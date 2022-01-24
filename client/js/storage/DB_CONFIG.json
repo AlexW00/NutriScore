@@ -15,7 +15,7 @@
         "keys": ["topicId", "snippetNumber"]
       },
       "indexes": [
-        "topicID",
+        "topicId",
         "snippetNumber",
         "snippetTitle",
         "snippetText",
