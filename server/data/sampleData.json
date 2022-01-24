@@ -1,0 +1,44 @@
+{
+  "topics": [
+    {
+      "query": "sample query",
+      "snippets": [
+        {
+          "title": "sample snippet1",
+          "text": "sample text",
+          "score": 0.5
+        },
+        {
+          "title": "sample snippet2",
+          "text": "sample text",
+          "score": 0.5
+        },
+        {
+          "title": "sample snippet3",
+          "text": "sample text",
+          "score": 0.5
+        }
+      ]
+    },
+    {
+      "query": "sample query2",
+      "snippets": [
+        {
+          "title": "sample snippet1",
+          "text": "sample text",
+          "score": 0.5
+        },
+        {
+          "title": "sample snippet2",
+          "text": "sample text",
+          "score": 0.5
+        },
+        {
+          "title": "sample snippet3",
+          "text": "sample text",
+          "score": 0.5
+        }
+      ]
+    }
+  ]
+}

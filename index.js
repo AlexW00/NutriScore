@@ -31,6 +31,8 @@ const handleGetRequest = async (request, pathname) => {
   switch (pathname) {
     case "/":
       return await serveStartPage();
+    case "/getSampleQueries":
+      return await serveSampleQueries();
     // other custom routes go here
     default: {
       return await serveStaticFile(pathname);
@@ -45,6 +47,16 @@ const serveStartPage = async () => {
   return new Response(file, {
     headers: {
       "content-type": "text/html",
+    },
+  });
+};
+
+const serveSampleQueries = async () => {
+  // TODO: Return randomized data here (latin square etc.)
+  const file = await Deno.readFile("./server/data/sampleData.json");
+  return new Response(file, {
+    headers: {
+      "content-type": "application/json",
     },
   });
 };
