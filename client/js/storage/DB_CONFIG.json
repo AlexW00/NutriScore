@@ -1,26 +1,18 @@
 {
   "dbName": "NS_DB",
-  "version": "2.2",
+  "version": "1.0",
   "objectStores": [
     {
       "name": "pre-task",
       "keyPath": {
-        "keys": ["id"],
-        "isUnique": true
+        "keys": ["questionId"]
       },
-      "indexes": [
-        "topicID",
-        "snippetNumber",
-        "snippetTitle",
-        "snippetText",
-        "snippetNutriscore",
-        "snippetUserScore"
-      ]
+      "indexes": ["questionId"]
     },
     {
       "name": "main-task",
       "keyPath": {
-        "keys": ["topicID", "snippetNumber"]
+        "keys": ["topicId", "snippetNumber"]
       },
       "indexes": [
         "topicID",
@@ -34,17 +26,9 @@
     {
       "name": "post-task",
       "keyPath": {
-        "keys": ["id"],
-        "isUnique": true
+        "keys": ["questionId"]
       },
-      "indexes": [
-        "topicID",
-        "snippetNumber",
-        "snippetTitle",
-        "snippetText",
-        "snippetNutriscore",
-        "snippetUserScore"
-      ]
+      "indexes": ["questionId"]
     }
   ]
 }
