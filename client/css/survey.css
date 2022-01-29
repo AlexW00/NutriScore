@@ -157,7 +157,7 @@ body {
     padding: 2px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-    text-shadow: 0 0 1px black;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7), -1px -1px 3px rgba(0, 0, 0, 0.7);
 }
 
 .selected {
@@ -168,6 +168,10 @@ body {
     border-style: solid;
     align-self: center;
     width: 16px;
+}
+
+.crediscore-class>ul>li:not(.selected) {
+    opacity: 0.6;
 }
 
 .class-A {
