@@ -139,6 +139,28 @@
         </div>
     </div>
 
+    <div class="postTask">
+        <div class="postTask-Title">
+            Studierende der Universität Regensburg:<br>
+            Versuchspersonenstunden Anrechnung im Fachbereich
+            Medieninformatik / Informationswissenschaft
+        </div>
+        <div class="postTask-item" data-question-id="Vorname">
+            <div class="postTask-description">
+                Wenn sie kein*e Student*in sind, oder keine VP-Stunden erhalten wollen, können Sie diese Felder frei
+                lassen.
+            </div>
+            <div class="postTask-input">
+                <input type="text" name="Vorname">
+                <label for="Vorname">Vorname</label><br>
+                <input type="text" name="Nachname">
+                <label for="Nachname">Nachname</label><br>
+                <input type="text" name="Matrikelnummer">
+                <label for="Matrikelnummer">Matrikelnummer</label><br>
+            </div>
+        </div>
+    </div>
+
     <div class="results">
         <div class="result" data-id="meineSnippetID_CrediScore">
             <span class="crediscore">
@@ -315,8 +337,8 @@
 
     <div class="navigation">
         <div class="button-container">
-            <div class="button-prev">WEITER</div>
-            <div class="button-next">ZURÜCK</div>
+            <div class="button-prev">ZURÜCK</div>
+            <div class="button-next">WEITER</div>
         </div>
         <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
             können!</span>
@@ -324,7 +346,30 @@
 
 
 
-
+    <template id="postTask-questions-vp">
+        <!-- Need to set listener by data-question-id and postTask-item -->
+        <div class="postTask">
+            <div class="postTask-Title">
+                Studierende der Universität Regensburg:<br>
+                Versuchspersonenstunden Anrechnung im Fachbereich
+                Medieninformatik / Informationswissenschaft
+            </div>
+            <div class="postTask-item" data-question-id="Vorname">
+                <div class="postTask-description">
+                    Wenn sie kein*e Student*in sind, oder keine VP-Stunden erhalten wollen, können Sie diese Felder frei
+                    lassen.
+                </div>
+                <div class="postTask-input">
+                    <input type="text" name="Vorname">
+                    <label for="Vorname">Vorname</label><br>
+                    <input type="text" name="Nachname">
+                    <label for="Nachname">Nachname</label><br>
+                    <input type="text" name="Matrikelnummer">
+                    <label for="Matrikelnummer">Matrikelnummer</label><br>
+                </div>
+            </div>
+        </div>
+    </template>
 
     <template id="postTask-questions-demographics">
         <!-- Need to set listener by data-question-id and postTask-item -->
@@ -472,8 +517,8 @@
         <div class="navigation">
             <div class="button-container">
                 <!-- Change Names -->
-                <div class="button-prev">WEITER</div>
-                <div class="button-next">ZURÜCK</div>
+                <div class="button-prev">ZURÜCK</div>
+                <div class="button-next">WEITER</div>
             </div><!-- Remove / hide warning -->
             <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
                 können!</span>

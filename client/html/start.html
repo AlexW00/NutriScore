@@ -136,6 +136,30 @@
         <br>
     </p>
 
+    <input type="checkbox" name="Einverständniserklärung" onclick="onCheckBoxClicked(event)" />
+    <label for="0">Ich habe die Einverständniserklärung zur Aufklärung über die Teilnahme sorgfältig durchgelesen und
+        stimme dieser zu.</label><br>
+
+    <div class="navigation">
+        <div class="button-container">
+            <div class="button-prev hidden">ZURÜCK</div>
+            <div class="button-next hidden" onclick="onStartSurveyClicked(event)">Umfrage starten</div>
+        </div>
+        <span class="warning hidden">* Sie erst eine Einverständnis abgeben bevor Sie die Umfrage starten können!</span>
+    </div>
+
 </body>
+<script>
+    function onCheckBoxClicked(event) {
+        document.querySelector(".button-next").classList.toggle("hidden");
+        if (event.target.checked) {
+            scrollTo(0, window.outerHeight);
+        }
+    };
+
+    function onStartSurveyClicked(event) {
+        console.log("Survey started");
+    };
+</script>
 
 </html>
