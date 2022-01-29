@@ -1,11 +1,392 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <base href="/client/html/">
-        <script src="../js/controllers/surveyController.js" type="module"></script>
-    </head>
-    <body>
-        <h1>Survey page</h1>
-        <p>This is the Survey page.</p>
-        <div id="content"></div>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <base href="/client/html/"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../css/survey.css" />
+    <script src="../js/controllers/surveyController.js" type="module"></script>
+</head>
+
+<body>
+    <!-- <h1>Survey page</h1>
+        <p>This is the Survey page.</p> -->
+    <div class="question-bar">
+        <span class="question">
+            Was gibt es für Snippets?
+            <span class="search-icon">🔍</span>
+        </span>
+    </div>
+
+    <div class="preKnowledge">
+        <div class="preKnowledgeInfo">
+            Wie schätzen sie ihr Vorwissen zu diesem Thema ein?
+        </div>
+        <ul class="likertscala">
+            <li class="likertscala-info">Sehr gering</li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="0" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="1" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="2" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="3" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="4" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="5" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="6" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="7" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="8" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="9" /></li>
+            <li><input type="radio" name="meineSnippetID_Preknowledge" value="10" /></li>
+            <li class="likertscala-info">Sehr hoch</li>
+        </ul>
+    </div>
+
+    <div class="postTask">
+        <div class="postTask-Title">
+            Demographische Fragen
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Wie alt sind Sie?
+            </div>
+            <div class="postTask-input">
+                <input type="number" min="12" max="99" step="1">
+            </div>
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Welchem Geschlecht fühlen sie sich zugeordnet?
+            </div>
+            <div class="postTask-input">
+                <input type="radio" name="Geschlecht" value="0" />
+                <label for="0">Männlich</label><br>
+                <input type="radio" name="Geschlecht" value="1" />
+                <label for="1">Weiblich</label><br>
+                <input type="radio" name="Geschlecht" value="2" />
+                <label for="2">Divers</label><br>
+            </div>
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Welchen Beruf führen Sie aus (Studierende/Forschende: Fach angeben)?
+            </div>
+            <div class="postTask-input">
+                <input type="text" name="Beruf" />
+                <label for="Beruf">Beruf/Fach</label><br>
+            </div>
+        </div>
+    </div>
+
+    <div class="postTask">
+        <div class="postTask-Title">
+            Fragen zum CrediScore
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Wie hilfreich in der Bewertung der Glaubwürdigkeit finden sie den Nutriscore?
+            </div>
+            <div class="postTask-input">
+                <label for="0">Sehr hilfreich</label>
+                <input type="radio" name="hilfreich" value="0" />
+                <input type="radio" name="hilfreich" value="1" />
+                <input type="radio" name="hilfreich" value="2" />
+                <input type="radio" name="hilfreich" value="3" />
+                <input type="radio" name="hilfreich" value="4" />
+                <input type="radio" name="hilfreich" value="5" />
+                <input type="radio" name="hilfreich" value="6" />
+                <input type="radio" name="hilfreich" value="7" />
+                <input type="radio" name="hilfreich" value="8" />
+                <input type="radio" name="hilfreich" value="9" />
+                <input type="radio" name="hilfreich" value="10" />
+                <label for="2">Gar nicht hilfreich</label>
+            </div>
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Wie visuell verständlich schätzen sie die Darstellung des Nutriscores ein?
+            </div>
+            <div class="postTask-input">
+                <label for="0">Sehr verständlich</label>
+                <input type="radio" name="verständlich" value="0" />
+                <input type="radio" name="verständlich" value="1" />
+                <input type="radio" name="verständlich" value="2" />
+                <input type="radio" name="verständlich" value="3" />
+                <input type="radio" name="verständlich" value="4" />
+                <input type="radio" name="verständlich" value="5" />
+                <input type="radio" name="verständlich" value="6" />
+                <input type="radio" name="verständlich" value="7" />
+                <input type="radio" name="verständlich" value="8" />
+                <input type="radio" name="verständlich" value="9" />
+                <input type="radio" name="verständlich" value="10" />
+                <label for="2">Gar nicht verständlich</label>
+            </div>
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Ist die Anzahl an Stufen (A-E) ausreichend?
+            </div>
+            <div class="postTask-input">
+                <label for="0">Ja</label>
+                <input type="radio" name="Stufen ausreichend" value="0" />
+                <input type="radio" name="Stufen ausreichend" value="1" />
+                <label for="1">Nein</label><br>
+            </div>
+        </div>
+        <div class="postTask-item">
+            <div class="postTask-description">
+                Wenn Nein, welche Abstufung wäre passender?
+            </div>
+            <div class="postTask-input">
+                <input type="text" name="Abstufung passender" />
+            </div>
+        </div>
+    </div>
+
+    <div class="results">
+        <div class="result" data-id="meineSnippetID_CrediScore">
+            <span class="crediscore">
+                <div class="crediscore-align">
+                    <span class="crediscore-name">
+                        CrediScore
+                    </span>
+                    <span class="crediscore-class">
+                        <ul>
+                            <li class="class-A selected">
+                                A
+                            </li>
+                            <li class="class-B">
+                                B
+                            </li>
+                            <li class="class-C ">
+                                C
+                            </li>
+                            <li class="class-D">
+                                D
+                            </li>
+                            <li class="class-E">
+                                E
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </span>
+            <span class="snippet">
+                <div class="url">
+                    https://example.com/example
+                </div>
+                <div class="title">
+                    Titel der Seite
+                </div>
+                <div class="info">
+                    The efficacy of tepid sponge bathing to reduce fever in young children Am J Emerg Med. 1997
+                    Mar;15(2):188-92 Shackell S. Cooling hyperthermic and hyperpyrexic patients in intensive care.
+                </div>
+                <ul class="likertscala">
+                    <li class="likertscala-info">Sehr Unglaubwürdig</li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="0" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="1" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="2" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="3" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="4" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="5" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="6" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="7" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="8" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="9" /></li>
+                    <li><input type="radio" name="meineSnippetID_CrediScore" value="10" /></li>
+                    <li class="likertscala-info">Sehr Glaubwürdig</li>
+                </ul>
+            </span>
+        </div>
+
+
+        <div class="result" data-id="meineSnippetID2">
+            <span class="crediscore nonvisible">
+                <div class="crediscore-align">
+                    <span class="crediscore-name">
+                        CrediScore
+                    </span>
+                    <span class="crediscore-class">
+                        <ul>
+                            <li class="class-A selected">
+                                A
+                            </li>
+                            <li class="class-B">
+                                B
+                            </li>
+                            <li class="class-C ">
+                                C
+                            </li>
+                            <li class="class-D">
+                                D
+                            </li>
+                            <li class="class-E">
+                                E
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </span>
+            <span class="snippet">
+                <div class="url">
+                    https://example.com/example2
+                </div>
+                <div class="title">
+                    Titel der Seite2
+                </div>
+                <div class="info">
+                    Next The efficacy of tepid sponge bathing to reduce fever in young children Physical Cooling of
+                    Seriously Ill Febrile Patients Data documenting the capacity of fever to increase morbidity in
+                    patients with severe underlying conditions are sparse. Force fluids, administer tepid sponge bath
+                </div>
+                <ul class="likertscala">
+                    <li class="likertscala-info">Sehr Unglaubwürdig</li>
+                    <li><input type="radio" name="meineSnippetID2" value="0" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="1" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="2" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="3" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="4" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="5" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="6" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="7" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="8" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="9" /></li>
+                    <li><input type="radio" name="meineSnippetID2" value="10" /></li>
+                    <li class="likertscala-info">Sehr Glaubwürdig</li>
+                </ul>
+            </span>
+        </div>
+
+
+        <div class="result" data-id="meineSnippetID3_CrediScore">
+            <span class="crediscore">
+                <div class="crediscore-align">
+                    <span class="crediscore-name">
+                        CrediScore
+                    </span>
+                    <span class="crediscore-class">
+                        <ul>
+                            <li class="class-A">
+                                A
+                            </li>
+                            <li class="class-B">
+                                B
+                            </li>
+                            <li class="class-C selected">
+                                C
+                            </li>
+                            <li class="class-D">
+                                D
+                            </li>
+                            <li class="class-E">
+                                E
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            </span>
+            <span class="snippet">
+                <div class="url">
+                    https://example.com/example
+                </div>
+                <div class="title">
+                    Titel der Seite
+                </div>
+                <div class="info">
+                    how to sponge bath try this trick turn your phone into a baby monitor tepid sponge bath fever baby
+                    sponge bath temperature. how to sponge bath here are the top ways to reduce a fever in babies sponge
+                    bath baby sponge bath baby everyday
+                </div>
+                <ul class="likertscala">
+                    <li class="likertscala-info">Sehr Unglaubwürdig</li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="0" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="1" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="2" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="3" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="4" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="5" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="6" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="7" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="8" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="9" /></li>
+                    <li><input type="radio" name="meineSnippetID3_CrediScore" value="10" /></li>
+                    <li class="likertscala-info">Sehr Glaubwürdig</li>
+                </ul>
+            </span>
+        </div>
+
+        <div class="navigation">
+            <div class="button-container">
+                <div class="button-prev">PREVIOUS</div>
+                <div class="button-next">NEXT</div>
+            </div>
+            <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
+                können!</span>
+        </div>
+
+
+
+        <template id="result">
+            <div class="result" data-id="">
+                <!-- CrediScore nonvisible? -->
+                <span class="crediscore">
+                    <div class="crediscore-align">
+                        <span class="crediscore-name">
+                            CrediScore
+                        </span>
+                        <span class="crediscore-class">
+                            <!-- Set selected CrediScore Class -->
+                            <ul>
+                                <li class="class-A">
+                                    A
+                                </li>
+                                <li class="class-B">
+                                    B
+                                </li>
+                                <li class="class-C">
+                                    C
+                                </li>
+                                <li class="class-D">
+                                    D
+                                </li>
+                                <li class="class-E">
+                                    E
+                                </li>
+                            </ul>
+                        </span>
+                    </div>
+                </span>
+                <span class="snippet">
+                    <!-- Insert id? -->
+                    <div class="url">
+                        <!-- Replace -->
+                        URL
+                    </div>
+                    <div class="title">
+                        <!-- Replace -->
+                        TITLE
+                    </div>
+                    <div class="info">
+                        <!-- Replace -->
+                        TEXT
+                    </div>
+                    <ul class="likertscala">
+                        <li class="likertscala-info">Sehr Unglaubwürdig</li>
+                        <li><input type="radio" value="0" /></li>
+                        <!--set Attribute name="snippet_id",  Replace snippet_id -->
+                        <li><input type="radio" value="1" /></li>
+                        <li><input type="radio" value="2" /></li>
+                        <li><input type="radio" value="3" /></li>
+                        <li><input type="radio" value="4" /></li>
+                        <li><input type="radio" value="5" /></li>
+                        <li><input type="radio" value="6" /></li>
+                        <li><input type="radio" value="7" /></li>
+                        <li><input type="radio" value="8" /></li>
+                        <li><input type="radio" value="9" /></li>
+                        <li><input type="radio" value="10" /></li>
+                        <li class="likertscala-info">Sehr Glaubwürdig</li>
+                    </ul>
+                </span>
+            </div>
+        </template>
+
 </html>
