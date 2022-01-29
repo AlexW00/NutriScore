@@ -274,30 +274,3 @@ body {
     text-decoration: underline;
     user-select: none;
 }
-
-.postTask {
-    display: flex;
-    flex-direction: column;
-    border-radius: 1vh;
-    margin: auto 15vw 8vh 30vw;
-    justify-content: start;
-    align-items: flex-start;
-}
-
-.postTask-Title {
-    color: rgb(0, 36, 68);
-    font-size: x-large;
-
-}
-
-.postTask-item {
-    padding: 2vh 0;
-}
-
-.postTask-description {
-    font-size: large;
-    font-style: oblique;
-    margin-bottom: 1vh;
-}
-
-.postTask-input {}
