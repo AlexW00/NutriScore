@@ -2,8 +2,16 @@ import CONFIG from "../utils/Config.js";
 import View from "./View.js";
 import Event from "../utils/Event.js";
 
+var testDataObj = {
+    id: "101_snippet2_crediscoreA",
+    crediScore: "A",
+    url: "testURL",
+    title: "testTitle",
+    info: "testInfo",
+};
+
 function onRadioButtonClicked(event) {
-    this.notifyAll(new Event(CONFIG.EVENT_RESULT_LIKERT_CLICKED, {
+    this.notifyAll(new Event(CONFIG.EVENT_RESULT_LIKERT_CLICKED, this.$root, {
         value: event.target.getAttribute("value"),
         id: this.data.id
     }));
@@ -29,6 +37,7 @@ class ResultView extends View {
         clone.querySelector(".result").setAttribute("data-id", this.data.id);
         for (let i = 0; i < radioInputs.length; i++) {
             radioInputs[i].addEventListener("change", onRadioButtonClicked.bind(this));
+            radioInputs[i].setAttribute("name", this.data.id);
         }
         this.$root = clone;
     }
