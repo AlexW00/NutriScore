@@ -1,13 +1,13 @@
-import CONFIG from "../utils/Config.js";
-import View from "./View.js";
-import Event from "../utils/Event.js";
+import CONFIG from "../../utils/Config.js";
+import View from "../View.js";
+import Event from "../../utils/Event.js";
 
 var testDataObj = {
     id: "101_snippet2_crediscoreA",
     crediScore: "A",
     url: "testURL",
     title: "testTitle",
-    info: "testInfo",
+    description: "testDescription", //was info
 };
 
 function onRadioButtonClicked(event) {
@@ -40,6 +40,7 @@ class ResultView extends View {
             radioInputs[i].setAttribute("name", this.data.id);
         }
         this.$root = clone;
+        return this.$root; // return it
     }
 }
 
