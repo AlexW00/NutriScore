@@ -15,8 +15,12 @@ class IndexedDbStorageProvider {
   // ================== Public methods   ================== //
   // ====================================================== //
 
-  saveModel(model) {
-    // TODO: Implement
+  async saveModel(model) {
+    const data = model.data;
+    const storeName = model.storeName;
+    const wasAdded = await this.addItem(storeName, data);
+    if (wasAdded) return true;
+    else return await this.updateItem(storeName, data);
   }
 
   retrieveModel(modelName) {
@@ -49,6 +53,19 @@ class IndexedDbStorageProvider {
     return new Promise((resolve, reject) => {
       const objectStore = this._getObjectStore(storeName, "readwrite");
       const request = objectStore.add(item);
+      request.onsuccess = (e) => {
+        resolve(true);
+      };
+      request.onerror = (e) => {
+        resolve(false);
+      };
+    });
+  }
+
+  updateItem(storeName, item) {
+    return new Promise((resolve, reject) => {
+      const objectStore = this._getObjectStore(storeName, "readwrite");
+      const request = objectStore.put(item);
       request.onsuccess = (e) => {
         resolve(true);
       };
