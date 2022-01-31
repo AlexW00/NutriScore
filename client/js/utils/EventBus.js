@@ -8,6 +8,7 @@
 // 3. Listen to events via: EventBus.addEventListener(EVENT_TYPE, (event) => {...});
 
 import Observable from "./Observable.js";
-export default EventBus = new Observable();
+const EventBus = new Observable();
+export default EventBus;
 
 // lol 2 lines of code
