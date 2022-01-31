@@ -22,26 +22,25 @@ exampleView.addEventListener("buttonClicked", (event) => {
 
 document.body.appendChild(exampleView.html()); // append the new view to the body
 
-const m = new Model({ buttonValue: 1 });
-m.updateDataPoint("buttonValue", 1);
-
 // Storage db testing
 
 const sp = IndexedDbStorageProvider;
 await sp.openDB();
 
-await sp
-  .addItem("main-task", {
-    topicID: 1,
-    snippetNumber: 222,
+const m = new Model(
+  {
+    topicId: 5,
+    snippetNumber: 22223,
     snippetText: "dsd",
     snippetTitle: "dsd",
     snippetNutriscore: 2,
     snippetUserScore: 2,
-  })
-  .then((r) => {
-    console.log(r);
-  });
-await sp.getItem("main-task", [1, 22]).then((r) => {
+  },
+  "main-task"
+);
+
+m.saveModel(sp);
+
+await sp.getItem("main-task", [4, 2222]).then((r) => {
   console.log(r);
 });
