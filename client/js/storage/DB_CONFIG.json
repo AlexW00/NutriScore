@@ -10,7 +10,14 @@
       "indexes": ["questionId"]
     },
     {
-      "name": "main-task",
+      "name": "main-task-topics",
+      "keyPath": {
+        "keys": ["topicId"]
+      },
+      "indexes": ["topicId", "snippetNumber", "hasCrediScore"]
+    },
+    {
+      "name": "main-task-snippets",
       "keyPath": {
         "keys": ["topicId", "snippetNumber"]
       },
@@ -19,9 +26,15 @@
         "snippetNumber",
         "snippetTitle",
         "snippetText",
-        "snippetNutriscore",
-        "snippetUserScore"
+        "snippetCrediScore"
       ]
+    },
+    {
+      "name": "main-task-snippet-ratings",
+      "keyPath": {
+        "keys": ["topicId", "snippetNumber"]
+      },
+      "indexes": ["topicId", "snippetNumber", "snippetRating"]
     },
     {
       "name": "post-task",

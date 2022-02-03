@@ -15,13 +15,7 @@ class IndexedDbStorageProvider {
   // ================== Public methods   ================== //
   // ====================================================== //
 
-  async saveModel(model) {
-    const data = model.data;
-    const storeName = model.storeName;
-    const wasAdded = await this.addItem(storeName, data);
-    if (wasAdded) return true;
-    else return await this.updateItem(storeName, data);
-  }
+  async saveModel(model) {}
 
   retrieveModel(modelName) {
     // TODO: Implement

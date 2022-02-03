@@ -27,20 +27,6 @@ document.body.appendChild(exampleView.html()); // append the new view to the bod
 const sp = IndexedDbStorageProvider;
 await sp.openDB();
 
-const m = new Model(
-  {
-    topicId: 5,
-    snippetNumber: 22223,
-    snippetText: "dsd",
-    snippetTitle: "dsd",
-    snippetNutriscore: 2,
-    snippetUserScore: 2,
-  },
-  "main-task"
-);
-
-m.saveModel(sp);
-
 await sp.getItem("main-task", [4, 2222]).then((r) => {
   console.log(r);
 });
