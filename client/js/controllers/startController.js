@@ -33,7 +33,7 @@ const m = new Model(
     snippetNumber: 22223,
     snippetText: "dsd",
     snippetTitle: "dsd",
-    snippetNutriscore: 2,
+    snippetCrediScore: 2,
     snippetUserScore: 2,
   },
   "main-task"

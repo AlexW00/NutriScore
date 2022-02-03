@@ -8,6 +8,10 @@ Install [Deno](https://deno.land/)
 1. Push code to `main` branch
 2. View at → https://nutriscore.deno.dev/
 
+## Routes:
+
+- `/`: Start page, example for localhost: `http://localhost:8000/`
+- `/survey`: Survey page, example for localhost: `http://localhost:8000/survey`
 
 
 

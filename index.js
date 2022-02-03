@@ -33,6 +33,8 @@ const handleGetRequest = async (request, pathname) => {
       return await serveStartPage();
     case "/getSampleQueries":
       return await serveSampleQueries();
+    case "/survey":
+      return await serveSurveyPage();
     // other custom routes go here
     default: {
       return await serveStaticFile(pathname);
@@ -44,6 +46,15 @@ const handleGetRequest = async (request, pathname) => {
 
 const serveStartPage = async () => {
   const file = await Deno.readFile("./client/html/start.html");
+  return new Response(file, {
+    headers: {
+      "content-type": "text/html",
+    },
+  });
+};
+
+const serveSurveyPage = async () => {
+  const file = await Deno.readFile("./client/html/survey.html");
   return new Response(file, {
     headers: {
       "content-type": "text/html",
