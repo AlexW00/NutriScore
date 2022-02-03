@@ -5,13 +5,15 @@ import Event from "../../utils/Event.js";
 // ===================== LikertScaleView ================ //
 // ====================================================== //
 
-
+var data = {
+    id: "snippetId",
+    leftText: "Sehr Unglaubwürdig",
+    rightText: "Sehr Glaubwürdig",
+};
 
 export default class LikertScaleView extends View {
 
     static EVENT_RESULT_LIKERT_CLICKED = "EVENT_RESULT_LIKERT_CLICKED";
-
-    // constructor: {id: "snippetId"}
 
     onRadioButtonClicked = (event) => {
         this.notifyAll(new Event(
@@ -27,7 +29,7 @@ export default class LikertScaleView extends View {
         this.$root.classList.add("likertscala");
         this.$items = [];
 
-        this.$root.appendChild(this._createInfoElement("Sehr Unglaubwürdig"));
+        this.$root.appendChild(this._createInfoElement(this.data.leftText));
 
         for (let i = 0; i < 11; i++) {
             let $newRadio = document.createElement("input"),
@@ -40,7 +42,7 @@ export default class LikertScaleView extends View {
             this.$items.push($liEl);
             this.$root.appendChild($liEl);
         }
-        this.$root.appendChild(this._createInfoElement("Sehr Glaubwürdig"));
+        this.$root.appendChild(this._createInfoElement(this.data.rightText));
 
         return this.$root;
     }

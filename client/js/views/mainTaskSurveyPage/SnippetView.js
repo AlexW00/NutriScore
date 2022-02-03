@@ -7,6 +7,19 @@ import LikertScaleView from "./LikertScaleView.js";
 // ===================== SnippetView ==================== //
 // ====================================================== //
 
+var data = {
+    id: "snippetId",
+    crediScore: "A",
+    url: "url",
+    title: "title",
+    info: "info",
+    likertScale: {
+        id: "snippetId",
+        leftText: "Sehr Unglaubwürdig",
+        rightText: "Sehr Glaubwürdig",
+    },
+};
+
 export default class SnippetView extends View {
 
     static EVENT_LIKERT_CLICKED = "EVENT_LIKERT_CLICKED";
