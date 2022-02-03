@@ -14,3 +14,12 @@ EventBus.addEventListener(SnippetView.EVENT_LIKERT_CLICKED, (event) => {
   // likert scale clicked
   console.log(event);
 });
+
+const sn = new SnippetView({
+  id: "ddd",
+  url: "dsadsad",
+  title: "title",
+  info: "info",
+});
+
+document.body.appendChild(sn.html());
