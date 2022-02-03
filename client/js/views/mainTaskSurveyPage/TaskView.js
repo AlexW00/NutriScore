@@ -76,5 +76,4 @@ export default class TaskView extends View {
         this.navigation.toggleWarningMessage();
     }
 
-
 }

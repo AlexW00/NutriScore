@@ -12,8 +12,6 @@ var data = {
 
 export default class PreKnowledgeView extends View {
 
-    static EVENT_LIKERT_CLICKED = "EVENT_LIKERT_CLICKED_PRE_KNOWLEDGE";
-
     _render() {
         this.$template = document.querySelector("#preKnowledge").content.cloneNode(true);
         this.$root = this.$template.querySelector(".preKnowledge");
