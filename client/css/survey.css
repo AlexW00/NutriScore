@@ -108,6 +108,10 @@ body {
     visibility: hidden;
 }
 
+.gone {
+    display: none;
+}
+
 .crediscore-align {
     display: flex;
     flex-direction: column;

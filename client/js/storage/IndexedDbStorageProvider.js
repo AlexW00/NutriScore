@@ -7,9 +7,10 @@
 // 2. await IndexedDbStorageProvider.openDB(YOUR_INITIAL_DATA);
 // 3. use public methods to add, get, update, delete items
 
+import DB_CONFIG from "./DB_CONFIG.js"
 class IndexedDbStorageProvider {
   _database = null;
-  DB_CONFIG = {};
+
 
   // ====================================================== //
   // ================== Public methods   ================== //
@@ -100,10 +101,7 @@ class IndexedDbStorageProvider {
   }
 
   // opens the database
-  async openDB(initialData) {
-    this.DB_CONFIG = await fetch("/client/js/storage/DB_CONFIG.json").then(
-      (response) => response.json()
-    );
+  openDB(initialData) {
     return new Promise((resolve, reject) => {
       // create indexdb
       const indexedDB =
@@ -113,8 +111,8 @@ class IndexedDbStorageProvider {
         window.msIndexedDB;
 
       const request = indexedDB.open(
-        this.DB_CONFIG.dbName,
-        this.DB_CONFIG.version
+        DB_CONFIG.dbName,
+        DB_CONFIG.version
       );
 
       request.onupgradeneeded = (e) => {
@@ -141,7 +139,9 @@ class IndexedDbStorageProvider {
   _initObjectStores(e, initialData) {
     // create all necessary object stores here (= tables)
     // TODO: insert initial data here
-    this.DB_CONFIG.objectStores.forEach((objectStoreConfig) => {
+
+    Object.keys(DB_CONFIG).forEach(key => {
+      const objectStoreConfig = DB_CONFIG[key];
       this._createObjectStore(
         objectStoreConfig.name,
         objectStoreConfig.keyPath,
@@ -153,7 +153,7 @@ class IndexedDbStorageProvider {
           });
         }
       );
-    });
+    })
   }
 
   // creates an object store
