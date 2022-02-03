@@ -19,7 +19,7 @@ export default class MainTaskView extends View {
     // }
 
     _render() {
-
+        this.$root = document.querySelector("body");
         return this.$root;
     }
 
