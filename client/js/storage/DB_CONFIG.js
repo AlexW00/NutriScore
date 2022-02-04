@@ -7,8 +7,8 @@ export default {
       indexes: "questionId",
     },
     mainTask_Topic: {
-      key: "topicId",
-      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"],
+      key: "topicId", // index thats used as key for identifying items
+      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"], // the "rows" of the table
       // dataMapping describes how the data from the server should be mapped on the table structure
       dataMapping: (topic) => {
         return {
@@ -42,7 +42,7 @@ export default {
       dataMapping: (snippet) => {
         return {
           snippetId: snippet.docId,
-          snippetRating: -1,
+          snippetRating: -1, // user sets this
         };
       },
     },
