@@ -16,10 +16,11 @@ EventBus.addEventListener(SnippetView.EVENT_LIKERT_CLICKED, (event) => {
   console.log(event);
 });
 
-const lc = new LikertScaleSnippetViewController("1"),
+const lc = new LikertScaleSnippetViewController("11"),
   lcHtml = await lc.html();
 document.body.appendChild(lcHtml);
 
-setTimeout(() => {
+/* setTimeout(() => {
   IndexedDbStorageProvider.getInstance().then((sp) => sp.closeDatabase());
 }, 2000);
+ */
