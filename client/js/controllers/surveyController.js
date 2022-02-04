@@ -5,7 +5,7 @@
 import EventBus from "../utils/EventBus.js";
 import SnippetView from "../views/mainTaskSurveyPage/SnippetView.js";
 import LikertScaleSnippetViewController from "../controllers/LikertScaleSnippetViewController.js";
-
+import IndexedDbStorageProvider from "../storage/IndexedDbStorageProvider.js";
 // ====================================================== //
 // ==================== example code ==================== //
 // ====================================================== //
@@ -20,6 +20,6 @@ const lc = new LikertScaleSnippetViewController("1"),
   lcHtml = await lc.html();
 document.body.appendChild(lcHtml);
 
-/* setTimeout(() => {
+setTimeout(() => {
   IndexedDbStorageProvider.getInstance().then((sp) => sp.closeDatabase());
-}, 2000); */
+}, 2000);

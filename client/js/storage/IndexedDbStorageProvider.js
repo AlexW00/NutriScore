@@ -44,9 +44,6 @@ class IndexedDbStorageProvider {
         objectStore = this._getObjectStore(storeName, "readonly"),
         request = objectStore.get(k);
       request.onsuccess = (e) => {
-        resolve({
-          snippetId: "ds",
-        });
         resolve(e.target.result);
       };
       request.onerror = (e) => {
@@ -61,6 +58,7 @@ class IndexedDbStorageProvider {
   addItem(storeName, item) {
     return new Promise((resolve, reject) => {
       const objectStore = this._getObjectStore(storeName, "readwrite");
+
       const request = objectStore.add(item);
       request.onsuccess = (e) => {
         resolve(true);
@@ -127,18 +125,18 @@ class IndexedDbStorageProvider {
       const request = indexedDB.open(DB_CONFIG.dbName, DB_CONFIG.version);
 
       request.onupgradeneeded = (e) => {
+        this.didUpgrade = true;
         this._database = e.target.result;
-        this._initObjectStores().then(() => {
-          this.isInitialised = true;
-          resolve(true);
-        });
+        this._initObjectStores();
 
         // DB doesn't exist yet, create it
       };
       request.onsuccess = (e) => {
         this._database = e.target.result;
         this.isInitialised = true;
-        resolve(true);
+        console.log("succeed res");
+        if (this.didUpgrade) this._initData().then(() => resolve(true));
+        else resolve(true);
       };
       request.onerror = (e) => {
         console.error(e.target.error.message);
@@ -159,7 +157,7 @@ class IndexedDbStorageProvider {
       jobs = [];
     for (const key of Object.keys(objectStores)) {
       const objectStoreConfig = objectStores[key];
-      const os = this._createObjectStore(key, objectStoreConfig.keyPath);
+      const os = this._createObjectStore(key, objectStoreConfig.key);
       for (const index of objectStoreConfig.indexes) {
         os.createIndex(index, index, {
           unique: false,
@@ -175,16 +173,38 @@ class IndexedDbStorageProvider {
     return true;
   }
 
+  async _initData() {
+    const data = await this._getFakeData();
+    console.log(data);
+    for (const topic of data.topics) {
+      await this._mapData("mainTask_Topic", topic);
+      for (const snippet of topic.snippets) {
+        await this._mapData("mainTask_Snippet", snippet);
+        await this._mapData("mainTask_SnippetRating", snippet);
+      }
+    }
+    return true;
+  }
+
+  async _mapData(storeName, data) {
+    const mappedData = DB_CONFIG.objectStores[storeName].dataMapping(data);
+    await this.addItem(storeName, mappedData);
+  }
+
   // creates an object store
-  _createObjectStore = (name, keyPath) => {
+  _createObjectStore = (name, key) => {
     return this._database.createObjectStore(name, {
-      keyPath: keyPath.key,
+      keyPath: key,
     });
   };
 
   // returns the object store with the given name
   _getObjectStore(storeName, mode) {
     return this._database.transaction(storeName, mode).objectStore(storeName);
+  }
+
+  async _getFakeData() {
+    return await fetch("/getFakeData").then((r) => r.json());
   }
 
   // turns a single key into an array and keeps arrays as arrays
