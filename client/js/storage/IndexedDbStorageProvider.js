@@ -181,7 +181,6 @@ class IndexedDbStorageProvider {
 
   // returns the object store with the given name
   _getObjectStore(storeName, mode) {
-    console.trace();
     return this._database.transaction(storeName, mode).objectStore(storeName);
   }
 

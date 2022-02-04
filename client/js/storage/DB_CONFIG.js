@@ -1,22 +1,22 @@
 export default {
   dbName: "NS_DB",
-  version: 2,
+  version: 2.1,
   objectStores: {
     preTask: {
       keyPath: {
-        key: ["questionId"],
+        key: "questionId",
       },
-      indexes: ["questionId"],
+      indexes: "questionId",
     },
     mainTask_Topic: {
       keyPath: {
-        key: ["topicId"],
+        key: "topicId",
       },
       indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"],
     },
     mainTask_Snippet: {
       keyPath: {
-        key: ["snippetId"],
+        key: "snippetId",
       },
       indexes: [
         "snippetId",
@@ -27,15 +27,15 @@ export default {
     },
     mainTask_SnippetRating: {
       keyPath: {
-        key: ["snippetId"],
+        key: "snippetId",
       },
       indexes: ["snippetId", "snippetRating"],
     },
     postTask: {
       keyPath: {
-        key: ["questionId"],
+        key: "questionId",
       },
-      indexes: ["questionId"],
+      indexes: "questionId",
     },
   },
 };
