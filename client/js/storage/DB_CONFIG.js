@@ -4,40 +4,38 @@ export default {
   objectStores: {
     preTask: {
       keyPath: {
-        keys: ["questionId"]
+        key: ["questionId"],
       },
-      indexes: ["questionId"]
+      indexes: ["questionId"],
     },
     mainTask_Topic: {
       keyPath: {
-        keys: ["topicId"]
+        key: ["topicId"],
       },
-      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"]
+      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"],
     },
     mainTask_Snippet: {
       keyPath: {
-        keys: ["snippetId"]
+        key: ["snippetId"],
       },
       indexes: [
         "snippetId",
         "snippetTitle",
         "snippetText",
-        "snippetCrediScore"
-      ]
+        "snippetCrediScore",
+      ],
     },
     mainTask_SnippetRating: {
       keyPath: {
-        keys: ["snippetId"]
+        key: ["snippetId"],
       },
-      indexes: ["snippetId", "snippetRating"]
+      indexes: ["snippetId", "snippetRating"],
     },
     postTask: {
       keyPath: {
-        keys: ["questionId"]
+        key: ["questionId"],
       },
-      indexes: ["questionId"]
-    }
-
-  }
-
-}
+      indexes: ["questionId"],
+    },
+  },
+};
