@@ -1,38 +1,42 @@
 // ABSTRACT CLASS, DO NOT INSTANTIATE - overridden by specific controllers
+import Model from "../models/Model.js";
+import View from "../views/View.js";
+
 export default class Controller {
   constructor(storageProvider, storeName, keys) {
     this.storageProvider = storageProvider;
     this.storeName = storeName;
     this.keys = keys;
-    this._isInitialised = init();
+    this._isInitialised = this._init();
   }
 
-  init() {
+  _init = () => {
     return new Promise((resolve, reject) => {
-      storageProvider
+      this.storageProvider
         .getItem(this.storeName, this.keys)
         .then((initialData) => {
-          this.view = _onCreateView(new Model(initialData));
+          this.view = this._onCreateView(new Model(initialData));
           if (!(this.view instanceof View))
-            throw new Error("_onCreate() did not return a View instance");
+            throw new Error("_onCreateView() did not return a View instance");
           this._isInitialised = true;
           resolve(true);
         })
         .catch((err) => reject(err));
     });
-  }
+  };
 
   //override and define the view in subclass here
-  _onCreate(model) {
+  _onCreateView(model) {
     throw new Error(
       "_view() method not implemented, override this in subclass and return a new view instance"
     );
   }
 
   // dont override this method
-  async html() {
+  // ASYNCHRONOUS, use await or .then to use the result of this function
+  html = async () => {
     if (this._isInitialised === true) return this.view.html();
-    await this.init();
+    await this._init();
     return this.view.html();
-  }
+  };
 }

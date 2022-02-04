@@ -7,10 +7,9 @@
 // 2. await IndexedDbStorageProvider.openDB(YOUR_INITIAL_DATA);
 // 3. use public methods to add, get, update, delete items
 
-import DB_CONFIG from "./DB_CONFIG.js"
+import DB_CONFIG from "./DB_CONFIG.js";
 class IndexedDbStorageProvider {
   _database = null;
-
 
   // ====================================================== //
   // ================== Public methods   ================== //
@@ -110,10 +109,7 @@ class IndexedDbStorageProvider {
         window.webkitIndexedDB ||
         window.msIndexedDB;
 
-      const request = indexedDB.open(
-        DB_CONFIG.dbName,
-        DB_CONFIG.version
-      );
+      const request = indexedDB.open(DB_CONFIG.dbName, DB_CONFIG.version);
 
       request.onupgradeneeded = (e) => {
         this._database = e.target.result;
@@ -139,25 +135,23 @@ class IndexedDbStorageProvider {
   _initObjectStores(e, initialData) {
     // create all necessary object stores here (= tables)
     // TODO: insert initial data here
-
-    Object.keys(DB_CONFIG).forEach(key => {
-      const objectStoreConfig = DB_CONFIG[key];
-      this._createObjectStore(
-        objectStoreConfig.name,
-        objectStoreConfig.keyPath,
-        (e) => {
-          objectStoreConfig.indixes.forEach((index) => {
-            objectStore.createIndex(index, index, {
-              unique: false,
-            });
+    const objectStores = DB_CONFIG.objectStores;
+    Object.keys(objectStores).forEach((key) => {
+      console.log(objectStores);
+      const objectStoreConfig = objectStores[key];
+      this._createObjectStore(key, objectStoreConfig.keyPath, (e) => {
+        objectStoreConfig.indixes.forEach((index) => {
+          objectStore.createIndex(index, index, {
+            unique: false,
           });
-        }
-      );
-    })
+        });
+      });
+    });
   }
 
   // creates an object store
   _createObjectStore = (name, keyPath, onCreate) => {
+    console.log(`creating os with ${name}, k ${keyPath}`);
     const objectStore = this._database.createObjectStore(name, {
       keyPath: keyPath.keys,
     });
