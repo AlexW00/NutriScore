@@ -22,7 +22,10 @@ class IndexedDbStorageProvider {
     });
   }
 
-  async saveModel(model) {}
+  async saveModel(model) {
+    const wasSucessful = await this.updateItem(model.storeName, model.data);
+    return wasSucessful;
+  }
 
   retrieveModel(modelName) {
     // TODO: Implement
@@ -42,7 +45,7 @@ class IndexedDbStorageProvider {
         request = objectStore.get(k);
       request.onsuccess = (e) => {
         resolve({
-          id: "ds",
+          snippetId: "ds",
         });
         resolve(e.target.result);
       };
