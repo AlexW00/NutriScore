@@ -8,6 +8,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/start.css" />
+    <meta charset="utf-8" />
 </head>
 
 <body>
@@ -142,7 +143,7 @@
     <div class="navigation">
         <div class="button-container">
             <div class="button-prev hidden">ZURÜCK</div>
-            <div class="button-next hidden" onclick="onStartSurveyClicked(event)">Umfrage starten</div>
+            <div class="button-next hidden">Umfrage starten</div>
         </div>
         <span class="warning hidden">* Sie müssen erst eine Einverständnis abgeben bevor Sie die Umfrage starten
             können!</span>
@@ -153,12 +154,8 @@
     function onCheckBoxClicked(event) {
         document.querySelector(".button-next").classList.toggle("hidden");
         if (event.target.checked) {
-            scrollTo(0, window.outerHeight);
+            scrollTo(0, document.body.scrollHeight);
         }
-    };
-
-    function onStartSurveyClicked(event) {
-        console.log("Survey started");
     };
 </script>
 
