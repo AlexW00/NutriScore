@@ -34,7 +34,7 @@ export default class TaskView extends View {
         this.preKnowledge = new PreKnowledgeView({
             id: this.data.topicId
         });
-        this.$preKnowledge = this.preKnowledge.html();
+        this.$preKnowledge = await this.preKnowledge.html();
         this.$root.appendChild(this.$preKnowledge);
 
         this.$resultContainer = document.createElement("div");

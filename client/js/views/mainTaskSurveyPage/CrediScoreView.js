@@ -51,9 +51,7 @@ export default class CrediScoreView extends View {
     if (this.data.crediScore === undefined) {
       this.$root.classList.add("nonvisible");
     } else {
-      this.$root
-        .querySelector(`.class-${this.data.crediScore}`)
-        .classList.add("selected");
+      this.$root.querySelector(`.class-${this.data.crediScore}`).classList.add("selected");
     }
     return this.$root;
   }

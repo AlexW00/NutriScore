@@ -3,13 +3,11 @@
   "query": "fake query 2",
   "hasCrediScore": false,
   "preKnowledge": -1,
-  "snippets": [
-    {
-      "docId": "21",
-      "title": "fake title 1",
-      "url": "fake.com",
-      "description": "fake description",
-      "score": 5
-    }
-  ]
+  "snippets": [{
+    "docId": "21",
+    "title": "fake title 1",
+    "url": "fake.com",
+    "description": "fake description",
+    "score": "C"
+  }]
 }

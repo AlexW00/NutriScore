@@ -23,11 +23,11 @@ import TaskViewController from "./TaskViewController.js";
 // document.body.appendChild(lcHtml);
 
 
-var taskView = new TaskViewController("1"),
+var taskView = new TaskViewController("2"),
   taskViewHTML = await taskView.html();
 
-taskView.togglePreknowledgeVisiblility();
-taskView.toggleSnippetViewsVisiblility();
+// taskView.togglePreknowledgeVisiblility();
+// taskView.toggleSnippetViewsVisiblility();
 
 // var snippetTest = new SnippetViewController("11"),
 //   snippetTestHTML = await snippetTest.html();
