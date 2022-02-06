@@ -1,9 +1,7 @@
 import View from "../View.js";
 import Event from "../../utils/Event.js";
-import CrediScoreView from "./CrediScoreView.js";
-import LikertScaleView from "./LikertScaleView.js";
-import EventBus from "../../utils/EventBus.js";
-
+import CrediScoreViewController from "../../controllers/CrediScoreViewController.js";
+import LikertScaleSnippetViewController from "../../controllers/LikertScaleSnippetViewController.js";
 // ====================================================== //
 // ===================== SnippetView ==================== //
 // ====================================================== //
@@ -24,10 +22,8 @@ export default class SnippetView extends View {
         this.$root.setAttribute("id", "result");
         this.$root.setAttribute("data-id", this.data.id);
 
-        this.crediScore = new CrediScoreView({
-            crediScore: this.data.crediScore
-        });
-        this.$crediScore = this.crediScore.html();
+        this.crediScore = new CrediScoreViewController(this.data.id);
+        this.$crediScore = await this.crediScore.html();
         this.$root.appendChild(this.$crediScore);
 
         this.$content = this.$template.querySelector(".snippet");
@@ -35,12 +31,8 @@ export default class SnippetView extends View {
         this.$content.querySelector(".title").innerHTML = this.data.title;
         this.$content.querySelector(".info").innerHTML = this.data.info;
 
-        this.likertScale = new LikertScaleView({
-            id: this.data.id,
-            leftText: "Sehr Unglaubwürdig",
-            rightText: "Sehr Glaubwürdig",
-        });
-        this.$likertScale = this.likertScale.html();
+        this.likertScale = new LikertScaleSnippetViewController(this.data.id);
+        this.$likertScale = await this.likertScale.html();
         this.$content.appendChild(this.$likertScale);
         this.$root.appendChild(this.$content);
 
