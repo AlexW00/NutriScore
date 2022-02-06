@@ -1,43 +1,54 @@
 export default {
   dbName: "NS_DB",
-  version: 2,
+  version: 2.1,
   objectStores: {
     preTask: {
-      keyPath: {
-        keys: ["questionId"]
-      },
-      indexes: ["questionId"]
+      key: "questionId",
+      indexes: "questionId",
     },
     mainTask_Topic: {
-      keyPath: {
-        keys: ["topicId"]
+      key: "topicId", // index thats used as key for identifying items
+      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"], // the "rows" of the table
+      // dataMapping describes how the data from the server should be mapped on the table structure
+      dataMapping: (topic) => {
+        return {
+          topicId: topic.id,
+          snippetIds: topic.snippets.map((snippet) => snippet.docId),
+          hasCrediScore: topic.hasCrediScore,
+          preKnowledge: topic.preKnowledge,
+        };
       },
-      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"]
     },
     mainTask_Snippet: {
-      keyPath: {
-        keys: ["snippetId"]
-      },
+      key: "snippetId",
       indexes: [
         "snippetId",
         "snippetTitle",
         "snippetText",
-        "snippetCrediScore"
-      ]
+        "snippetCrediScore",
+      ],
+      dataMapping: (snippet) => {
+        return {
+          snippetId: snippet.docId,
+          snippetTitel: snippet.title,
+          snippetText: snippet.text,
+          snippetCrediScore: snippet.score,
+        };
+      },
     },
     mainTask_SnippetRating: {
-      keyPath: {
-        keys: ["snippetId"]
+      key: "snippetId",
+      indexes: ["snippetId", "snippetRating"],
+      dataMapping: (snippet) => {
+        return {
+          snippetId: snippet.docId,
+          snippetRating: -1, // user sets this
+        };
       },
-      indexes: ["snippetId", "snippetRating"]
     },
     postTask: {
-      keyPath: {
-        keys: ["questionId"]
-      },
-      indexes: ["questionId"]
-    }
-
-  }
-
-}
+      key: "questionId",
+      indexes: "questionId",
+    },
+  },
+};

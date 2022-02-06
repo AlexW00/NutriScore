@@ -23,10 +23,3 @@ exampleView.addEventListener("buttonClicked", (event) => {
 document.body.appendChild(exampleView.html()); // append the new view to the body
 
 // Storage db testing
-
-const sp = IndexedDbStorageProvider;
-await sp.openDB();
-
-await sp.getItem("main-task", [4, 2222]).then((r) => {
-  console.log(r);
-});

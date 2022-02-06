@@ -31,10 +31,10 @@ const handleGetRequest = async (request, pathname) => {
   switch (pathname) {
     case "/":
       return await serveStartPage();
-    case "/getSampleQueries":
-      return await serveSampleQueries();
     case "/survey":
       return await serveSurveyPage();
+    case "/getFakeData":
+      return await serveFakeData();
     // other custom routes go here
     default: {
       return await serveStaticFile(pathname);
@@ -62,10 +62,17 @@ const serveSurveyPage = async () => {
   });
 };
 
-const serveSampleQueries = async () => {
-  // TODO: Return randomized data here (latin square etc.)
-  const file = await Deno.readFile("./server/data/sampleData.json");
-  return new Response(file, {
+const serveFakeData = async () => {
+  const topic1 = await Deno.readFile("./server/data/fakeData/1.json"),
+    topic2 = await Deno.readFile("./server/data/fakeData/2.json");
+  const decoder = new TextDecoder("utf-8");
+  const r = {
+    topics: [
+      JSON.parse(decoder.decode(topic1)),
+      JSON.parse(decoder.decode(topic2)),
+    ],
+  };
+  return new Response(JSON.stringify(r), {
     headers: {
       "content-type": "application/json",
     },
