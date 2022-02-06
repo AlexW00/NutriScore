@@ -5,11 +5,11 @@ import Event from "../../utils/Event.js";
 // ===================== NavigationView ================= //
 // ====================================================== //
 
-var data = {
-    left: undefined,
-    right: "Weiter",
-    warningMessage: "* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen können!",
-};
+// var data = {
+//     left: undefined,
+//     right: "Weiter",
+//     warningMessage: "* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen können!",
+// };
 
 export default class NavigationView extends View {
 
@@ -29,7 +29,7 @@ export default class NavigationView extends View {
         this.$root = this.$template.querySelector(".navigation");
         this.$leftButton = this.$root.querySelector(".button-prev");
         this.$rightButton = this.$root.querySelector(".button-next");
-        this.$warning = this.$root.querySelector("warning");
+        this.$warning = this.$root.querySelector(".warning");
 
         if (this.data.left === undefined) {
             this.$leftButton.classList.add("nonvisible");

@@ -5,28 +5,24 @@ import PreKnowledgeView from "./PreKnowledgeView.js";
 import LikertScaleView from "./LikertScaleView.js";
 import SnippetView from "./SnippetView.js";
 import NavigationView from "./NavigationView.js";
+import SurveyNavigationViewController from "../../controllers/SurveyNavigationViewController.js";
+import SnippetViewController from "../../controllers/SnippetViewController.js";
 
 // ====================================================== //
 // ===================== TaskView =================== //
 // ====================================================== //
 
-var data = {
-    topicId: 132,
-    question: "question?",
-    snippets: [{
-            id: "snippetId",
-            crediScore: "A",
-            url: "url",
-            title: "title",
-            info: "info",
-        },
-        ...........
-    ],
-}
+// var data = {
+//     topicId: 132,
+//     question: "question?",
+//     snippetIds: ["snippetId",
+//         ...........
+//     ],
+// }
 
 export default class TaskView extends View {
 
-    _render() {
+    async _render() {
         this.$root = document.querySelector("body");
 
         this.question = new SearchBarView({
@@ -39,23 +35,24 @@ export default class TaskView extends View {
             id: this.data.topicId
         });
         this.$preKnowledge = this.preKnowledge.html();
-        this.$question.appendChild(this.$preKnowledge);
+        this.$root.appendChild(this.$preKnowledge);
+
+        this.$resultContainer = document.createElement("div");
+        console.log(this.$resultContainer);
+        this.$resultContainer.classList.add("results");
 
         this.snippetViews = [];
-        for (let i = 0; i < this.data.snippets.length; i++) {
-            let newSnippet = new SnippetView(this.data.snippets[i]),
-                $newSnippet = newSnippet.html();
+        for (let i = 0; i < this.data.snippetIds.length; i++) {
+            let newSnippet = new SnippetViewController(this.data.snippetIds[i]),
+                $newSnippet = await newSnippet.html();
             $newSnippet.classList.toggle("gone"); //hide snippets first
-            this.$root.appendChild($newSnippet);
+            this.$resultContainer.appendChild($newSnippet);
             this.snippetViews.push($newSnippet);
         }
+        this.$root.appendChild(this.$resultContainer);
 
-        this.navigation = new NavigationView({
-            left: "Zurück",
-            right: "Weiter",
-            warningMessage: "* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen können!",
-        });
-        this.$navigation = this.navigation.html();
+        this.navigation = new SurveyNavigationViewController();
+        this.$navigation = await this.navigation.html();
         this.toggleWarningMessage(); //Hide Warning Message
         this.$root.appendChild(this.$navigation);
 

@@ -8,7 +8,7 @@ import Event from "../../utils/Event.js";
 //TODO: left and right text 
 
 var data = {
-    id: "snippetId",
+    snippetId: "snippetId",
     leftText: "Sehr unglaubwürdig", //WICHTIG DIESER TEXT
     rightText: "Sehr glaubwürdig",
 };
@@ -38,7 +38,7 @@ export default class LikertScaleView extends View {
                 $liEl = document.createElement("li");
             $newRadio.setAttribute("type", "radio");
             $newRadio.setAttribute("value", i);
-            $newRadio.setAttribute("name", this.data.id);
+            $newRadio.setAttribute("name", this.data.snippetId);
             $newRadio.addEventListener("change", this.onRadioButtonClicked);
             $liEl.appendChild($newRadio);
             this.$items.push($liEl);

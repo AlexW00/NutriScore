@@ -16,10 +16,10 @@ var data = {
 
 export default class SnippetView extends View {
 
-    _render() {
+    async _render() {
         this.$template = document.querySelector("#result").content.cloneNode(true);
         this.$root = document.createElement("div");
-        this.$root.setAttribute("id", "result");
+        this.$root.setAttribute("class", "result");
         this.$root.setAttribute("data-id", this.data.id);
 
         this.crediScore = new CrediScoreViewController(this.data.id);

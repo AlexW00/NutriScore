@@ -45,7 +45,9 @@ export default class CrediScoreView extends View {
   // constructor data: {crediScore: string/undefined}
 
   _render() {
-    this.$root = document.querySelector("#crediscore").cloneNode(true);
+    this.$template = document.querySelector("#crediscore").content.cloneNode(true);
+    this.$root = this.$template.querySelector(".crediscore");
+    console.log(this.$root);
     if (this.data.crediScore === undefined) {
       this.$root.classList.add("nonvisible");
     } else {

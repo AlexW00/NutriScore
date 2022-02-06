@@ -18,6 +18,10 @@ export default class Controller {
   constructor(storeName, key) {
     this.storeName = storeName; // the name of the object store as defined in DB_CONFIG.objectStores
     this.key = key; // the key of the object store as defined in DB_CONFIG.objectStores.x.keyPath.key
+    if (storeName === undefined || key === undefined) { //TODO: NEW!
+      this.view = this._onCreateView(undefined);
+      return;
+    }
     this._isInitialised = this._init();
   }
 

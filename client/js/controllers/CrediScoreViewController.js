@@ -1,4 +1,4 @@
-import CrediScoreView from "../views/mainTaskSurveyPage/CrediScoreView";
+import CrediScoreView from "../views/mainTaskSurveyPage/CrediScoreView.js";
 import Controller from "./Controller.js";
 
 export default class CrediScoreViewController extends Controller {
@@ -8,7 +8,7 @@ export default class CrediScoreViewController extends Controller {
 
     _onCreateView(model) {
         const view = new CrediScoreView({
-            crediScore: model.crediScore,
+            crediScore: model.data.snippetCrediScore,
         });
 
         return view;

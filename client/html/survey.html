@@ -224,237 +224,237 @@
 
 
 
-    <template id="postTask-questions-vp">
-        <!-- Need to set listener by data-question-id and postTask-item -->
-        <div class="postTask">
-            <div class="postTask-Title">
-                Studierende der Universität Regensburg:<br>
-                Versuchspersonenstunden Anrechnung im Fachbereich
-                Medieninformatik / Informationswissenschaft
+<template id="postTask-questions-vp">
+    <!-- Need to set listener by data-question-id and postTask-item -->
+    <div class="postTask">
+        <div class="postTask-Title">
+            Studierende der Universität Regensburg:<br>
+            Versuchspersonenstunden Anrechnung im Fachbereich
+            Medieninformatik / Informationswissenschaft
+        </div>
+        <div class="postTask-item" data-question-id="Vorname">
+            <div class="postTask-description">
+                Wenn sie kein*e Student*in sind, oder keine VP-Stunden erhalten wollen, können Sie diese Felder frei
+                lassen.
             </div>
-            <div class="postTask-item" data-question-id="Vorname">
-                <div class="postTask-description">
-                    Wenn sie kein*e Student*in sind, oder keine VP-Stunden erhalten wollen, können Sie diese Felder frei
-                    lassen.
-                </div>
-                <div class="postTask-input">
-                    <input type="text" name="Vorname">
-                    <label for="Vorname">Vorname</label><br>
-                    <input type="text" name="Nachname">
-                    <label for="Nachname">Nachname</label><br>
-                    <input type="text" name="Matrikelnummer">
-                    <label for="Matrikelnummer">Matrikelnummer</label><br>
-                </div>
+            <div class="postTask-input">
+                <input type="text" name="Vorname">
+                <label for="Vorname">Vorname</label><br>
+                <input type="text" name="Nachname">
+                <label for="Nachname">Nachname</label><br>
+                <input type="text" name="Matrikelnummer">
+                <label for="Matrikelnummer">Matrikelnummer</label><br>
             </div>
         </div>
-    </template>
+    </div>
+</template>
 
-    <template id="postTask-questions-demographics">
-        <!-- Need to set listener by data-question-id and postTask-item -->
-        <div class="postTask">
-            <div class="postTask-Title">
-                Demographische Fragen
+<template id="postTask-questions-demographics">
+    <!-- Need to set listener by data-question-id and postTask-item -->
+    <div class="postTask">
+        <div class="postTask-Title">
+            Demographische Fragen
+        </div>
+        <div class="postTask-item" data-question-id="Alter">
+            <div class="postTask-description">
+                Wie alt sind Sie?
             </div>
-            <div class="postTask-item" data-question-id="Alter">
-                <div class="postTask-description">
-                    Wie alt sind Sie?
-                </div>
-                <div class="postTask-input">
-                    <input type="number" min="12" max="99" step="1">
-                </div>
-            </div>
-            <div class="postTask-item" data-question-id="Geschlecht">
-                <div class="postTask-description">
-                    Welchem Geschlecht fühlen sie sich zugeordnet?
-                </div>
-                <div class="postTask-input">
-                    <input type="radio" name="Geschlecht" value="0" />
-                    <label for="0">Männlich</label><br>
-                    <input type="radio" name="Geschlecht" value="1" />
-                    <label for="1">Weiblich</label><br>
-                    <input type="radio" name="Geschlecht" value="2" />
-                    <label for="2">Divers</label><br>
-                </div>
-            </div>
-            <div class="postTask-item" data-question-id="Beruf">
-                <div class="postTask-description">
-                    Welchen Beruf führen Sie aus (Studierende/Forschende: Fach angeben)?
-                </div>
-                <div class="postTask-input">
-                    <input type="text" name="Beruf" />
-                    <label for="Beruf">Beruf/Fach</label><br>
-                </div>
+            <div class="postTask-input">
+                <input type="number" min="12" max="99" step="1">
             </div>
         </div>
-    </template>
-
-
-    <template id="postTask-questions-CrediScore">
-        <!-- Need to set listener by data-question-id and postTask-item -->
-        <div class="postTask">
-            <div class="postTask-Title">
-                Fragen zum CrediScore
+        <div class="postTask-item" data-question-id="Geschlecht">
+            <div class="postTask-description">
+                Welchem Geschlecht fühlen sie sich zugeordnet?
             </div>
-            <div class="postTask-item" data-question-id="Bewertung_Glaubwürdigkeit_Hilfreich">
-                <div class="postTask-description">
-                    Wie hilfreich in der Bewertung der Glaubwürdigkeit finden sie den CrediScore?
-                </div>
-                <div class="postTask-input">
-                    <label for="0">Sehr hilfreich</label>
-                    <input type="radio" name="hilfreich" value="0" />
-                    <input type="radio" name="hilfreich" value="1" />
-                    <input type="radio" name="hilfreich" value="2" />
-                    <input type="radio" name="hilfreich" value="3" />
-                    <input type="radio" name="hilfreich" value="4" />
-                    <input type="radio" name="hilfreich" value="5" />
-                    <input type="radio" name="hilfreich" value="6" />
-                    <input type="radio" name="hilfreich" value="7" />
-                    <input type="radio" name="hilfreich" value="8" />
-                    <input type="radio" name="hilfreich" value="9" />
-                    <input type="radio" name="hilfreich" value="10" />
-                    <label for="2">Gar nicht hilfreich</label>
-                </div>
-            </div>
-            <div class="postTask-item" data-question-id="Darstellung_Visuell_Einschätzung">
-                <div class="postTask-description">
-                    Wie visuell verständlich schätzen sie die Darstellung des CrediScore ein?
-                </div>
-                <div class="postTask-input">
-                    <label for="0">Sehr verständlich</label>
-                    <input type="radio" name="verständlich" value="0" />
-                    <input type="radio" name="verständlich" value="1" />
-                    <input type="radio" name="verständlich" value="2" />
-                    <input type="radio" name="verständlich" value="3" />
-                    <input type="radio" name="verständlich" value="4" />
-                    <input type="radio" name="verständlich" value="5" />
-                    <input type="radio" name="verständlich" value="6" />
-                    <input type="radio" name="verständlich" value="7" />
-                    <input type="radio" name="verständlich" value="8" />
-                    <input type="radio" name="verständlich" value="9" />
-                    <input type="radio" name="verständlich" value="10" />
-                    <label for="2">Gar nicht verständlich</label>
-                </div>
-            </div>
-            <div class="postTask-item" data-question-id="Stufen_Ausreichend_YES_NO">
-                <div class="postTask-description">
-                    Ist die Anzahl an Stufen (A-E) ausreichend?
-                </div>
-                <div class="postTask-input">
-                    <label for="0">Ja</label>
-                    <input type="radio" name="Stufen ausreichend" value="0" />
-                    <input type="radio" name="Stufen ausreichend" value="1" />
-                    <label for="1">Nein</label><br>
-                </div>
-            </div>
-            <div class="postTask-item" data-question-id="Stufen_Ausreichend_NO">
-                <div class="postTask-description">
-                    Wenn Nein, welche Abstufung wäre passender?
-                </div>
-                <div class="postTask-input">
-                    <input type="text" name="Abstufung passender" />
-                </div>
+            <div class="postTask-input">
+                <input type="radio" name="Geschlecht" value="0" />
+                <label for="0">Männlich</label><br>
+                <input type="radio" name="Geschlecht" value="1" />
+                <label for="1">Weiblich</label><br>
+                <input type="radio" name="Geschlecht" value="2" />
+                <label for="2">Divers</label><br>
             </div>
         </div>
-    </template>
-
-    <template id="preKnowledge">
-        <div class="preKnowledge">
-            <div class="preKnowledgeInfo">
-                Wie schätzen sie ihr Vorwissen zu diesem Thema ein?
+        <div class="postTask-item" data-question-id="Beruf">
+            <div class="postTask-description">
+                Welchen Beruf führen Sie aus (Studierende/Forschende: Fach angeben)?
+            </div>
+            <div class="postTask-input">
+                <input type="text" name="Beruf" />
+                <label for="Beruf">Beruf/Fach</label><br>
             </div>
         </div>
-    </template>
+    </div>
+</template>
 
-    <template id="question-bar">
-        <div class="question-bar">
-            <!-- Change Text -->
-            <span class="question">
-                Was gibt es für Snippets?
-                <span class="search-icon">🔍</span>
-            </span>
+
+<template id="postTask-questions-CrediScore">
+    <!-- Need to set listener by data-question-id and postTask-item -->
+    <div class="postTask">
+        <div class="postTask-Title">
+            Fragen zum CrediScore
         </div>
-    </template>
-
-    <template id="navigation">
-        <div class="navigation">
-            <div class="button-container">
-                <!-- Change Names -->
-                <div class="button-prev">ZURÜCK</div>
-                <div class="button-next">WEITER</div>
-            </div><!-- Remove / hide warning -->
-            <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
-                können!</span>
-        </div>
-    </template>
-
-    <template id="crediscore">
-        <!-- CrediScore nonvisible? -->
-        <span class="crediscore">
-            <div class="crediscore-align">
-                <span class="crediscore-name">
-                    CrediScore
-                </span>
-                <span class="crediscore-class">
-                    <!-- Set selected CrediScore Class -->
-                    <ul>
-                        <li class="class-A">
-                            A
-                        </li>
-                        <li class="class-B">
-                            B
-                        </li>
-                        <li class="class-C">
-                            C
-                        </li>
-                        <li class="class-D">
-                            D
-                        </li>
-                        <li class="class-E">
-                            E
-                        </li>
-                    </ul>
-                </span>
+        <div class="postTask-item" data-question-id="Bewertung_Glaubwürdigkeit_Hilfreich">
+            <div class="postTask-description">
+                Wie hilfreich in der Bewertung der Glaubwürdigkeit finden sie den CrediScore?
             </div>
+            <div class="postTask-input">
+                <label for="0">Sehr hilfreich</label>
+                <input type="radio" name="hilfreich" value="0" />
+                <input type="radio" name="hilfreich" value="1" />
+                <input type="radio" name="hilfreich" value="2" />
+                <input type="radio" name="hilfreich" value="3" />
+                <input type="radio" name="hilfreich" value="4" />
+                <input type="radio" name="hilfreich" value="5" />
+                <input type="radio" name="hilfreich" value="6" />
+                <input type="radio" name="hilfreich" value="7" />
+                <input type="radio" name="hilfreich" value="8" />
+                <input type="radio" name="hilfreich" value="9" />
+                <input type="radio" name="hilfreich" value="10" />
+                <label for="2">Gar nicht hilfreich</label>
+            </div>
+        </div>
+        <div class="postTask-item" data-question-id="Darstellung_Visuell_Einschätzung">
+            <div class="postTask-description">
+                Wie visuell verständlich schätzen sie die Darstellung des CrediScore ein?
+            </div>
+            <div class="postTask-input">
+                <label for="0">Sehr verständlich</label>
+                <input type="radio" name="verständlich" value="0" />
+                <input type="radio" name="verständlich" value="1" />
+                <input type="radio" name="verständlich" value="2" />
+                <input type="radio" name="verständlich" value="3" />
+                <input type="radio" name="verständlich" value="4" />
+                <input type="radio" name="verständlich" value="5" />
+                <input type="radio" name="verständlich" value="6" />
+                <input type="radio" name="verständlich" value="7" />
+                <input type="radio" name="verständlich" value="8" />
+                <input type="radio" name="verständlich" value="9" />
+                <input type="radio" name="verständlich" value="10" />
+                <label for="2">Gar nicht verständlich</label>
+            </div>
+        </div>
+        <div class="postTask-item" data-question-id="Stufen_Ausreichend_YES_NO">
+            <div class="postTask-description">
+                Ist die Anzahl an Stufen (A-E) ausreichend?
+            </div>
+            <div class="postTask-input">
+                <label for="0">Ja</label>
+                <input type="radio" name="Stufen ausreichend" value="0" />
+                <input type="radio" name="Stufen ausreichend" value="1" />
+                <label for="1">Nein</label><br>
+            </div>
+        </div>
+        <div class="postTask-item" data-question-id="Stufen_Ausreichend_NO">
+            <div class="postTask-description">
+                Wenn Nein, welche Abstufung wäre passender?
+            </div>
+            <div class="postTask-input">
+                <input type="text" name="Abstufung passender" />
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="preKnowledge">
+    <div class="preKnowledge">
+        <div class="preKnowledgeInfo">
+            Wie schätzen sie ihr Vorwissen zu diesem Thema ein?
+        </div>
+    </div>
+</template>
+
+<template id="question-bar">
+    <div class="question-bar">
+        <!-- Change Text -->
+        <span class="question">
+            Was gibt es für Snippets?
+            <span class="search-icon">🔍</span>
         </span>
-    </template>
+    </div>
+</template>
 
-    <template id="result">
-        <!-- Needs to be appended in div class results -->
-        <div class="result" data-id="">
-            <!-- crediscore -->
-            <span class="snippet">
-                <!-- Insert id? -->
-                <div class="url">
-                    <!-- Replace -->
-                    URL
-                </div>
-                <div class="title">
-                    <!-- Replace -->
-                    TITLE
-                </div>
-                <div class="info">
-                    <!-- Replace -->
-                    TEXT
-                </div>
-                <!-- <ul class="likertscala"> -->
-                <!-- <li class="likertscala-info">Sehr Unglaubwürdig</li> -->
-                <!-- <li><input type="radio" value="0" /></li> -->
-                <!-- set Attribute name="snippet_id",  Replace snippet_id -->
-                <!-- <li><input type="radio" value="1" /></li> -->
-                <!-- <li><input type="radio" value="2" /></li> -->
-                <!-- <li><input type="radio" value="3" /></li> -->
-                <!-- <li><input type="radio" value="4" /></li> -->
-                <!-- <li><input type="radio" value="5" /></li> -->
-                <!-- <li><input type="radio" value="6" /></li> -->
-                <!-- <li><input type="radio" value="7" /></li> -->
-                <!-- <li><input type="radio" value="8" /></li> -->
-                <!-- <li><input type="radio" value="9" /></li> -->
-                <!-- <li><input type="radio" value="10" /></li> -->
-                <!-- <li class="likertscala-info">Sehr Glaubwürdig</li> -->
-                <!-- </ul> -->
+<template id="navigation">
+    <div class="navigation">
+        <div class="button-container">
+            <!-- Change Names -->
+            <div class="button-prev">ZURÜCK</div>
+            <div class="button-next">WEITER</div>
+        </div><!-- Remove / hide warning -->
+        <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
+            können!</span>
+    </div>
+</template>
+
+<template id="crediscore">
+    <!-- CrediScore nonvisible? -->
+    <span class="crediscore">
+        <div class="crediscore-align">
+            <span class="crediscore-name">
+                CrediScore
+            </span>
+            <span class="crediscore-class">
+                <!-- Set selected CrediScore Class -->
+                <ul>
+                    <li class="class-A">
+                        A
+                    </li>
+                    <li class="class-B">
+                        B
+                    </li>
+                    <li class="class-C">
+                        C
+                    </li>
+                    <li class="class-D">
+                        D
+                    </li>
+                    <li class="class-E">
+                        E
+                    </li>
+                </ul>
             </span>
         </div>
-    </template>
+    </span>
+</template>
+
+<template id="result">
+    <!-- Needs to be appended in div class results -->
+    <div class="result" data-id="">
+        <!-- crediscore -->
+        <span class="snippet">
+            <!-- Insert id? -->
+            <div class="url">
+                <!-- Replace -->
+                URL
+            </div>
+            <div class="title">
+                <!-- Replace -->
+                TITLE
+            </div>
+            <div class="info">
+                <!-- Replace -->
+                TEXT
+            </div>
+            <!-- <ul class="likertscala"> -->
+            <!-- <li class="likertscala-info">Sehr Unglaubwürdig</li> -->
+            <!-- <li><input type="radio" value="0" /></li> -->
+            <!-- set Attribute name="snippet_id",  Replace snippet_id -->
+            <!-- <li><input type="radio" value="1" /></li> -->
+            <!-- <li><input type="radio" value="2" /></li> -->
+            <!-- <li><input type="radio" value="3" /></li> -->
+            <!-- <li><input type="radio" value="4" /></li> -->
+            <!-- <li><input type="radio" value="5" /></li> -->
+            <!-- <li><input type="radio" value="6" /></li> -->
+            <!-- <li><input type="radio" value="7" /></li> -->
+            <!-- <li><input type="radio" value="8" /></li> -->
+            <!-- <li><input type="radio" value="9" /></li> -->
+            <!-- <li><input type="radio" value="10" /></li> -->
+            <!-- <li class="likertscala-info">Sehr Glaubwürdig</li> -->
+            <!-- </ul> -->
+        </span>
+    </div>
+</template>
 </body>
 
 </html>

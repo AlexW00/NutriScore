@@ -41,6 +41,22 @@ body {
     float: right;
 }
 
+
+.preKnowledge {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1vh;
+    margin: auto 15vw auto 15vw;
+    justify-content: center;
+    align-items: center;
+    padding: 10vw;
+}
+
+.preKnowledgeInfo {
+    text-decoration: underline;
+    user-select: none;
+}
+
 .results {
     display: flex;
     flex-direction: column;
@@ -106,10 +122,6 @@ body {
 
 .nonvisible {
     visibility: hidden;
-}
-
-.gone {
-    display: none;
 }
 
 .crediscore-align {
@@ -268,17 +280,8 @@ body {
     color: red;
 }
 
-.preKnowledge {
-    display: flex;
-    flex-direction: column;
-    border-radius: 1vh;
-    margin: auto 15vw auto 15vw;
-    justify-content: center;
-    align-items: center;
-    padding: 10vw;
-}
 
-.preKnowledgeInfo {
-    text-decoration: underline;
-    user-select: none;
+
+.gone {
+    display: none;
 }

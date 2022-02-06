@@ -1,0 +1,6 @@
+{
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "WEBHOOK_URL='https://discord.com/api/webhooks/931161964376363028/RAwCcHSb3rOJ8y367q__sXHrNzeq4mgztIF1vlK-f-rm9VA0jChGi_pLq83WMgmJeyrx' deno run --allow-net --allow-read --allow-env --watch index.js"
+    }
+}

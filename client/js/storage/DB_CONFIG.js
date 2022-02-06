@@ -8,7 +8,7 @@ export default {
     },
     mainTask_Topic: {
       key: "topicId", // index thats used as key for identifying items
-      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge"], // the "rows" of the table
+      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge", "query"], // the "rows" of the table //TODO: question fehlt
       // dataMapping describes how the data from the server should be mapped on the table structure
       dataMapping: (topic) => {
         return {
@@ -16,6 +16,7 @@ export default {
           snippetIds: topic.snippets.map((snippet) => snippet.docId),
           hasCrediScore: topic.hasCrediScore,
           preKnowledge: topic.preKnowledge,
+          query: topic.query,
         };
       },
     },
@@ -26,6 +27,7 @@ export default {
         "snippetTitle",
         "snippetText",
         "snippetCrediScore",
+        "snippetURL",
       ],
       dataMapping: (snippet) => {
         return {
@@ -33,7 +35,8 @@ export default {
           snippetTitel: snippet.title,
           snippetText: snippet.text,
           snippetCrediScore: snippet.score,
-        };
+          snippetURL: snippet.url,
+        }; //TODO: URL FEHLT
       },
     },
     mainTask_SnippetRating: {
