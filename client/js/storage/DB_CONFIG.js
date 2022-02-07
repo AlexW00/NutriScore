@@ -6,9 +6,37 @@ export default {
       key: "questionId",
       indexes: "questionId",
     },
+    mainTask_Surveys: {
+      key: "x",
+      indexes: ["x", "surveyIds", "activeSurveyId"],
+      dataMapping: () => {
+        return {
+          x: "mainTask_Surveys",
+          surveyIds: ["preTask", "mainTask", "postTask"],
+          activeSurveyId: "preTask",
+        };
+      },
+    },
+    mainTask_Topics: {
+      key: "x",
+      indexes: ["x", "topicIds", "activeTopicId"],
+      dataMapping: (topics) => {
+        return {
+          x: "mainTask_Topics",
+          topicIds: topics.map((topic) => topic.id),
+          activeTopicId: topics[0].id,
+        };
+      },
+    },
     mainTask_Topic: {
       key: "topicId", // index thats used as key for identifying items
-      indexes: ["topicId", "snippetIds", "hasCrediScore", "preKnowledge", "query"], // the "rows" of the table //TODO: question fehlt
+      indexes: [
+        "topicId",
+        "snippetIds",
+        "hasCrediScore",
+        "preKnowledge",
+        "query",
+      ], // the "rows" of the table //TODO: question fehlt
       // dataMapping describes how the data from the server should be mapped on the table structure
       dataMapping: (topic) => {
         return {

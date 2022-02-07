@@ -8,6 +8,7 @@ import LikertScaleSnippetViewController from "../controllers/LikertScaleSnippetV
 import IndexedDbStorageProvider from "../storage/IndexedDbStorageProvider.js";
 import SnippetViewController from "./SnippetViewController.js";
 import TaskViewController from "./TaskViewController.js";
+import SurveyViewController from "./SurveyViewController.js";
 // ====================================================== //
 // ==================== example code ==================== //
 // ====================================================== //
@@ -22,10 +23,14 @@ import TaskViewController from "./TaskViewController.js";
 //   lcHtml = await lc.html();
 // document.body.appendChild(lcHtml);
 
+/* var taskView = new TaskViewController("2"),
+  taskViewHTML = await taskView.html(); */
 
-var taskView = new TaskViewController("2"),
-  taskViewHTML = await taskView.html();
+const surveyView = new SurveyViewController(),
+  surveyViewHTML = await surveyView.html();
 
+document.body.appendChild(surveyViewHTML);
+console.log("survey");
 // taskView.togglePreknowledgeVisiblility();
 // taskView.toggleSnippetViewsVisiblility();
 
@@ -35,5 +40,4 @@ var taskView = new TaskViewController("2"),
 
 /* setTimeout(() => {
   IndexedDbStorageProvider.getInstance().then((sp) => sp.closeDatabase());
-}, 2000);
- */
+}, 2000); */
