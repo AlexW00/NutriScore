@@ -1,5 +1,7 @@
 import LikertScaleView from "../views/mainTaskSurveyPage/LikertScaleView.js";
 import Controller from "./Controller.js";
+import EventBus from "../utils/EventBus.js";
+import Event from "../utils/Event.js";
 
 export default class LikertScaleSnippetViewController extends Controller {
   constructor(snippetId) {
@@ -14,6 +16,7 @@ export default class LikertScaleSnippetViewController extends Controller {
       snippetId: this.key,
       leftText: "Sehr unglaubwürdig",
       rightText: "Sehr glaubwürdig",
+      snippetRating: model.data.snippetRating,
     });
 
     view.addEventListener(
@@ -23,6 +26,11 @@ export default class LikertScaleSnippetViewController extends Controller {
         console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           // save model to db
+          EventBus.notifyAll(
+            new Event(LikertScaleView.EVENT_RESULT_LIKERT_CLICKED, undefined, {
+              snippetId: this.key,
+            })
+          );
           console.log(didSucceed);
         });
       }

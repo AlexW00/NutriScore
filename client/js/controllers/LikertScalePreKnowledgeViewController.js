@@ -1,5 +1,7 @@
 import LikertScaleView from "../views/mainTaskSurveyPage/LikertScaleView.js";
 import Controller from "./Controller.js";
+import EventBus from "../utils/EventBus.js";
+import Event from "../utils/Event.js";
 
 export default class LikertScalePreKnowledgeViewController extends Controller {
   constructor(topicId) {
@@ -13,6 +15,7 @@ export default class LikertScalePreKnowledgeViewController extends Controller {
       id: this.key,
       leftText: "Sehr gering",
       rightText: "Sehr hoch",
+      preKnowledge: model.data.preKnowledge,
     });
 
     view.addEventListener(
@@ -22,6 +25,12 @@ export default class LikertScalePreKnowledgeViewController extends Controller {
         console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           // save model to db
+          console.log(model);
+          EventBus.notifyAll(
+            new Event(LikertScaleView.EVENT_RESULT_LIKERT_CLICKED, undefined, {
+              topicId: this.key,
+            })
+          );
           console.log(didSucceed);
         });
       }

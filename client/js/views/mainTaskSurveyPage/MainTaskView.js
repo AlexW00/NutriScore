@@ -1,6 +1,8 @@
 import View from "../View.js";
-import Event from "../../utils/Event.js";
+import SurveyViewController from "../../controllers/SurveyViewController.js";
 import TopicViewController from "../../controllers/TopicViewController.js";
+import EventBus from "../../utils/EventBus.js";
+import Event from "../../utils/Event.js";
 
 // ====================================================== //
 // ===================== MainTaskView ================= //
@@ -40,6 +42,21 @@ export default class MainTaskView extends View {
     while (this.$root.firstChild) {
       this.$root.removeChild(this.$root.firstChild);
     }
-    this.$root.appendChild(await this.topicViews[index].html());
+    const newTopic = this.topicViews[index],
+      newTopicHtml = await newTopic.html();
+
+    newTopic.didAnswerAllQuestions().then((didAnswer) => {
+      if (!didAnswer) {
+        EventBus.notifyAll(
+          new Event(
+            SurveyViewController.EVENT_DEACTIVATE_NEXT_BUTTON,
+            undefined,
+            undefined
+          )
+        );
+      }
+    });
+
+    this.$root.appendChild(newTopicHtml);
   }
 }
