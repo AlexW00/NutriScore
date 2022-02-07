@@ -13,19 +13,33 @@ export default class MainTaskView extends View {
     // task number  =! index
     this.$root = document.createElement("div");
 
-    this.$topicViews = [];
+    this.topicViews = [];
+    this.topicViewIds = [];
     for (const topicId of this.data.topicIds) {
-      this.$topicViews.push(new TopicViewController(topicId));
+      this.topicViews.push(new TopicViewController(topicId));
+      this.topicViewIds.push(topicId);
     }
-    this.showTaskById(this.data.activeTopicId);
+    console.log("oncreate maintask");
+    console.log(this.data);
+    this.showTopicById(this.data.activeTopicId);
     return this.$root;
   }
 
-  async showTaskById(id) {
+  getTopicViewById(id) {
+    const index = this.topicViewIds.indexOf(id);
+    return this.topicViews[index];
+  }
+
+  async showTopicById(id) {
     // remove all children
+
+    console.log("this.$root.firstChild");
+    console.log(this.topicViews);
+    const index = this.topicViewIds.indexOf(id);
+
     while (this.$root.firstChild) {
       this.$root.removeChild(this.$root.firstChild);
     }
-    this.$root.appendChild(await this.$topicViews[id].html());
+    this.$root.appendChild(await this.topicViews[index].html());
   }
 }

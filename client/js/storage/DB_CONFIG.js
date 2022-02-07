@@ -36,6 +36,7 @@ export default {
         "hasCrediScore",
         "preKnowledge",
         "query",
+        "isShowingPreknowledge",
       ], // the "rows" of the table //TODO: question fehlt
       // dataMapping describes how the data from the server should be mapped on the table structure
       dataMapping: (topic) => {
@@ -45,6 +46,7 @@ export default {
           hasCrediScore: topic.hasCrediScore,
           preKnowledge: topic.preKnowledge,
           query: topic.query,
+          isShowingPreknowledge: true,
         };
       },
     },

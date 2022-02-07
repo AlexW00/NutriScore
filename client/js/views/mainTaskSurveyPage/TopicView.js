@@ -1,5 +1,4 @@
 import View from "../View.js";
-import Event from "../../utils/Event.js";
 import SearchBarView from "./SearchBarView.js";
 import PreKnowledgeView from "./PreKnowledgeView.js";
 import SnippetViewController from "../../controllers/SnippetViewController.js";
@@ -37,10 +36,9 @@ export default class TopicView extends View {
     this.$resultContainer.classList.add("results");
 
     this.snippetViews = [];
-    console.log("DATA");
-    console.log(this.data);
+
     for (let i = 0; i < this.data.snippetIds.length; i++) {
-      let newSnippet = new SnippetViewController(this.data.snippetIds[i]),
+      const newSnippet = new SnippetViewController(this.data.snippetIds[i]),
         $newSnippet = await newSnippet.html();
       $newSnippet.classList.toggle("gone"); //hide snippets first
       this.$resultContainer.appendChild($newSnippet);
@@ -49,6 +47,20 @@ export default class TopicView extends View {
     this.$root.appendChild(this.$resultContainer);
 
     return this.$root;
+  }
+
+  showPreknowledge() {
+    this.$preKnowledge.classList.remove("gone");
+    for (let i = 0; i < this.snippetViews.length; i++) {
+      this.snippetViews[i].classList.add("gone");
+    }
+  }
+
+  showSnippets() {
+    for (let i = 0; i < this.snippetViews.length; i++) {
+      this.snippetViews[i].classList.remove("gone");
+    }
+    this.$preKnowledge.classList.add("gone");
   }
 
   togglePreknowledgeVisiblility() {

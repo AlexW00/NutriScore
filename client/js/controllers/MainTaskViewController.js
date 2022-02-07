@@ -13,47 +13,46 @@ export default class MainTaskViewController extends Controller {
   // called when everything is initalised, now create and return the view
   // set listeners and update view/model or Controller.storageProvider here
   _onCreateView(model) {
-    console.log(model);
+    this.model = model;
     const view = new MainTaskView(model.data);
     return view;
   }
 
-  showNextTask() {
-    const activeTopicIndex = this.model.data.topicIds.indexOf(
-      this.model.data.activeTopicId
-    );
-    const isLastTopic =
-      activeTopicIndex === this.model.data.topicIds.length - 1;
-    if (isLastTopic)
-      EventBus.notifyAll(
-        new Event(MainTaskViewController.EVENT_TASK_END_REACHED, this, {})
-      );
+  onNavigateNext() {
+    if (
+      this.view.getTopicViewById(this.model.data.activeTopicId).onNavigateNext()
+    )
+      return true;
     else {
-      this.model.updateDataPoint(
-        "activeTopicId",
-        this.model.data.topicIds[activeTopicIndex + 1]
-      );
-      Controller.storageProvider.saveModel(this.model);
-      this.view.showTaskById(this.model.data.activeTopicId);
+      return this._navigate(true);
     }
   }
 
-  showPreviousTask() {
+  onNavigateBack() {
+    if (
+      this.view.getTopicViewById(this.model.data.activeTopicId).onNavigateBack()
+    )
+      return true;
+    else {
+      return this._navigate(false);
+    }
+  }
+
+  _navigate(doGoNext) {
     const activeTopicIndex = this.model.data.topicIds.indexOf(
       this.model.data.activeTopicId
     );
-    const isFirstTopic = activeTopicIndex === 0;
-    if (isFirstTopic)
-      EventBus.notifyAll(
-        new Event(MainTaskViewController.EVENT_TASK_START_REACHED, this, {})
-      );
+    const isAtLimit = doGoNext
+      ? activeTopicIndex === this.model.data.topicIds.length - 1
+      : activeTopicIndex === 0;
+    if (isAtLimit) return false;
     else {
-      this.model.updateDataPoint(
-        "activeTopicId",
-        this.model.data.topicIds[activeTopicIndex - 1]
-      );
+      const newActiveTopicId =
+        this.model.data.topicIds[activeTopicIndex + (doGoNext ? 1 : -1)];
+      this.model.updateDataPoint("activeTopicId", newActiveTopicId);
       Controller.storageProvider.saveModel(this.model);
-      this.view.showTaskById(this.model.data.activeTopicId);
+      this.view.showTopicById(newActiveTopicId);
+      return true;
     }
   }
 }

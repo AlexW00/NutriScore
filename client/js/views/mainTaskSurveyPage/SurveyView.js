@@ -8,11 +8,6 @@ import MainTaskViewController from "../../controllers/MainTaskViewController.js"
 // ================ SurveyView       ==================== //
 // ====================================================== //
 
-var data = {
-  activeSurveyId: 0,
-  surveyIds: ["preTask", "mainTask", "postTask"],
-};
-
 export default class SurveyView extends View {
   async _render() {
     this.$root = document.createElement("div");
@@ -34,6 +29,14 @@ export default class SurveyView extends View {
     );
     this.$root.appendChild(await this.navController.html());
     return this.$root;
+  }
+
+  shouldUpdateActiveSurvey(currentSurveyId, doNavigateBack) {
+    if (currentSurveyId === "preTask" || currentSurveyId === "postTask")
+      return true;
+    else if (doNavigateBack)
+      return !this.mainTopicViewController.onNavigateBack();
+    else return !this.mainTopicViewController.onNavigateNext();
   }
 
   async updateActiveSurvey(previousSurveyId, newSurveyId) {

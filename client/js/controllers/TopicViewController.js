@@ -10,21 +10,40 @@ export default class TopicViewController extends Controller {
 
   _onCreateView(model) {
     console.log(model);
+    this.model = model;
     const view = new TopicView({
       topicId: this.key,
       question: model.data.query, //model.data.question, //TODO: missing
       snippetIds: model.data.snippetIds,
+      isShowingPreknowledge: model.data.isShowingPreknowledge,
     });
 
     return view;
   }
 
-  togglePreknowledgeVisiblility() {
-    this.view.togglePreknowledgeVisiblility();
+  // retruns true if navigation was successful
+  onNavigateNext() {
+    if (this.model.data.isShowingPreknowledge) {
+      this._navigate(true);
+      return true;
+    }
+    return false;
   }
 
-  toggleSnippetViewsVisiblility() {
-    this.view.toggleSnippetViewsVisiblility();
+  // retruns true if navigation was successful
+  onNavigateBack() {
+    if (!this.model.data.isShowingPreknowledge) {
+      this._navigate(false);
+      return true;
+    }
+    return false;
+  }
+
+  _navigate(doGoNext) {
+    doGoNext ? this.view.showSnippets() : this.view.showPreknowledge();
+    this.model.updateDataPoint("isShowingPreknowledge", !doGoNext);
+    Controller.storageProvider.saveModel(this.model);
+    return true;
   }
 
   toggleWarningMessage() {

@@ -14,62 +14,51 @@ export default class SurveyViewController extends Controller {
     const view = new SurveyView(model.data);
     this.model = model;
     EventBus.addEventListener(nav.EVENT_LEFT_BUTTON_CLICKED, () => {
-      this._updateCurrentSurvey(true);
+      this.onNavigateBack(); //if false, it did not navigate back because it was at the limit
+      // TODO: show warning if it was at the limit
     });
     EventBus.addEventListener(nav.EVENT_RIGHT_BUTTON_CLICKED, () => {
-      this._updateCurrentSurvey(false);
+      this.onNavigateNext(); //if false, it did not navigate forward because it was at the limit
     });
+    // TODO: show confirmation and end survey here
     return view;
   }
 
-  // todo: refactor this crap
-  _updateCurrentSurvey(didNavigateBack) {
+  onNavigateBack() {
+    if (
+      !this.view.shouldUpdateActiveSurvey(this.model.data.activeSurveyId, true)
+    )
+      return true;
+    else return this._navigate(false);
+  }
+
+  onNavigateNext() {
+    if (
+      !this.view.shouldUpdateActiveSurvey(this.model.data.activeSurveyId, false)
+    )
+      return true;
+    else return this._navigate(true);
+  }
+
+  _navigate(doGoNext) {
     const currentSurveyIndex = this.model.data.surveyIds.indexOf(
       this.model.data.activeSurveyId
     );
-    console.log(this.model.data.surveyIds);
-    console.log(currentSurveyIndex);
-    if (didNavigateBack) this._onNavigateBack(currentSurveyIndex);
-    else this._onNavigateForward(currentSurveyIndex);
-  }
-
-  _onNavigateBack(currentSurveyIndex) {
-    if (currentSurveyIndex === 0) {
-      EventBus.notifyAll(
-        new Event(SurveyViewController.EVENT_TASK_START_REACHED, this, {})
-      );
-    } else {
-      this.model.updateDataPoint(
-        "activeSurveyId",
-        this.model.data.surveyIds[currentSurveyIndex - 1]
-      );
-      Controller.storageProvider.saveModel(this.model);
-      this.view.updateActiveSurvey(
-        this.model.data.surveyIds[currentSurveyIndex],
-        this.model.data.activeSurveyId
-      );
-    }
-  }
-
-  _onNavigateForward(currentSurveyIndex) {
-    const isLastSurvey =
-      currentSurveyIndex === this.model.data.surveyIds.length - 1;
-    if (isLastSurvey)
-      EventBus.notifyAll(
-        new Event(SurveyViewController.EVENT_TASK_END_REACHED, this, {})
-      );
+    const isAtLimit = doGoNext
+      ? currentSurveyIndex === this.model.data.surveyIds.length - 1
+      : currentSurveyIndex === 0;
+    if (isAtLimit) return false;
     else {
       this.model.updateDataPoint(
         "activeSurveyId",
-        this.model.data.surveyIds[currentSurveyIndex + 1]
+        this.model.data.surveyIds[currentSurveyIndex + (doGoNext ? 1 : -1)]
       );
       Controller.storageProvider.saveModel(this.model);
       this.view.updateActiveSurvey(
         this.model.data.surveyIds[currentSurveyIndex],
         this.model.data.activeSurveyId
       );
+      return true;
     }
   }
-
-  //TODO: Listen to event bus and update surveyview
 }
