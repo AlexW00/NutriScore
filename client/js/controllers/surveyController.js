@@ -26,13 +26,12 @@ import SurveyViewController from "./SurveyViewController.js";
 /* var TopicView = new TopicViewController("2"),
   topicViewHTML = await TopicView.html(); */
 
+
 const surveyView = new SurveyViewController(),
   surveyViewHTML = await surveyView.html();
 
 document.body.appendChild(surveyViewHTML);
 console.log("survey");
-// TopicView.togglePreknowledgeVisiblility();
-// TopicView.toggleSnippetViewsVisiblility();
 
 // var snippetTest = new SnippetViewController("11"),
 //   snippetTestHTML = await snippetTest.html();
