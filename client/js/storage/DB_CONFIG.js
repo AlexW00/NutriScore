@@ -63,7 +63,7 @@ export default {
         return {
           snippetId: snippet.docId,
           snippetTitel: snippet.title,
-          snippetText: snippet.text,
+          snippetText: snippet.description,
           snippetCrediScore: snippet.score,
           snippetURL: snippet.url,
         }; //TODO: URL FEHLT
