@@ -46,6 +46,9 @@ export default class TopicView extends View {
     }
     this.$root.appendChild(this.$resultContainer);
 
+    if (this.data.isShowingPreknowledge) this.showPreknowledge();
+    else this.showSnippets();
+
     return this.$root;
   }
 
