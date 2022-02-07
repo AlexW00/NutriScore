@@ -159,9 +159,14 @@ class IndexedDbStorageProvider {
       const objectStoreConfig = objectStores[key];
       const os = this._createObjectStore(key, objectStoreConfig.key);
       for (const index of objectStoreConfig.indexes) {
-        os.createIndex(index, index, {
-          unique: false,
-        });
+        try {
+          os.createIndex(index, index, {
+            unique: false,
+          });
+        } catch (e) {
+          console.log(e);
+          console.trace();
+        }
       }
       jobs.push(
         new Promise((resolve) => {
@@ -175,7 +180,10 @@ class IndexedDbStorageProvider {
 
   async _initData() {
     const data = await this._getFakeData();
-    console.log(data);
+
+    await this._mapData("mainTask_Surveys", {});
+    await this._mapData("mainTask_Topics", data.topics);
+
     for (const topic of data.topics) {
       await this._mapData("mainTask_Topic", topic);
       for (const snippet of topic.snippets) {

@@ -45,13 +45,18 @@ export default class CrediScoreView extends View {
   // constructor data: {crediScore: string/undefined}
 
   _render() {
-    this.$template = document.querySelector("#crediscore").content.cloneNode(true);
+    this.$template = document
+      .querySelector("#crediscore")
+      .content.cloneNode(true);
     this.$root = this.$template.querySelector(".crediscore");
     console.log(this.$root);
     if (this.data.crediScore === undefined) {
       this.$root.classList.add("nonvisible");
     } else {
-      this.$root.querySelector(`.class-${this.data.crediScore}`).classList.add("selected");
+      console.log(this.data.crediScore);
+      this.$root
+        .querySelector(`.class-${this.data.crediScore}`)
+        .classList.add("selected");
     }
     return this.$root;
   }
