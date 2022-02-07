@@ -97,7 +97,7 @@ for i in range(len(fileRows)):
 
 with open('server\\data\\dataFormatting\\bm25_cut_10_score_descr_EXTENDED.csv', 'w', newline='\n', encoding='utf8') as csvfile:
     fieldnames = ["topic", "docId", "score", "snippets", "score_descr", 'score_descr_mapped10', 'score_descr_mapped_5']
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ' ', quotechar='"')
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',', quotechar='"')
 
     writer.writeheader()
     for row in fileRows:
