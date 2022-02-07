@@ -3,7 +3,7 @@ import Event from "../../utils/Event.js";
 import SurveyNavigationViewController from "../../controllers/SurveyNavigationViewController.js";
 import PreTaskView from "./PreTaskView.js";
 import PostTaskView from "./PostTaskView.js";
-import MainSurveyViewController from "../../controllers/MainSurveyViewController.js";
+import MainTaskViewController from "../../controllers/MainTaskViewController.js";
 // ====================================================== //
 // ================ SurveyView       ==================== //
 // ====================================================== //
@@ -20,8 +20,8 @@ export default class SurveyView extends View {
     this.$content = document.createElement("div");
     this.$content.classList.add("survey-content");
     this.postTaskView = new PostTaskView();
-    // TODO MainSurveyViewController
-    this.mainTaskViewController = new MainSurveyViewController();
+    // TODO MainTaskViewController
+    this.mainTopicViewController = new MainTaskViewController();
     this.preTaskView = new PreTaskView();
 
     this.$root.appendChild(this.$content);
@@ -49,7 +49,7 @@ export default class SurveyView extends View {
       case "preTask":
         return this.preTaskView.html();
       case "mainTask":
-        return await this.mainTaskViewController.html();
+        return await this.mainTopicViewController.html();
       case "postTask":
         return this.postTaskView.html();
     }

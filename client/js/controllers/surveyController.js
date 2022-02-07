@@ -7,7 +7,7 @@ import SnippetView from "../views/mainTaskSurveyPage/SnippetView.js";
 import LikertScaleSnippetViewController from "../controllers/LikertScaleSnippetViewController.js";
 import IndexedDbStorageProvider from "../storage/IndexedDbStorageProvider.js";
 import SnippetViewController from "./SnippetViewController.js";
-import TaskViewController from "./TaskViewController.js";
+import TopicViewController from "./TopicViewController.js";
 import SurveyViewController from "./SurveyViewController.js";
 // ====================================================== //
 // ==================== example code ==================== //
@@ -23,16 +23,16 @@ import SurveyViewController from "./SurveyViewController.js";
 //   lcHtml = await lc.html();
 // document.body.appendChild(lcHtml);
 
-/* var taskView = new TaskViewController("2"),
-  taskViewHTML = await taskView.html(); */
+/* var TopicView = new TopicViewController("2"),
+  topicViewHTML = await TopicView.html(); */
 
 const surveyView = new SurveyViewController(),
   surveyViewHTML = await surveyView.html();
 
 document.body.appendChild(surveyViewHTML);
 console.log("survey");
-// taskView.togglePreknowledgeVisiblility();
-// taskView.toggleSnippetViewsVisiblility();
+// TopicView.togglePreknowledgeVisiblility();
+// TopicView.toggleSnippetViewsVisiblility();
 
 // var snippetTest = new SnippetViewController("11"),
 //   snippetTestHTML = await snippetTest.html();

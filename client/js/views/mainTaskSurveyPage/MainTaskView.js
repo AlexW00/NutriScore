@@ -1,21 +1,21 @@
 import View from "../View.js";
 import Event from "../../utils/Event.js";
-import TaskViewController from "../../controllers/TaskViewController.js";
+import TopicViewController from "../../controllers/TopicViewController.js";
 
 // ====================================================== //
-// ===================== MainSurveyView ================= //
+// ===================== MainTaskView ================= //
 // ====================================================== //
 
-export default class MainSurveyView extends View {
+export default class MainTaskView extends View {
   //Data: {topicIds: [], activeTopicId: int}
 
   _render() {
     // task number  =! index
     this.$root = document.createElement("div");
 
-    this.$taskViews = [];
+    this.$topicViews = [];
     for (const topicId of this.data.topicIds) {
-      this.$taskViews.push(new TaskViewController(topicId));
+      this.$topicViews.push(new TopicViewController(topicId));
     }
     this.showTaskById(this.data.activeTopicId);
     return this.$root;
@@ -26,6 +26,6 @@ export default class MainSurveyView extends View {
     while (this.$root.firstChild) {
       this.$root.removeChild(this.$root.firstChild);
     }
-    this.$root.appendChild(await this.$taskViews[id].html());
+    this.$root.appendChild(await this.$topicViews[id].html());
   }
 }

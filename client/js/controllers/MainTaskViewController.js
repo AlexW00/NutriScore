@@ -1,8 +1,8 @@
 import Controller from "./Controller.js";
-import MainSurveyView from "../views/mainTaskSurveyPage/MainSurveyView.js";
+import MainTaskView from "../views/mainTaskSurveyPage/MainTaskView.js";
 import EventBus from "../utils/EventBus.js";
 import Event from "../utils/Event.js";
-export default class MainSurveyViewController extends Controller {
+export default class MainTaskViewController extends Controller {
   static EVENT_TASK_END_REACHED = "taskEndReached";
   static EVENT_TASK_START_REACHED = "taskStartReached";
   constructor() {
@@ -14,7 +14,7 @@ export default class MainSurveyViewController extends Controller {
   // set listeners and update view/model or Controller.storageProvider here
   _onCreateView(model) {
     console.log(model);
-    const view = new MainSurveyView(model.data);
+    const view = new MainTaskView(model.data);
     return view;
   }
 
@@ -26,7 +26,7 @@ export default class MainSurveyViewController extends Controller {
       activeTopicIndex === this.model.data.topicIds.length - 1;
     if (isLastTopic)
       EventBus.notifyAll(
-        new Event(MainSurveyViewController.EVENT_TASK_END_REACHED, this, {})
+        new Event(MainTaskViewController.EVENT_TASK_END_REACHED, this, {})
       );
     else {
       this.model.updateDataPoint(
@@ -45,7 +45,7 @@ export default class MainSurveyViewController extends Controller {
     const isFirstTopic = activeTopicIndex === 0;
     if (isFirstTopic)
       EventBus.notifyAll(
-        new Event(MainSurveyViewController.EVENT_TASK_START_REACHED, this, {})
+        new Event(MainTaskViewController.EVENT_TASK_START_REACHED, this, {})
       );
     else {
       this.model.updateDataPoint(

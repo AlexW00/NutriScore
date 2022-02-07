@@ -2,12 +2,10 @@ import View from "../View.js";
 import Event from "../../utils/Event.js";
 import SearchBarView from "./SearchBarView.js";
 import PreKnowledgeView from "./PreKnowledgeView.js";
-import LikertScaleView from "./LikertScaleView.js";
-import SnippetView from "./SnippetView.js";
 import SnippetViewController from "../../controllers/SnippetViewController.js";
 
 // ====================================================== //
-// ===================== TaskView =================== //
+// ===================== TopicView =================== //
 // ====================================================== //
 
 // var data = {
@@ -18,9 +16,9 @@ import SnippetViewController from "../../controllers/SnippetViewController.js";
 //     ],
 // }
 
-export default class TaskView extends View {
+export default class TopicView extends View {
   async _render() {
-    this.$root = document.createElement("div"); //TODO: DIV, dont use Body tag
+    this.$root = document.createElement("div");
 
     this.question = new SearchBarView({
       question: this.data.question,
