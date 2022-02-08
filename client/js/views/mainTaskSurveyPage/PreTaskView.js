@@ -6,23 +6,9 @@ import Event from "../../utils/Event.js";
 // ====================================================== //
 
 export default class PreTaskView extends View {
-  static EVENT_RIGHT_BUTTON_CLICKED = "EVENT_RIGHT_BUTTON_CLICKED";
-  static EVENT_LEFT_BUTTON_CLICKED = "EVENT_LEFT_BUTTON_CLICKED";
   static EVENT_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING_CLICKED =
     "EVENT_NS_glaubwürdig";
   static EVENT_KENNT_NUTRISCORE_CLICKED = "EVENT_NS_kennt";
-
-  onLeftButtonClicked = (event) => {
-    this.notifyAll(
-      new Event(PreTaskView.EVENT_LEFT_BUTTON_CLICKED, this, event)
-    );
-  };
-
-  onRightButtonClicked = (event) => {
-    this.notifyAll(
-      new Event(PreTaskView.EVENT_RIGHT_BUTTON_CLICKED, this, event)
-    );
-  };
 
   onNutriScoreGlaubwuerdigkeitsRatingClicked = (event) => {
     this.notifyAll(
@@ -45,19 +31,8 @@ export default class PreTaskView extends View {
   };
 
   _render() {
-    this.$root = document.createElement("div");
-    const debug = document.createElement("div");
-    debug.innerHTML = "PreTaskView";
-    this.$root.appendChild(debug);
-    /* this.$root = document.querySelector("body");
-    this.$leftButton = this.$root.querySelector(".button-prev");
-    this.$rightButton = this.$root.querySelector(".button-next");
-    this.$warning = this.$root.querySelector("warning");
-
-    //Init Navigation Buttons
-    this.$leftButton.addEventListener("click", this.onLeftButtonClicked);
-    this.$rightButton.addEventListener("click", this.onRightButtonClicked);
-    this.toggleWarningMessage();
+    this.$template = document.querySelector("#preTask").content.cloneNode(true);
+    this.$root = this.$template.querySelector(".tasks");
 
     //Init: Wie glaubwürdig finden Sie den NutriScore?
     this.$NutriScoreGlaubwuerdigkeitsRatingInputEls = document.querySelectorAll(
@@ -88,17 +63,13 @@ export default class PreTaskView extends View {
         "change",
         this.onKenntNutriscoreClicked
       );
-    } */
+    }
 
+    this.toggleNutriScoreGlaubwürdigkeitsRating();
     return this.$root;
   }
 
   toggleNutriScoreGlaubwürdigkeitsRating() {
     this.$nutriScoreGlaubwuerdigkeitsRating.classList.toggle("hidden");
-  }
-
-  toggleWarningMessage() {
-    //this.$warning.classList.toggle("hidden");
-    console.log("toggleWarningMessage");
   }
 }

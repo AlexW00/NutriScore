@@ -39,10 +39,6 @@ export default class PostTaskView extends View {
   static EVENT_VP_MATRIKELNUMMER_NAME_ENTERED =
     "EVENT_VP_MATRIKELNUMMER_NAME_ENTERED";
 
-  //NAVIGATION Events
-  static EVENT_END_SURVEY_BUTTON_CLICKED = "EVENT_END_SURVEY_BUTTON_CLICKED";
-  static EVENT_GO_BACK_BUTTON_CLICKED = "EVENT_LEFT_BUTTON_CLICKED";
-
   //Input type base listeners
 
   onLikertScaleInputEntered = (event, eventName, view) => {
@@ -61,41 +57,21 @@ export default class PostTaskView extends View {
     );
   };
 
-  //Navigation
-  onEndSurveyButtonClicked = (event) => {
-    this.notifyAll(
-      new Event(PostTaskView.EVENT_END_SURVEY_BUTTON_CLICKED, this, event)
-    );
-  };
-
-  onGoBackButtonClicked = (event) => {
-    this.notifyAll(
-      new Event(PostTaskView.EVENT_GO_BACK_BUTTON_CLICKED, this, event)
-    );
-  };
-
   _render() {
-    //this.$root = document.querySelector("body");
-    this.$root = document.createElement("div");
-    const debug = document.createElement("div");
-    debug.innerHTML = "PostTaskView";
-    this.$root.appendChild(debug);
-    /* initNavigation.call(this);
-    initDemographics.call(this);
-    initCrediScore.call(this);
-    initVPStunden.call(this);
+    this.$template = document
+      .querySelector("#postTask")
+      .content.cloneNode(true);
+    this.$root = this.$template.querySelector(".tasks");
+
+    this.initDemographics();
+    this.initCrediScore();
+    this.initVPStunden();
 
     this.toggleTextCategoriesEnough();
     this.toggleTextCategoriesGood();
     this.toggleTextColorHelpful();
 
-    this.toggleWarningMessage(); */
-
     return this.$root;
-  }
-
-  toggleWarningMessage() {
-    this.$warning.classList.toggle("hidden");
   }
 
   toggleTextCategoriesEnough() {
@@ -109,118 +85,111 @@ export default class PostTaskView extends View {
   toggleTextColorHelpful() {
     this.$CS_color_not_helpful.classList.toggle("hidden");
   }
-}
 
-function initNavigation() {
-  this.$leftButton = this.$root.querySelector(".button-prev");
-  this.$rightButton = this.$root.querySelector(".button-next");
-  this.$warning = this.$root.querySelector("warning");
-
-  //Init Navigation Buttons
-  this.$leftButton.addEventListener("click", this.onGoBackButtonClicked);
-  this.$rightButton.addEventListener("click", this.onEndSurveyButtonClicked);
-}
-
-function initDemographics() {
-  this.$D_age = setValueEventListener(
-    "Alter",
-    PostTaskView.EVENT_DEMOGRAPHIC_AGE
-  ).call(this);
-  this.$D_genderEls = setLikertEventListener(
-    "Geschlecht",
-    PostTaskView.EVENT_DEMOGRAPHIC_GENDER
-  ).call(this);
-  this.$D_job = setValueEventListener(
-    "Beruf",
-    PostTaskView.EVENT_DEMOGRAPHIC_JOB
-  ).call(this);
-}
-
-function initCrediScore() {
-  this.$CS_helpful_els = setLikertEventListener(
-    "Bewertung_Glaubwürdigkeit_Hilfreich",
-    PostTaskView.EVENT_CREDISCORE_CREDIBILITY_HELPFUL
-  ).call(this);
-  this.$CS_visualUnderstandable_els = setLikertEventListener(
-    "Darstellung_Visuell_Einschätzung",
-    PostTaskView.EVENT_CREDISCORE_VISUALLY_UNDERSTANDABLE
-  ).call(this);
-
-  this.$CS_is_categories_enough_els = setLikertEventListener(
-    "Stufen_Ausreichend_YES_NO",
-    PostTaskView.EVENT_CREDISCORE_IS_CATEGORIES_ENOUGH
-  ).call(this);
-  this.$CS_categories_not_enough = setValueEventListener(
-    "Stufen_Ausreichend_NO",
-    PostTaskView.EVENT_CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE
-  ).call(this);
-
-  this.$CS_category_good_els = setLikertEventListener(
-    "Anzeige_Kategorien_Passend_YES_NO",
-    PostTaskView.EVENT_CREDISCORE_IS_CATEGORY_GOOD
-  ).call(this);
-  this.$CS_category_not_good = setValueEventListener(
-    "Anzeige_Kategorien_Passend_NO",
-    PostTaskView.EVENT_CREDISCORE_CATEGORY_NOT_GOOD
-  ).call(this);
-
-  this.$CS_color_helpful_els = setLikertEventListener(
-    "Farbliche_Unterteilung_Hilfreich_YES_NO",
-    PostTaskView.EVENT_CREDISCORE_IS_COLOR_HELPFUL
-  ).call(this);
-  this.$CS_color_not_helpful = setValueEventListener(
-    "Farbliche_Unterteilung_Hilfreich_NO",
-    PostTaskView.EVENT_CREDISCORE_COLOR_NOT_HELPFUL
-  ).call(this);
-}
-
-function initVPStunden() {
-  this.$VP_Vorname = this.$root.querySelector("[name='Vorname']");
-  this.$VP_Vorname.addEventListener("change", (e) =>
-    this.onInputFieldInputEntered(
-      e,
-      PostTaskView.EVENT_VP_FIRST_NAME_ENTERED,
-      this.$VP_Vorname
-    )
-  );
-
-  this.$VP_Nachname = this.$root.querySelector("[name='Nachname']");
-  this.$VP_Nachname.addEventListener("change", (e) =>
-    this.onInputFieldInputEntered(
-      e,
-      PostTaskView.EVENT_VP_LAST_NAME_ENTERED,
-      this.$VP_Nachname
-    )
-  );
-
-  this.$VP_Matrikelnummer = this.$root.querySelector("[name='Matrikelnummer']");
-  this.$VP_Matrikelnummer.addEventListener("change", (e) =>
-    this.onInputFieldInputEntered(
-      e,
-      PostTaskView.EVENT_VP_MATRIKELNUMMER_NAME_ENTERED,
-      this.$VP_Matrikelnummer
-    )
-  );
-}
-
-const setValueEventListener = (data_question_id, eventName) => {
-  let element = this.$root.querySelector(
-    `[data-question-id='${data_question_id}'] > input`
-  );
-  element.addEventListener("change", (e) =>
-    this.onInputFieldInputEntered(e, eventName, element)
-  );
-  return element;
-};
-
-const setLikertEventListener = (data_question_id, eventName) => {
-  let elements = this.$root.querySelectorAll(
-    `[data-question-id='${data_question_id}'] > input`
-  );
-  for (let i = 0; i < elements.length; i++) {
-    elements[i].addEventListener("change", (e) =>
-      this.onLikertScaleInputEntered(e, eventName, elements[i])
+  initDemographics() {
+    this.$D_age = this.setValueEventListener(
+      "Alter",
+      PostTaskView.EVENT_DEMOGRAPHIC_AGE
+    );
+    this.$D_genderEls = this.setLikertEventListener(
+      "Geschlecht",
+      PostTaskView.EVENT_DEMOGRAPHIC_GENDER
+    );
+    this.$D_job = this.setValueEventListener(
+      "Beruf",
+      PostTaskView.EVENT_DEMOGRAPHIC_JOB
     );
   }
-  return elements;
-};
+
+  initCrediScore() {
+    this.$CS_helpful_els = this.setLikertEventListener(
+      "Bewertung_Glaubwürdigkeit_Hilfreich",
+      PostTaskView.EVENT_CREDISCORE_CREDIBILITY_HELPFUL
+    );
+    this.$CS_visualUnderstandable_els = this.setLikertEventListener(
+      "Darstellung_Visuell_Einschätzung",
+      PostTaskView.EVENT_CREDISCORE_VISUALLY_UNDERSTANDABLE
+    );
+
+    this.$CS_is_categories_enough_els = this.setLikertEventListener(
+      "Stufen_Ausreichend_YES_NO",
+      PostTaskView.EVENT_CREDISCORE_IS_CATEGORIES_ENOUGH
+    );
+    this.$CS_categories_not_enough = this.setValueEventListener(
+      "Stufen_Ausreichend_NO",
+      PostTaskView.EVENT_CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE
+    );
+
+    this.$CS_category_good_els = this.setLikertEventListener(
+      "Anzeige_Kategorien_Passend_YES_NO",
+      PostTaskView.EVENT_CREDISCORE_IS_CATEGORY_GOOD
+    );
+    this.$CS_category_not_good = this.setValueEventListener(
+      "Anzeige_Kategorien_Passend_NO",
+      PostTaskView.EVENT_CREDISCORE_CATEGORY_NOT_GOOD
+    );
+
+    this.$CS_color_helpful_els = this.setLikertEventListener(
+      "Farbliche_Unterteilung_Hilfreich_YES_NO",
+      PostTaskView.EVENT_CREDISCORE_IS_COLOR_HELPFUL
+    );
+    this.$CS_color_not_helpful = this.setValueEventListener(
+      "Farbliche_Unterteilung_Hilfreich_NO",
+      PostTaskView.EVENT_CREDISCORE_COLOR_NOT_HELPFUL
+    );
+  }
+
+  initVPStunden() {
+    this.$VP_Vorname = this.$root.querySelector("[name='Vorname']");
+    this.$VP_Vorname.addEventListener("change", (e) =>
+      this.onInputFieldInputEntered(
+        e,
+        PostTaskView.EVENT_VP_FIRST_NAME_ENTERED,
+        this.$VP_Vorname
+      )
+    );
+
+    this.$VP_Nachname = this.$root.querySelector("[name='Nachname']");
+    this.$VP_Nachname.addEventListener("change", (e) =>
+      this.onInputFieldInputEntered(
+        e,
+        PostTaskView.EVENT_VP_LAST_NAME_ENTERED,
+        this.$VP_Nachname
+      )
+    );
+
+    this.$VP_Matrikelnummer = this.$root.querySelector(
+      "[name='Matrikelnummer']"
+    );
+    this.$VP_Matrikelnummer.addEventListener("change", (e) =>
+      this.onInputFieldInputEntered(
+        e,
+        PostTaskView.EVENT_VP_MATRIKELNUMMER_NAME_ENTERED,
+        this.$VP_Matrikelnummer
+      )
+    );
+  }
+
+  setValueEventListener(data_question_id, eventName) {
+    console.log(data_question_id, eventName);
+    let element = this.$root
+      .querySelector(`[data-question-id='${data_question_id}']`)
+      .querySelector("input");
+    element.addEventListener("change", (e) =>
+      this.onInputFieldInputEntered(e, eventName, element)
+    );
+    return element;
+  }
+
+  setLikertEventListener(data_question_id, eventName) {
+    let elements = this.$root
+      .querySelector(`[data-question-id='${data_question_id}']`)
+      .querySelectorAll("input");
+    for (let i = 0; i < elements.length; i++) {
+      elements[i].addEventListener("change", (e) =>
+        this.onLikertScaleInputEntered(e, eventName, elements[i])
+      );
+    }
+    return elements;
+  }
+}

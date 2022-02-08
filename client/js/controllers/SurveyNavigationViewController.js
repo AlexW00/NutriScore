@@ -4,7 +4,7 @@ import EventBus from "../utils/EventBus.js";
 
 export default class SurveyNavigationViewController extends Controller {
   constructor(state) {
-    super(undefined, undefined); // TODO: Fix
+    super(undefined, undefined);
   }
 
   _onCreateView(model) {
@@ -34,5 +34,13 @@ export default class SurveyNavigationViewController extends Controller {
 
   toggleWarningMessage() {
     this.$view.toggleWarningMessage();
+  }
+
+  activateNextButton() {
+    this.$view.activateNextButton();
+  }
+
+  deactivateNextButton() {
+    this.$view.deactivateNextButton();
   }
 }

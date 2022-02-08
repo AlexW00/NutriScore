@@ -3,6 +3,9 @@ import Controller from "./Controller.js";
 import EventBus from "../utils/EventBus.js";
 import nav from "../views/mainTaskSurveyPage/NavigationView.js";
 export default class SurveyViewController extends Controller {
+  static EVENT_ACTIVATE_NEXT_BUTTON = "EVENT_ACTIVATE_NEXT_BUTTON";
+  static EVENT_DEACTIVATE_NEXT_BUTTON = "EVENT_DEACTIVATE_NEXT_BUTTON";
+
   constructor() {
     // we provide the object store name and the key
     super("mainTask_Surveys", "mainTask_Surveys");
@@ -20,11 +23,28 @@ export default class SurveyViewController extends Controller {
     EventBus.addEventListener(nav.EVENT_RIGHT_BUTTON_CLICKED, () => {
       this.onNavigateNext(); //if false, it did not navigate forward because it was at the limit
     });
+
+    EventBus.addEventListener(
+      SurveyViewController.EVENT_ACTIVATE_NEXT_BUTTON,
+      () => {
+        view.navController.activateNextButton();
+      }
+    );
+
+    EventBus.addEventListener(
+      SurveyViewController.EVENT_DEACTIVATE_NEXT_BUTTON,
+      () => {
+        view.navController.deactivateNextButton();
+      }
+    );
+
     // TODO: show confirmation and end survey here
     return view;
   }
 
   onNavigateBack() {
+    console.log("navigate back");
+    this.view.navController.activateNextButton();
     if (
       !this.view.shouldUpdateActiveSurvey(this.model.data.activeSurveyId, true)
     )
