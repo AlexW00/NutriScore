@@ -3,12 +3,12 @@ export default {
   version: 2.1,
   objectStores: {
     preTask: {
-      key: "questionId",
-      indexes: "questionId",
+      key: "questionId", //TODO: need "userId"
+      indexes: "questionId", //TODO: need "nutriScoreGlaubwuerdigkeitsRating", "kenntNutri" (= 0 oder 1)
     },
     mainTask_Surveys: {
       key: "x",
-      indexes: ["x", "surveyIds", "activeSurveyId"],
+      indexes: ["x", "surveyIds", "activeSurveyId"], //TODO: add "userId"
       dataMapping: () => {
         return {
           x: "mainTask_Surveys",

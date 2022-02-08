@@ -4,6 +4,7 @@ import SurveyNavigationViewController from "../../controllers/SurveyNavigationVi
 import PreTaskView from "./PreTaskView.js";
 import PostTaskView from "./PostTaskView.js";
 import MainTaskViewController from "../../controllers/MainTaskViewController.js";
+import PreTaskViewController from "../../controllers/PreTaskViewController.js";
 // ====================================================== //
 // ================ SurveyView       ==================== //
 // ====================================================== //
@@ -17,7 +18,7 @@ export default class SurveyView extends View {
     this.postTaskView = new PostTaskView();
     // TODO MainTaskViewController
     this.mainTopicViewController = new MainTaskViewController();
-    this.preTaskView = new PreTaskView();
+    this.preTaskView = new PreTaskViewController(this.data.userId); //TODO: Achtung! userId
 
     this.$root.appendChild(this.$content);
     this.navController = new SurveyNavigationViewController(
