@@ -1,6 +1,7 @@
 print("test")
 import csv
 import math
+import statistics
 from operator import delitem
 
 ## https://docs.python.org/3/library/csv.html Abgerufen am 07.02.22
@@ -89,6 +90,7 @@ for i in range(len(fileRows)):
     row = fileRows[i]
     row['score_descr_mapped10'] = score_descr_mapped10[i]
     row['score_descr_mapped_5'] = score_descr_mapped_5[i]
+    row['new_snippet_id'] = "S_" + str(i)
         
 
 # print(fileRows)
@@ -96,9 +98,51 @@ for i in range(len(fileRows)):
 ## NOW: write new File
 
 with open('server\\data\\dataFormatting\\bm25_cut_10_score_descr_EXTENDED.csv', 'w', newline='\n', encoding='utf8') as csvfile:
-    fieldnames = ["topic", "docId", "score", "snippets", "score_descr", 'score_descr_mapped10', 'score_descr_mapped_5']
+    fieldnames = ["topic", "docId", "score", "snippets", "score_descr", 'score_descr_mapped10', 'score_descr_mapped_5', "new_snippet_id"]
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter = ',', quotechar='"')
 
     writer.writeheader()
     for row in fileRows:
         writer.writerow(row)
+
+
+
+
+
+
+
+## Generate general statistics:
+##https://realpython.com/python-statistics/
+stats = {}
+stats['score_mean'] = statistics.mean(score_descr)
+stats['score_stdev'] = statistics.stdev(score_descr)
+stats['score_mode'] = statistics.mode(score_descr)
+stats['score_median'] = statistics.median(score_descr)
+
+
+## Write general statistics in file:
+##https://www.pythontutorial.net/python-basics/python-write-text-file/
+with open('server\\data\\dataFormatting\\dataStatistics.txt', 'w', newline='\n', encoding='utf8') as dataStatisticsFile:
+    for (key, value) in stats.items():
+        dataStatisticsFile.write(str(key)+": "+ str(value))
+        dataStatisticsFile.write("\n")
+
+
+
+
+
+
+##Generate Study-Result-CSV-Header format:
+
+headerNames = ["userId", "pre_knows_NS", "pre_NS_cred"]
+for row in fileRows:
+    snippetId = row["new_snippet_id"]
+    snippetIdCS = "CS_"+snippetId
+    headerNames.append(snippetId)
+    headerNames.append(snippetIdCS)
+    ##pre knowledge missing and demographics TODO:
+headerNames.append(["demo_".....])
+
+with open('server\\data\\dataFormatting\\Study-Result-CSV-Header.txt', 'w', newline='\n', encoding='utf8') as resultHeaderFile:
+    writer = csv.DictWriter(resultHeaderFile, fieldnames=headerNames, delimiter = ',', quotechar='"')
+    writer.writeheader()
