@@ -15,7 +15,7 @@ export default class SurveyView extends View {
     this.$root.classList.add("survey");
     this.$content = document.createElement("div");
     this.$content.classList.add("survey-content");
-    this.postTaskView = new PostTaskView();
+    this.postTaskView = new PostTaskView(); //TODO:
     // TODO MainTaskViewController
     this.mainTopicViewController = new MainTaskViewController();
     this.preTaskView = new PreTaskViewController(this.data.userId); //TODO: Achtung! userId

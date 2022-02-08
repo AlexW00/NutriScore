@@ -80,8 +80,8 @@ export default {
       },
     },
     postTask: {
-      key: "questionId",
-      indexes: "questionId",
+      key: "questionId", //TODO: need "userId"
+      indexes: "questionId", //TODO: need: D_age, D_genderEls, D_job, CS_categories_not_enough, CS_category_not_good, CS_color_not_helpful, CS_helpful_els, CS_is_categories_enough_els, CS_visualUnderstandable_els, CS_color_helpful_els, CS_category_good_els
     },
   },
 };

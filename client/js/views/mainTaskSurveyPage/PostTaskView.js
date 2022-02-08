@@ -71,6 +71,8 @@ export default class PostTaskView extends View {
     this.toggleTextCategoriesGood();
     this.toggleTextColorHelpful();
 
+    this.fillDataIn();
+
     return this.$root;
   }
 
@@ -84,6 +86,36 @@ export default class PostTaskView extends View {
 
   toggleTextColorHelpful() {
     this.$CS_color_not_helpful.classList.toggle("hidden");
+  }
+
+
+  //D_age, D_genderEls, D_job,
+  //CS_categories_not_enough, CS_category_not_good, CS_color_not_helpful,
+  //CS_helpful_els, CS_is_categories_enough_els, CS_visualUnderstandable_els, CS_color_helpful_els, CS_category_good_els
+  fillDataIn() {
+    //Demographics data
+    this.$D_age.value = this.data.D_age;
+    this.checkLikert(this.data.D_genderEls, this.$D_genderEls);
+    this.$D_job.value = this.data.D_job;
+
+    //CrediScore data
+    this.$CS_categories_not_enough.innerText = this.data.CS_categories_not_enough;
+    this.$CS_category_not_good.innerText = this.data.CS_category_not_good;
+    this.$CS_color_not_helpful.innerText = this.data.CS_color_not_helpful;
+
+    this.checkLikert(this.data.CS_helpful_els, this.$CS_helpful_els);
+    this.checkLikert(this.data.CS_is_categories_enough_els, this.$CS_is_categories_enough_els);
+    this.checkLikert(this.data.CS_visualUnderstandable_els, this.$CS_visualUnderstandable_els);
+    this.checkLikert(this.data.CS_color_helpful_els, this.$CS_color_helpful_els);
+    this.checkLikert(this.data.CS_category_good_els, this.$CS_category_good_els);
+  }
+
+  checkLikert(data, array) {
+    for (let i = 0; i < array.length; i++) {
+      if (i === data) {
+        array[i].checked = true;
+      }
+    }
   }
 
   initDemographics() {
