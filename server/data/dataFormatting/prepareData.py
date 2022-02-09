@@ -139,7 +139,6 @@ with open('server\\data\\dataFormatting\\dataStatistics.txt', 'w', newline='\n',
 
 
 ##Generate Study-Result-CSV-Header format:
-##First filter by our topics! TODO:
 
 headerNames = ["userId", "preTsk_knows_NS", "preTsk_NS_cred"]
 for row in fileRows:
@@ -148,13 +147,12 @@ for row in fileRows:
         snippetIdCS = "CS_"+snippetId
         headerNames.append(snippetId)
         headerNames.append(snippetIdCS)
-    ##pre knowledge missing and demographics TODO:
 
 for topic in ourTopicIds:
     headerNames.append("pre_knowledge_"+topic)
 
 postTsk_Items = ["DEMOGRAPHIC_AGE", "DEMOGRAPHIC_GENDER", "DEMOGRAPHIC_JOB", 
-"CREDISCORE_CREDIBILITY_HELPFUL", "CREDISCORE_VISUALLY_UNDERSTANDABLE", "CREDISCORE_IS_CATEGORIES_ENOUGH", "CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE", "CREDISCORE_IS_CATEGORY_GOOD", "CREDISCORE_CATEGORY_NOT_GOOD", "CREDISCORE_IS_COLOR_HELPFUL", "CREDISCORE_COLOR_NOT_HELPFUL"] ##TODO: post task questions
+"CREDISCORE_CREDIBILITY_HELPFUL", "CREDISCORE_VISUALLY_UNDERSTANDABLE", "CREDISCORE_IS_CATEGORIES_ENOUGH", "CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE", "CREDISCORE_IS_CATEGORY_GOOD", "CREDISCORE_CATEGORY_NOT_GOOD", "CREDISCORE_IS_COLOR_HELPFUL", "CREDISCORE_COLOR_NOT_HELPFUL"]
 for item in postTsk_Items:
     headerNames.append("postTsk_"+item)
 
