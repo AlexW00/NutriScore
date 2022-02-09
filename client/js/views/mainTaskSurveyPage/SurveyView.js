@@ -1,8 +1,8 @@
 import View from "../View.js";
 import Event from "../../utils/Event.js";
 import SurveyNavigationViewController from "../../controllers/SurveyNavigationViewController.js";
-import PreTaskView from "./PreTaskView.js";
-import PostTaskView from "./PostTaskView.js";
+
+import PostTaskViewController from "../../controllers/PostTaskViewController.js";
 import MainTaskViewController from "../../controllers/MainTaskViewController.js";
 import PreTaskViewController from "../../controllers/PreTaskViewController.js";
 // ====================================================== //
@@ -15,8 +15,8 @@ export default class SurveyView extends View {
     this.$root.classList.add("survey");
     this.$content = document.createElement("div");
     this.$content.classList.add("survey-content");
-    this.postTaskView = new PostTaskView(); //TODO:
-    // TODO MainTaskViewController
+    this.postTaskView = new PostTaskViewController(); //TODO:
+
     this.mainTopicViewController = new MainTaskViewController();
     this.preTaskView = new PreTaskViewController(this.data.userId); //TODO: Achtung! userId
 
@@ -51,11 +51,11 @@ export default class SurveyView extends View {
   async _getContentByState(state) {
     switch (state) {
       case "preTask":
-        return this.preTaskView.html();
+        return await this.preTaskView.html();
       case "mainTask":
         return await this.mainTopicViewController.html();
       case "postTask":
-        return this.postTaskView.html();
+        return await this.postTaskView.html();
     }
   }
 }

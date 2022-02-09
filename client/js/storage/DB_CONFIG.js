@@ -3,7 +3,7 @@ export default {
   version: 2.3,
   objectStores: {
     preTask: {
-      key: "x", //TODO: need "userId"
+      key: "x",
       indexes: [
         "x",
         "userId",
@@ -93,8 +93,35 @@ export default {
       },
     },
     postTask: {
-      key: "questionId", //TODO: need "userId"
-      indexes: "questionId", //TODO: need: D_age, D_genderEls, D_job, CS_categories_not_enough, CS_category_not_good, CS_color_not_helpful, CS_helpful_els, CS_is_categories_enough_els, CS_visualUnderstandable_els, CS_color_helpful_els, CS_category_good_els
+      key: "x",
+      indexes: [
+        "x",
+        "D_age",
+        "D_genderEls",
+        "D_job",
+        "CS_categories_not_enough",
+        "CS_color_not_helpful",
+        "CS_helpful_els",
+        "CS_is_categories_enough_els",
+        "CS_visualUnderstandable_els",
+        "CS_color_helpful_els",
+        "CS_category_good_els",
+      ],
+      dataMapping: () => {
+        return {
+          x: "postTask",
+          D_age: undefined,
+          D_genderEls: undefined,
+          D_job: undefined,
+          CS_categories_not_enough: undefined,
+          CS_color_not_helpful: undefined,
+          CS_helpful_els: undefined,
+          CS_is_categories_enough_els: undefined,
+          CS_visualUnderstandable_els: undefined,
+          CS_color_helpful_els: undefined,
+          CS_category_good_els: undefined,
+        };
+      },
     },
   },
 };
