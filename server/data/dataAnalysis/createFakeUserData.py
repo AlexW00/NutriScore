@@ -1,5 +1,4 @@
-from cmath import log
-import csv
+from cmath import nan
 import csv
 import random
 import uuid
@@ -34,6 +33,13 @@ def createRow():
     yesNoAnswers = ["postTsk_CREDISCORE_IS_CATEGORIES_ENOUGH","postTsk_CREDISCORE_IS_CATEGORY_GOOD","postTsk_CREDISCORE_IS_COLOR_HELPFUL"]
     for yesNo in yesNoAnswers:
         row_vals[yesNo] = createRandom(1)
+    
+    randomIndicesNaN = []
+    for i in range(60):
+       randomIndicesNaN.append(createRandom(119)+3)
+    
+    for j in randomIndicesNaN:
+        row_vals[header_names[j]] = nan
     return row_vals
             
 
