@@ -43,7 +43,7 @@ export default class SurveyViewController extends Controller {
   }
 
   onNavigateBack() {
-    console.log("navigate back");
+    //console.log("navigate back");
     this.view.navController.activateNextButton();
     if (
       !this.view.shouldUpdateActiveSurvey(this.model.data.activeSurveyId, true)

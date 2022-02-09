@@ -24,20 +24,28 @@ class IndexedDbStorageProvider {
   }
 
   async saveModel(model) {
-    const wasSucessful = await this.updateItem(model.storeName, model.data);
-    return wasSucessful;
+    //console.log(model.storeName, model.data);
+    try {
+      const wasSucessful = await this.updateItem(model.storeName, model.data);
+      return wasSucessful;
+    } catch (error) {
+      //console.log(error);
+      return false;
+    }
   }
 
   retrieveModel(modelName) {
     // TODO: Implement
   }
 
+  // exports the DB to as an object (→ JSON)
+  // data mapping defined in DB_CONFIG
   async exportData() {
-    const fullExport = await exportToJson(this._database).then((r) => {
-        console.log(r);
-        return JSON.parse(r);
-      }),
+    const fullExport = await exportToJson(this._database).then((r) =>
+        JSON.parse(r)
+      ),
       exportData = {};
+    // use exportDataMapping for every object store to map the data
     for (const key of Object.keys(fullExport)) {
       const exportDataMapping = DB_CONFIG.objectStores[key].exportDataMapping,
         exportDataPoint = fullExport[key].map((item) =>
@@ -45,6 +53,7 @@ class IndexedDbStorageProvider {
         );
       if (exportDataPoint[0])
         if (exportDataPoint.length === 1) exportData[key] = exportDataPoint[0];
+        // retunr only the first item if it's the only one
         else exportData[key] = exportDataPoint;
     }
     return exportData;
@@ -62,7 +71,7 @@ class IndexedDbStorageProvider {
         resolve(e.target.result);
       };
       request.onerror = (e) => {
-        console.log(e);
+        //console.log(e);
         reject(e.target.error.message);
       };
     });
@@ -85,13 +94,16 @@ class IndexedDbStorageProvider {
   }
 
   updateItem(storeName, item) {
+    //console.log("updateItem", storeName, item);
     return new Promise((resolve, reject) => {
       const objectStore = this._getObjectStore(storeName, "readwrite");
       const request = objectStore.put(item);
       request.onsuccess = (e) => {
+        //console.log("updateItem success", e);
         resolve(true);
       };
       request.onerror = (e) => {
+        //console.log("error!!", e);
         resolve(false);
       };
     });
@@ -108,11 +120,11 @@ class IndexedDbStorageProvider {
         const cursor = e.target.result;
         if (cursor) {
           // key already exist
-          console.log("key already exist");
+          //console.log("key already exist");
           resolve(true);
         } else {
           // key not exist
-          console.log("key not exist");
+          //console.log("key not exist");
           resolve(false);
         }
       };
@@ -149,7 +161,7 @@ class IndexedDbStorageProvider {
       request.onsuccess = (e) => {
         this._database = e.target.result;
         this.isInitialised = true;
-        console.log("succeed res");
+        //console.log("succeed res");
         if (this.didUpgrade) this._initData().then(() => resolve(true));
         else resolve(true);
       };
@@ -179,7 +191,7 @@ class IndexedDbStorageProvider {
             unique: false,
           });
         } catch (e) {
-          console.log(e);
+          //console.log(e);
           console.trace();
         }
       }

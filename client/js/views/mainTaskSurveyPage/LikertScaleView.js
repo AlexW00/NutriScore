@@ -19,6 +19,8 @@ export default class LikertScaleView extends View {
   // constructor: {snippetId: "snippetId"}
 
   onRadioButtonClicked = (event) => {
+    //if (event.target.value == -1)
+    //console.log("SHIT");
     this.notifyAll(
       new Event(LikertScaleView.EVENT_RESULT_LIKERT_CLICKED, this, {
         value: event.target.getAttribute("value"),
@@ -40,7 +42,7 @@ export default class LikertScaleView extends View {
       $newRadio.setAttribute("value", i);
       $newRadio.setAttribute("name", this.data.snippetId);
       $newRadio.addEventListener("change", this.onRadioButtonClicked);
-      console.log("rating " + this.data.snippetRating);
+      //console.log("rating " + this.data.snippetRating);
 
       $liEl.appendChild($newRadio);
       if (i == this.data.snippetRating || i == this.data.preKnowledge) {

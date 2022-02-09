@@ -11,7 +11,7 @@ export default class PostTaskViewController extends Controller {
   }
 
   _onCreateView(model) {
-    console.log(model);
+    //console.log(model);
     const view = new PostTaskView({
       D_age: model.data.D_age,
       D_genderEls: model.data.D_genderEls,
@@ -31,25 +31,25 @@ export default class PostTaskViewController extends Controller {
     //Demographics
     view.addEventListener(PostTaskView.EVENT_DEMOGRAPHIC_AGE, (event) => {
       model.updateDataPoint("D_age", event.data.value);
-      console.log(model);
+      //console.log(model);
       Controller.storageProvider.saveModel(model).then((didSucceed) => {
-        console.log(didSucceed);
+        //console.log(didSucceed);
       });
     });
 
     view.addEventListener(PostTaskView.EVENT_DEMOGRAPHIC_GENDER, (event) => {
       model.updateDataPoint("D_genderEls", event.data.value);
-      console.log(model);
+      //console.log(model);
       Controller.storageProvider.saveModel(model).then((didSucceed) => {
-        console.log(didSucceed);
+        //console.log(didSucceed);
       });
     });
 
     view.addEventListener(PostTaskView.EVENT_DEMOGRAPHIC_JOB, (event) => {
       model.updateDataPoint("D_job", event.data.value);
-      console.log(model);
+      //console.log(model);
       Controller.storageProvider.saveModel(model).then((didSucceed) => {
-        console.log(didSucceed);
+        //console.log(didSucceed);
       });
     });
 
@@ -58,9 +58,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE,
       (event) => {
         model.updateDataPoint("CS_categories_not_enough", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -69,9 +69,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_CATEGORY_NOT_GOOD,
       (event) => {
         model.updateDataPoint("CS_category_not_good", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -80,9 +80,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_COLOR_NOT_HELPFUL,
       (event) => {
         model.updateDataPoint("CS_color_not_helpful", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -91,9 +91,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_CREDIBILITY_HELPFUL,
       (event) => {
         model.updateDataPoint("CS_helpful_els", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -102,9 +102,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_CATEGORIES_ENOUGH,
       (event) => {
         model.updateDataPoint("CS_is_categories_enough_els", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -113,9 +113,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_VISUALLY_UNDERSTANDABLE,
       (event) => {
         model.updateDataPoint("CS_visualUnderstandable_els", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -124,9 +124,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_COLOR_HELPFUL,
       (event) => {
         model.updateDataPoint("CS_color_helpful_els", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );
@@ -135,9 +135,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_CATEGORY_GOOD,
       (event) => {
         model.updateDataPoint("CS_category_good_els", event.data.value);
-        console.log(model);
+        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
-          console.log(didSucceed);
+          //console.log(didSucceed);
         });
       }
     );

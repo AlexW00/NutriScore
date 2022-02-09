@@ -11,7 +11,7 @@ export default class TopicViewController extends Controller {
   }
 
   _onCreateView(model) {
-    console.log(model);
+    //console.log(model);
     this.model = model;
     const view = new TopicView({
       topicId: this.key,
@@ -23,9 +23,8 @@ export default class TopicViewController extends Controller {
     EventBus.addEventListener(
       LikertScaleView.EVENT_RESULT_LIKERT_CLICKED,
       (event) => {
-        console.log(event, "did click likert");
-
         if (event.data.topicId !== undefined) {
+          //console.log(event.data);
           if (this.key === event.data.topicId) {
             EventBus.notifyAll(
               new Event(
@@ -34,6 +33,8 @@ export default class TopicViewController extends Controller {
                 undefined
               )
             );
+            //console.log("update model to ", event.data.preKnowledge);
+            model.updateDataPoint("preKnowledge", event.data.preKnowledge);
           }
         } else {
           if (this.model.data.snippetIds.indexOf(event.data.snippetId) !== -1) {
@@ -62,20 +63,20 @@ export default class TopicViewController extends Controller {
       doSendEvent = this.model.data.preKnowledge !== -1;
     } else {
       for (let i = 0; i < this.model.data.snippetIds.length; i++) {
-        console.log(this.model.data.snippetIds[i]);
+        //console.log(this.model.data.snippetIds[i]);
         const snippetId = this.model.data.snippetIds[i];
         const data = await Controller.storageProvider.getItem(
           "mainTask_SnippetRating",
           snippetId
         );
-        console.log(data);
+        //console.log(data);
         if (data.snippetRating === -1) {
           doSendEvent = false;
           break;
         }
       }
     }
-    console.log("doSendEvent", doSendEvent);
+    //console.log("doSendEvent", doSendEvent);
     return doSendEvent;
   };
   // retruns true if navigation was successful

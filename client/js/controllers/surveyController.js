@@ -16,7 +16,7 @@ import SurveyViewController from "./SurveyViewController.js";
 // // register event listeners for events on the EventBus
 // EventBus.addEventListener(SnippetView.EVENT_LIKERT_CLICKED, (event) => {
 //   // likert scale clicked
-//   console.log(event);
+//   //console.log(event);
 // });
 
 // const lc = new LikertScaleSnippetViewController("11"),
@@ -30,7 +30,7 @@ const surveyView = new SurveyViewController(),
   surveyViewHTML = await surveyView.html();
 
 document.body.appendChild(surveyViewHTML);
-console.log("survey");
+//console.log("survey");
 
 // var snippetTest = new SnippetViewController("11"),
 //   snippetTestHTML = await snippetTest.html();
@@ -40,6 +40,6 @@ setTimeout(() => {
   IndexedDbStorageProvider.getInstance()
     .then((sp) => sp.exportData())
     .then((data) => {
-      console.log(data);
+      //console.log(data);
     });
 }, 2000);

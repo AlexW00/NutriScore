@@ -41,10 +41,10 @@ export default class SurveyView extends View {
   }
 
   async updateActiveSurvey(previousSurveyId, newSurveyId) {
-    console.log(previousSurveyId, newSurveyId);
+    //console.log(previousSurveyId, newSurveyId);
     const prevHtml = await this._getContentByState(previousSurveyId);
     this.$content.removeChild(prevHtml);
-    console.log(newSurveyId);
+    //console.log(newSurveyId);
     this.$content.appendChild(await this._getContentByState(newSurveyId));
   }
 

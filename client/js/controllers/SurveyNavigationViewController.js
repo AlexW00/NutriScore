@@ -18,13 +18,13 @@ export default class SurveyNavigationViewController extends Controller {
     view.addEventListener(
       NavigationView.EVENT_RIGHT_BUTTON_CLICKED,
       (event) => {
-        console.log("right button");
+        //console.log("right button");
         EventBus.notifyAll(event);
       }
     );
 
     view.addEventListener(NavigationView.EVENT_LEFT_BUTTON_CLICKED, (event) => {
-      console.log("left button");
+      //console.log("left button");
       EventBus.notifyAll(event);
     });
 

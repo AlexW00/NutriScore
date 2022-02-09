@@ -93,10 +93,10 @@ export default class PostTaskView extends View {
   //CS_helpful_els, CS_is_categories_enough_els, CS_visualUnderstandable_els, CS_color_helpful_els, CS_category_good_els
   fillDataIn = () => {
     //Demographics data
-    console.log(this.data);
+    //console.log(this.data);
     this.$D_age.value = this.data.D_age;
     this.checkLikert(this.data.D_genderEls, this.$D_genderEls);
-    console.log(this.$D_genderEls);
+    //console.log(this.$D_genderEls);
     this.$D_job.value = this.data.D_job;
 
     //CrediScore data
@@ -217,7 +217,7 @@ export default class PostTaskView extends View {
   }
 
   setValueEventListener(data_question_id, eventName) {
-    console.log(data_question_id, eventName);
+    //console.log(data_question_id, eventName);
     let element = this.$root
       .querySelector(`[data-question-id='${data_question_id}']`)
       .querySelector("input");

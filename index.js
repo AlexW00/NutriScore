@@ -18,7 +18,7 @@ async function handleRequest(request) {
   }
 }
 
-console.log("Listening on http://localhost:8000");
+//console.log("Listening on http://localhost:8000");
 serve(handleRequest);
 
 // ====================================================== //

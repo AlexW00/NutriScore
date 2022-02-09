@@ -32,7 +32,7 @@ export default class TopicView extends View {
     this.$root.appendChild(this.$preKnowledge);
 
     this.$resultContainer = document.createElement("div");
-    console.log(this.$resultContainer);
+    //console.log(this.$resultContainer);
     this.$resultContainer.classList.add("results");
 
     this.snippetViews = [];
