@@ -183,6 +183,7 @@ class IndexedDbStorageProvider {
 
     await this._mapData("mainTask_Surveys", {});
     await this._mapData("mainTask_Topics", data.topics);
+    await this._mapData("preTask", data.uuid);
 
     for (const topic of data.topics) {
       await this._mapData("mainTask_Topic", topic);

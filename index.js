@@ -71,6 +71,7 @@ const serveFakeData = async () => {
       JSON.parse(decoder.decode(topic1)),
       JSON.parse(decoder.decode(topic2)),
     ],
+    uuid: crypto.randomUUID(),
   };
   return new Response(JSON.stringify(r), {
     headers: {

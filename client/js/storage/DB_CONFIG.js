@@ -1,10 +1,23 @@
 export default {
   dbName: "NS_DB",
-  version: 2.1,
+  version: 2.3,
   objectStores: {
     preTask: {
-      key: "questionId", //TODO: need "userId"
-      indexes: "questionId", //TODO: need "nutriScoreGlaubwuerdigkeitsRating", "kenntNutri" (= 0 oder 1)
+      key: "x", //TODO: need "userId"
+      indexes: [
+        "x",
+        "userId",
+        "kenntNutri",
+        "nutriScoreGlaubwuerdigkeitsRating",
+      ],
+      dataMapping: (uuid) => {
+        return {
+          x: "preTask",
+          userId: uuid,
+          kenntNutri: false,
+          nutriScoreGlaubwuerdigkeitsRating: -1,
+        };
+      },
     },
     mainTask_Surveys: {
       key: "x",

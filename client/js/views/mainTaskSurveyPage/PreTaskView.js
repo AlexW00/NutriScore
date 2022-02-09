@@ -9,12 +9,17 @@ export default class PreTaskView extends View {
   static EVENT_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING_CLICKED =
     "EVENT_NS_glaubwürdig";
   static EVENT_KENNT_NUTRISCORE_CLICKED = "EVENT_NS_kennt";
+  static EVENT_HIDE_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING =
+    "EVENT_HIDE_NS_glaubwürdig";
+  static EVENT_SHOW_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING =
+    "EVENT_SHOW_NS_glaubwürdig";
 
   onNutriScoreGlaubwuerdigkeitsRatingClicked = (event) => {
     this.notifyAll(
       new Event(
         PreTaskView.EVENT_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING_CLICKED,
-        this, {
+        this,
+        {
           value: event.target.getAttribute("value"),
         }
       )
@@ -22,6 +27,8 @@ export default class PreTaskView extends View {
   };
 
   onKenntNutriscoreClicked = (event) => {
+    if (event.target.value == 1) this.showNutriScoreGlaubwürdigkeitsRating();
+    else this.hideNutriScoreGlaubwürdigkeitsRating();
     this.notifyAll(
       new Event(PreTaskView.EVENT_KENNT_NUTRISCORE_CLICKED, this, {
         value: event.target.getAttribute("value"),
@@ -34,9 +41,17 @@ export default class PreTaskView extends View {
     this.$root = this.$template.querySelector(".tasks");
 
     //Init: Wie glaubwürdig finden Sie den NutriScore?
-    this.$NutriScoreGlaubwuerdigkeitsRatingInputEls = document.querySelectorAll("[name='glaubwürdig']");
-    for (let i = 0; i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length; i++) {
-      this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].addEventListener("change", this.onNutriScoreGlaubwuerdigkeitsRatingClicked);
+    this.$NutriScoreGlaubwuerdigkeitsRatingInputEls =
+      this.$root.querySelectorAll("[name='glaubwürdig']");
+    for (
+      let i = 0;
+      i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length;
+      i++
+    ) {
+      this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].addEventListener(
+        "click",
+        this.onNutriScoreGlaubwuerdigkeitsRatingClicked
+      );
       if (i == this.data.nutriScoreGlaubwuerdigkeitsRating) {
         this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].checked = true;
         // mark checked
@@ -49,23 +64,59 @@ export default class PreTaskView extends View {
     );
 
     //Init: Kennen Sie den NutriScore aus der Lebensmittelbranche?
-    this.$kenntNutriscoreInputEls = document.querySelectorAll(
-      "[name='NutriScore kennen']"
+    this.$kenntNutriscoreInputEls = this.$root.querySelectorAll(
+      "input[name='NutriScore kennen']"
     );
+
     for (let i = 0; i < this.$kenntNutriscoreInputEls.length; i++) {
-      this.$kenntNutriscoreInputEls[i].addEventListener("change", this.onKenntNutriscoreClicked);
+      this.$kenntNutriscoreInputEls[i].addEventListener(
+        "click",
+        this.onKenntNutriscoreClicked
+      );
       if (i == this.data.kenntNutri) {
         this.$kenntNutriscoreInputEls[i].checked = true;
-        this.toggleNutriScoreGlaubwürdigkeitsRating(); //show instantly
-        // mark checked
       }
+      // mark checked
     }
 
-    this.toggleNutriScoreGlaubwürdigkeitsRating(); //hide if no answer yet
+    if (this.data.kenntNutri == 1) this.showNutriScoreGlaubwürdigkeitsRating();
+    else this.hideNutriScoreGlaubwürdigkeitsRating();
+
     return this.$root;
   }
 
-  toggleNutriScoreGlaubwürdigkeitsRating() {
+  toggleNutriScoreGlaubwürdigkeitsRating = () => {
     this.$nutriScoreGlaubwuerdigkeitsRating.classList.toggle("hidden");
+  };
+
+  hideNutriScoreGlaubwürdigkeitsRating = () => {
+    this.$nutriScoreGlaubwuerdigkeitsRating.classList.add("hidden");
+    // this.model.set("nutriScoreGlaubwuerdigkeitsRating", -1); // add to viewcontroller
+    for (
+      let i = 0;
+      i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length;
+      i++
+    ) {
+      this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].checked = false;
+    }
+
+    this.notifyAll(
+      new Event(
+        PreTaskView.EVENT_HIDE_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING,
+        this,
+        {}
+      )
+    );
+  };
+
+  showNutriScoreGlaubwürdigkeitsRating() {
+    this.$nutriScoreGlaubwuerdigkeitsRating.classList.remove("hidden");
+    this.notifyAll(
+      new Event(
+        PreTaskView.EVENT_SHOW_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING,
+        this,
+        {}
+      )
+    );
   }
 }
