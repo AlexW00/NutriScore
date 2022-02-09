@@ -26,7 +26,6 @@ import SurveyViewController from "./SurveyViewController.js";
 /* var TopicView = new TopicViewController("2"),
   topicViewHTML = await TopicView.html(); */
 
-
 const surveyView = new SurveyViewController(),
   surveyViewHTML = await surveyView.html();
 
@@ -37,6 +36,10 @@ console.log("survey");
 //   snippetTestHTML = await snippetTest.html();
 // document.body.appendChild(snippetTestHTML);
 
-/* setTimeout(() => {
-  IndexedDbStorageProvider.getInstance().then((sp) => sp.closeDatabase());
-}, 2000); */
+setTimeout(() => {
+  IndexedDbStorageProvider.getInstance()
+    .then((sp) => sp.exportData())
+    .then((data) => {
+      console.log(data);
+    });
+}, 2000);

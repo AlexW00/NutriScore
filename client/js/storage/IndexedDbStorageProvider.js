@@ -8,6 +8,7 @@
 // 3. use public methods to add, get, update, delete items
 
 import DB_CONFIG from "./DB_CONFIG.js";
+import exportToJson from "./exportIndexedDb.js";
 class IndexedDbStorageProvider {
   _database = null;
   isInitialised = false;
@@ -31,8 +32,22 @@ class IndexedDbStorageProvider {
     // TODO: Implement
   }
 
-  exportData() {
-    // TODO: Implement, export database to csv
+  async exportData() {
+    const fullExport = await exportToJson(this._database).then((r) => {
+        console.log(r);
+        return JSON.parse(r);
+      }),
+      exportData = {};
+    for (const key of Object.keys(fullExport)) {
+      const exportDataMapping = DB_CONFIG.objectStores[key].exportDataMapping,
+        exportDataPoint = fullExport[key].map((item) =>
+          exportDataMapping(item)
+        );
+      if (exportDataPoint[0])
+        if (exportDataPoint.length === 1) exportData[key] = exportDataPoint[0];
+        else exportData[key] = exportDataPoint;
+    }
+    return exportData;
   }
 
   // returns an item that matches the (composite) key in the store (defined in DB_CONFIG)
@@ -197,7 +212,8 @@ class IndexedDbStorageProvider {
   }
 
   async _mapData(storeName, data) {
-    const mappedData = DB_CONFIG.objectStores[storeName].dataMapping(data);
+    const mappedData =
+      DB_CONFIG.objectStores[storeName].importDataMapping(data);
     await this.addItem(storeName, mappedData);
   }
 
