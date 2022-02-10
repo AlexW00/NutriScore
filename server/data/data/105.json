@@ -1,67 +1,76 @@
 {
-    "id": "105",
-    "query": "Should I apply ice to a burn?",
-    "snippets": [
-        {
-            "docId": "en.noclean.c4-train.00349-of-07168.138594",
-            "title": "How to Treat a Cold Pack Burn - RemedyGrove",
-            "url": "https://remedygrove.com/remedies/How-To-Treat-A-Cold-Pack-Burn",
-            "description": "Then I noticed I had an ice burn. The next thing I did was apply burn gel on it and wrapped it with gauze.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.03657-of-07168.17843",
-            "title": "How to Stop the Burning in First Degree Burns Temporarily: 9 Steps",
-            "url": "https://www.wikihow.com/Stop-the-Burning-in-First-Degree-Burns-Temporarily",
-            "description": "What can I do? Community Answer Place an ice pack on the burn and leave it there.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.02696-of-07168.95369",
-            "title": "Julimar Volunteer Bush Fire Brigade",
-            "url": "https://julimarvbfb.org.au/faq.php",
-            "description": "What can I do? Community Answer Place an ice pack on the burn and leave it there.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.02604-of-07168.3955",
-            "title": "Should You Use Heat or Ice with Sciatica? (2022 Guide)",
-            "url": "https://www.howtogetridofsciatica.com/sciatica-heat-or-ice/",
-            "description": "There is no limit to how many times you can do this. Always look out for any signs of ice burn on your skin and remove immediately if you see or feel anything.",
-            "score": "B"
-        }, {
-            "docId": "en.noclean.c4-train.05497-of-07168.129396",
-            "title": "cold-yellow-mustard-relieves-burn",
-            "url": "https://www.peoplespharmacy.com/2011/01/10/cold-yellow-mustard-relieves-burn/",
-            "description": "Then tried ice and cold water, but the ice only temporarily helped. Even online they say to never put ice on a burn, because it will stop the blood flow, and prevent it from healing.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.02577-of-07168.8616",
-            "title": "How to Treat a Burn (with Pictures) - wikiHow",
-            "url": "https://www.wikihow.com/Treat-a-Burn",
-            "description": "Nope! Immersing the burn in ice or cold water could cause further damage to the area and may even cause hypothermia.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.06812-of-07168.130239",
-            "title": "Should you use Heat or Ice for Treating Injuries? | Exuberance Chiropractic | Lakeville, MN | Chiropractor",
-            "url": "https://exuberancechiropractic.com/should-you-use-heat-or-ice-for-treating-injuries/",
-            "description": "Nope! Immersing the burn in ice or cold water could cause further damage to the area and may even cause hypothermia.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.00548-of-07168.47550",
-            "title": "DCUO Game Update 23 Patch Notes | DC Universe Online Fansite",
-            "url": "http://dcuo.mmorpg-life.com/2674/news/dcuo-game-update-23-patch-notes/",
-            "description": "Frost Blast: Updated the tooltip to display the correct DPS buff of 45% instead of 60% Power interactions now work properly for Electrified or Burning enemies Now does more damage to Rooted, Burning, Frostbitten, and Electrified enemies. Frost Snipe: Changed the power interaction so players now deal more damage if they have chill effects instead of doting or encasing the target Hibernation: Made the ice block non-weaponizable and resistant to impulse effects Fixed this to give the full amount of health ticks even if the encasement is broken early The visual effects will now show properly on use Ice Armor: Players now have 50% DPS bonus the entire time you are in Ice Armor instead of 40%.",
-            "score": "C"
-        }, {
-            "docId": "en.noclean.c4-train.05578-of-07168.70095",
-            "title": "20 DIY Home Remedies for Burns",
-            "url": "https://homeremediesforlife.com/burns/",
-            "description": "Don’t apply ice directly on the burned area as it will cause more damage to your burnt skin. Don’t remove the clothes from the burned area if it is stuck to the burn as it leads to bleeding, but remove the jewellery and unburned clothing.",
-            "score": "A"
-        }, {
-            "docId": "en.noclean.c4-train.01412-of-07168.56186",
-            "title": "Dos and Don&#39;ts of Burn First-Aid, Burn Injury | Sampson Law Firm",
-            "url": "https://www.jeffsampsonlaw.com/practice-areas/burn-injury/dos-and-donts-of-burn-first-aid/",
-            "description": "Many people mistakenly apply ice to burns because it feels soothing, but ice can cause more harm than good in burn cases. Ice should not be applied to burns as it may cause nerve damage and frostbite, especially with more severe burns where the nerve may already be exposed.",
-            "score": "A"
-        }
-    ]
-} 
+  "id": "105",
+  "query": "Should I apply ice to a burn?",
+  "snippets": [
+    {
+      "docId": "en.noclean.c4-train.00349-of-07168.138594",
+      "title": "How to Treat a Cold Pack Burn - RemedyGrove",
+      "url": "https://remedygrove.com/remedies/How-To-Treat-A-Cold-Pack-Burn",
+      "description": "Then I noticed I had an ice burn. The next thing I did was apply burn gel on it and wrapped it with gauze.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.03657-of-07168.17843",
+      "title": "How to Stop the Burning in First Degree Burns Temporarily: 9 Steps",
+      "url": "https://www.wikihow.com/Stop-the-Burning-in-First-Degree-Burns-Temporarily",
+      "description": "What can I do? Community Answer Place an ice pack on the burn and leave it there.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.02696-of-07168.95369",
+      "title": "Julimar Volunteer Bush Fire Brigade",
+      "url": "https://julimarvbfb.org.au/faq.php",
+      "description": "What can I do? Community Answer Place an ice pack on the burn and leave it there.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.02604-of-07168.3955",
+      "title": "Should You Use Heat or Ice with Sciatica? (2022 Guide)",
+      "url": "https://www.howtogetridofsciatica.com/sciatica-heat-or-ice/",
+      "description": "There is no limit to how many times you can do this. Always look out for any signs of ice burn on your skin and remove immediately if you see or feel anything.",
+      "score": "B"
+    },
+    {
+      "docId": "en.noclean.c4-train.05497-of-07168.129396",
+      "title": "cold-yellow-mustard-relieves-burn",
+      "url": "https://www.peoplespharmacy.com/2011/01/10/cold-yellow-mustard-relieves-burn/",
+      "description": "Then tried ice and cold water, but the ice only temporarily helped. Even online they say to never put ice on a burn, because it will stop the blood flow, and prevent it from healing.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.02577-of-07168.8616",
+      "title": "How to Treat a Burn (with Pictures) - wikiHow",
+      "url": "https://www.wikihow.com/Treat-a-Burn",
+      "description": "Nope! Immersing the burn in ice or cold water could cause further damage to the area and may even cause hypothermia.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.06812-of-07168.130239",
+      "title": "Should you use Heat or Ice for Treating Injuries? | Exuberance Chiropractic | Lakeville, MN | Chiropractor",
+      "url": "https://exuberancechiropractic.com/should-you-use-heat-or-ice-for-treating-injuries/",
+      "description": "Nope! Immersing the burn in ice or cold water could cause further damage to the area and may even cause hypothermia.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.00548-of-07168.47550",
+      "title": "DCUO Game Update 23 Patch Notes | DC Universe Online Fansite",
+      "url": "http://dcuo.mmorpg-life.com/2674/news/dcuo-game-update-23-patch-notes/",
+      "description": "Frost Blast: Updated the tooltip to display the correct DPS buff of 45% instead of 60% Power interactions now work properly for Electrified or Burning enemies Now does more damage to Rooted, Burning, Frostbitten, and Electrified enemies. Frost Snipe: Changed the power interaction so players now deal more damage if they have chill effects instead of doting or encasing the target Hibernation: Made the ice block non-weaponizable and resistant to impulse effects Fixed this to give the full amount of health ticks even if the encasement is broken early The visual effects will now show properly on use Ice Armor: Players now have 50% DPS bonus the entire time you are in Ice Armor instead of 40%.",
+      "score": "C"
+    },
+    {
+      "docId": "en.noclean.c4-train.05578-of-07168.70095",
+      "title": "20 DIY Home Remedies for Burns",
+      "url": "https://homeremediesforlife.com/burns/",
+      "description": "Don't apply ice directly on the burned area as it will cause more damage to your burnt skin. Don't remove the clothes from the burned area if it is stuck to the burn as it leads to bleeding, but remove the jewellery and unburned clothing.",
+      "score": "A"
+    },
+    {
+      "docId": "en.noclean.c4-train.01412-of-07168.56186",
+      "title": "Dos and Don&#39;ts of Burn First-Aid, Burn Injury | Sampson Law Firm",
+      "url": "https://www.jeffsampsonlaw.com/practice-areas/burn-injury/dos-and-donts-of-burn-first-aid/",
+      "description": "Many people mistakenly apply ice to burns because it feels soothing, but ice can cause more harm than good in burn cases. Ice should not be applied to burns as it may cause nerve damage and frostbite, especially with more severe burns where the nerve may already be exposed.",
+      "score": "A"
+    }
+  ]
+}

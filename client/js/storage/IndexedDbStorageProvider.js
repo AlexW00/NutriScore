@@ -12,6 +12,7 @@ import exportToJson from "./exportIndexedDb.js";
 class IndexedDbStorageProvider {
   _database = null;
   isInitialised = false;
+  DEV_MODE = false; // toggle to true to get fake data
   // ====================================================== //
   // ================== Public methods   ================== //
   // ====================================================== //
@@ -206,7 +207,9 @@ class IndexedDbStorageProvider {
   }
 
   async _initData() {
-    const data = await this._getFakeData();
+    const data = this.DEV_MODE
+      ? await this._getFakeData()
+      : await this._getData();
 
     await this._mapData("mainTask_Surveys", {});
     await this._mapData("mainTask_Topics", data.topics);
@@ -243,6 +246,10 @@ class IndexedDbStorageProvider {
 
   async _getFakeData() {
     return await fetch("/getFakeData").then((r) => r.json());
+  }
+
+  async _getData() {
+    return await fetch("/getData").then((r) => r.json());
   }
 
   // turns a single key into an array and keeps arrays as arrays

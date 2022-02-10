@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
-import { fileExists, getContentType } from "./server/utilFunctions.js";
+import { fileExists, getContentType } from "./server/utils/utilFunctions.js";
+import shuffleAsLatinSquare from "./server/utils/latinSquare.js";
 
 // ##################################################################### //
 // ############################### Server ############################## //
@@ -35,6 +36,8 @@ const handleGetRequest = async (request, pathname) => {
       return await serveSurveyPage();
     case "/getFakeData":
       return await serveFakeData();
+    case "/getData":
+      return await serveData();
     // other custom routes go here
     default: {
       return await serveStaticFile(pathname);
@@ -73,6 +76,32 @@ const serveFakeData = async () => {
     ],
     uuid: crypto.randomUUID(),
   };
+  return new Response(JSON.stringify(r), {
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+};
+
+const serveData = async () => {
+  const filenames = [];
+  for await (const dirEntry of Deno.readDir("./server/data/data")) {
+    if (dirEntry.isFile) filenames.push(dirEntry.name);
+  }
+  const files = await Promise.all(
+    filenames.map(
+      async (filename) => await Deno.readFile(`./server/data/data/${filename}`)
+    )
+  );
+  const shuffledFiles = shuffleAsLatinSquare(files);
+  const decoder = new TextDecoder("utf-8");
+  const r = {
+    topics: shuffledFiles.map((file) => {
+      return JSON.parse(decoder.decode(file));
+    }),
+    uuid: crypto.randomUUID(),
+  };
+
   return new Response(JSON.stringify(r), {
     headers: {
       "content-type": "application/json",
