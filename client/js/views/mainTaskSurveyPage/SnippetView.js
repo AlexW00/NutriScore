@@ -7,35 +7,34 @@ import LikertScaleSnippetViewController from "../../controllers/LikertScaleSnipp
 // ====================================================== //
 
 var data = {
-    id: "snippetId",
-    crediScore: "A",
-    url: "url",
-    title: "title",
-    info: "info",
+  id: "snippetId",
+  crediScore: "A",
+  url: "url",
+  title: "title",
+  info: "info",
 };
 
 export default class SnippetView extends View {
+  async _render() {
+    this.$template = document.querySelector("#result").content.cloneNode(true);
+    this.$root = document.createElement("div");
+    this.$root.setAttribute("class", "result");
+    this.$root.setAttribute("data-id", this.data.id);
 
-    async _render() {
-        this.$template = document.querySelector("#result").content.cloneNode(true);
-        this.$root = document.createElement("div");
-        this.$root.setAttribute("class", "result");
-        this.$root.setAttribute("data-id", this.data.id);
+    this.crediScore = new CrediScoreViewController(this.data.id);
+    this.$crediScore = await this.crediScore.html();
+    this.$root.appendChild(this.$crediScore);
 
-        this.crediScore = new CrediScoreViewController(this.data.id);
-        this.$crediScore = await this.crediScore.html();
-        this.$root.appendChild(this.$crediScore);
+    this.$content = this.$template.querySelector(".snippet");
+    this.$content.querySelector(".url").innerHTML = this.data.url;
+    this.$content.querySelector(".title").innerHTML = this.data.title;
+    this.$content.querySelector(".info").innerHTML = this.data.info;
 
-        this.$content = this.$template.querySelector(".snippet");
-        this.$content.querySelector(".url").innerHTML = this.data.url;
-        this.$content.querySelector(".title").innerHTML = this.data.title;
-        this.$content.querySelector(".info").innerHTML = this.data.info;
+    this.likertScale = new LikertScaleSnippetViewController(this.data.id);
+    this.$likertScale = await this.likertScale.html();
+    this.$content.appendChild(this.$likertScale);
+    this.$root.appendChild(this.$content);
 
-        this.likertScale = new LikertScaleSnippetViewController(this.data.id);
-        this.$likertScale = await this.likertScale.html();
-        this.$content.appendChild(this.$likertScale);
-        this.$root.appendChild(this.$content);
-
-        return this.$root;
-    }
+    return this.$root;
+  }
 }

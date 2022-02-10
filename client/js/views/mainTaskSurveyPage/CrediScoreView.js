@@ -50,7 +50,7 @@ export default class CrediScoreView extends View {
       .content.cloneNode(true);
     this.$root = this.$template.querySelector(".crediscore");
     //console.log(this.$root);
-    if (this.data.crediScore === undefined) {
+    if (this.data.crediScore === false) {
       this.$root.classList.add("nonvisible");
     } else {
       //console.log(this.data.crediScore);

@@ -96,8 +96,12 @@ const serveData = async () => {
   const shuffledFiles = shuffleAsLatinSquare(files);
   const decoder = new TextDecoder("utf-8");
   const r = {
-    topics: shuffledFiles.map((file) => {
-      return JSON.parse(decoder.decode(file));
+    topics: shuffledFiles.map((file, i) => {
+      let topic = JSON.parse(decoder.decode(file));
+      if (i % 2 == 0)
+        for (const snippet of topic.snippets) snippet.score = false;
+      topic.hasCrediScore = i % 2 == 0;
+      return topic;
     }),
     uuid: crypto.randomUUID(),
   };

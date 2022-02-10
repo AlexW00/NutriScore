@@ -13,6 +13,7 @@ export default class SnippetViewController extends Controller {
       url: model.data.snippetURL,
       title: model.data.snippetTitel,
       info: model.data.snippetText,
+      crediScore: model.data.snippetCrediScore,
     });
     return view;
   }
