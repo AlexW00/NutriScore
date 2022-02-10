@@ -51,8 +51,10 @@ export default {
           activeTopicId: topics[0].id,
         };
       },
-      exportDataMapping: () => {
-        return null;
+      exportDataMapping: (data) => {
+        return {
+          topicIds: data.topicIds,
+        };
       },
     },
     mainTask_Topic: {
