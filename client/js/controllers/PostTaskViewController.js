@@ -146,4 +146,16 @@ export default class PostTaskViewController extends Controller {
 
     return view;
   }
+
+  getVpInfo() {
+    const vorname = this.view.$VP_Vorname.value,
+      nachname = this.view.$VP_Nachname.value,
+      matrikelnummer = this.view.$VP_Matrikelnummer.value;
+
+    return {
+      vorname,
+      nachname,
+      matrikelnummer,
+    };
+  }
 }

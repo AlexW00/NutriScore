@@ -43,4 +43,18 @@ export default class SurveyNavigationViewController extends Controller {
   deactivateNextButton() {
     this.$view.deactivateNextButton();
   }
+
+  setText(left, right) {
+    this.$view.setText(left, right);
+  }
+
+  updateButtons(surveyId) {
+    this._setNavigationText(surveyId);
+  }
+
+  _setNavigationText(surveyId) {
+    if (surveyId === "postTask") this.setText(false, "Absenden");
+    else if (surveyId === "mainTask") this.setText("Zurück", "Weiter");
+    else if (surveyId === "preTask") this.setText("...", "Weiter");
+  }
 }

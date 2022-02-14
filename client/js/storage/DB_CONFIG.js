@@ -83,6 +83,7 @@ export default {
           topicId: data.topicId,
           hasCrediScore: data.hasCrediScore,
           preKnowledge: data.preKnowledge,
+          snippetIds: data.snippetIds,
         };
       },
     },

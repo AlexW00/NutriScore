@@ -6,6 +6,9 @@ import shuffleAsLatinSquare from "./server/utils/latinSquare.js";
 // ############################### Server ############################## //
 // ##################################################################### //
 
+const VP_WEBHOOK_URL = initEnvVariable("VP_WEBHOOK_URL"),
+  SURVEY_WEBHOOK_URL = initEnvVariable("SURVEY_WEBHOOK_URL");
+
 async function handleRequest(request) {
   const { pathname } = new URL(request.url);
 
@@ -139,12 +142,105 @@ const serveStaticFile = async (pathname) => {
 
 const handlePostRequest = async (request, pathname) => {
   // TODO: handle post requests
-  return await new Response("", {
-    status: 404,
-    headers: { "content-type": "text/plain" },
-  });
+
+  switch (pathname) {
+    case "/postSurveyData":
+      return await postSurveyData(request);
+    case "/postVpData":
+      return await postVpData(request);
+
+    // other custom routes go here
+    default: {
+      return new Response("", {
+        status: 404,
+        headers: { "content-type": "text/plain" },
+      });
+    }
+  }
 };
 
 // ~~~~~~~~~~~~~~~~ routes ~~~~~~~~~~~~~~~ //
+
+const postSurveyData = async (request) => {
+  try {
+    const body = await request.text(),
+      json = JSON.parse(body);
+
+    console.log("TODO: implement postSurveyData");
+    return new Response("", {
+      status: 200,
+      headers: { "content-type": "text/plain" },
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response("", {
+      status: 500,
+      headers: { "content-type": "text/plain" },
+    });
+  }
+};
+
+const postVpData = async (request) => {
+  try {
+    const body = await request.text(),
+      json = JSON.parse(body);
+
+    sendVpDataToDiscord(json);
+
+    return new Response("", {
+      status: 200,
+      headers: { "content-type": "text/plain" },
+    });
+  } catch (error) {
+    console.log(error);
+    return new Response("", {
+      status: 500,
+      headers: { "content-type": "text/plain" },
+    });
+  }
+};
+
+// helper
+
+function initEnvVariable(name) {
+  if (!Deno.env.get(name)) {
+    console.error(`Environment variable ${name} not set!!!`);
+  }
+  return Deno.env.get(name) || "";
+}
+
+const sendVpDataToDiscord = async (data) => {
+  try {
+    await fetch(
+      VP_WEBHOOK_URL,
+      getDiscordWebhookRequestOptions(data, "application/json")
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+function getDiscordWebhookRequestOptions(webHookContent, contentType) {
+  return {
+    method: "POST",
+    mode: "cors", // no-cors, *cors, same-origin
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, *same-origin, omit
+    headers: {
+      "Content-Type": contentType,
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: "follow", // manual, *follow, error
+    referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: getDiscordWebhookBody(webHookContent),
+  };
+}
+
+function getDiscordWebhookBody(webHookContent) {
+  return JSON.stringify({
+    username: "SurveyBot",
+    content: JSON.stringify(webHookContent),
+  });
+}
 
 // TODO: implement custom routes if necessary
