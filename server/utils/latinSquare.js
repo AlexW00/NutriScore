@@ -8,12 +8,14 @@ const latinSquare = [
 ];
 let currentIndex = 0;
 
-const shuffleAsLatinSquare = (array) => {
+const shuffleAsLatinSquare = (array, newShuffle) => {
   if (array.length !== latinSquare.length)
     throw new Error("array length must be equal to latinSquare length (= 6)");
   const shuffled = [],
     order = latinSquare[currentIndex];
-  currentIndex = currentIndex === latinSquare.length - 1 ? 0 : currentIndex + 1; // increment index
+  if (newShuffle)
+    currentIndex =
+      currentIndex === latinSquare.length - 1 ? 0 : currentIndex + 1; // increment index
   for (let i = 0; i < array.length; i++) {
     shuffled.push(array[order[i]]);
   }

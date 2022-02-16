@@ -58,7 +58,7 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_CATEGORIES_NOT_ENOUGH_BECAUSE,
       (event) => {
         model.updateDataPoint("CS_categories_not_enough", event.data.value);
-        //console.log(model);
+        console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           //console.log(didSucceed);
         });

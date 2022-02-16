@@ -153,20 +153,24 @@ export default {
           CS_visualUnderstandable_els: undefined,
           CS_color_helpful_els: undefined,
           CS_category_good_els: undefined,
+          CS_category_not_good: undefined,
         };
       },
       exportDataMapping: (data) => {
         return {
-          D_age: data.D_age,
-          D_genderEls: data.D_genderEls,
-          D_job: data.D_job,
-          CS_categories_not_enough: data.CS_categories_not_enough,
-          CS_color_not_helpful: data.CS_color_not_helpful,
-          CS_helpful_els: data.CS_helpful_els,
-          CS_is_categories_enough_els: data.CS_is_categories_enough_els,
-          CS_visualUnderstandable_els: data.CS_visualUnderstandable_els,
-          CS_color_helpful_els: data.CS_color_helpful_els,
-          CS_category_good_els: data.CS_category_good_els,
+          D_age: data.D_age ?? "nan",
+          D_genderEls: data.D_genderEls ?? "nan",
+          D_job: data.D_job ?? "nan",
+          CS_categories_not_enough: data.CS_categories_not_enough ?? "nan",
+          CS_color_not_helpful: data.CS_color_not_helpful ?? "nan",
+          CS_helpful_els: data.CS_helpful_els ?? "nan",
+          CS_is_categories_enough_els:
+            data.CS_is_categories_enough_els ?? "nan",
+          CS_visualUnderstandable_els:
+            data.CS_visualUnderstandable_els ?? "nan",
+          CS_color_helpful_els: data.CS_color_helpful_els ?? "nan",
+          CS_category_good_els: data.CS_category_good_els ?? "nan",
+          CS_category_not_good: data.CS_category_not_good ?? "nan",
         };
       },
     },

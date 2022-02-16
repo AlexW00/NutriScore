@@ -221,9 +221,10 @@ export default class PostTaskView extends View {
     let element = this.$root
       .querySelector(`[data-question-id='${data_question_id}']`)
       .querySelector("input");
-    element.addEventListener("change", (e) =>
-      this.onInputFieldInputEntered(e, eventName, element)
-    );
+    element.addEventListener("change", (e) => {
+      console.log(e);
+      this.onInputFieldInputEntered(e, eventName, element);
+    });
     return element;
   }
 

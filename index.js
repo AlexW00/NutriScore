@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.114.0/http/server.ts";
 import { fileExists, getContentType } from "./server/utils/utilFunctions.js";
 import shuffleAsLatinSquare from "./server/utils/latinSquare.js";
+import jsonToCSV from "./server/utils/jsonToCsv.js";
 
 // ##################################################################### //
 // ############################### Server ############################## //
@@ -8,6 +9,7 @@ import shuffleAsLatinSquare from "./server/utils/latinSquare.js";
 
 const VP_WEBHOOK_URL = initEnvVariable("VP_WEBHOOK_URL"),
   SURVEY_WEBHOOK_URL = initEnvVariable("SURVEY_WEBHOOK_URL");
+let nextNsIndexIsJust = false;
 
 async function handleRequest(request) {
   const { pathname } = new URL(request.url);
@@ -96,18 +98,27 @@ const serveData = async () => {
       async (filename) => await Deno.readFile(`./server/data/data/${filename}`)
     )
   );
-  const shuffledFiles = shuffleAsLatinSquare(files);
+  const shuffledFiles = shuffleAsLatinSquare(files, nextNsIndexIsJust);
   const decoder = new TextDecoder("utf-8");
   const r = {
     topics: shuffledFiles.map((file, i) => {
       let topic = JSON.parse(decoder.decode(file));
-      if (i % 2 == 0)
-        for (const snippet of topic.snippets) snippet.score = false;
+
+      if (nextNsIndexIsJust) {
+        if (i % 2 == 0)
+          for (const snippet of topic.snippets) snippet.score = false;
+      } else {
+        if (i % 2 == 1)
+          for (const snippet of topic.snippets) snippet.score = false;
+      }
+
       topic.hasCrediScore = i % 2 == 0;
       return topic;
     }),
     uuid: crypto.randomUUID(),
   };
+
+  nextNsIndexIsJust = !nextNsIndexIsJust;
 
   return new Response(JSON.stringify(r), {
     headers: {
@@ -164,9 +175,13 @@ const handlePostRequest = async (request, pathname) => {
 const postSurveyData = async (request) => {
   try {
     const body = await request.text(),
-      json = JSON.parse(body);
+      json = JSON.parse(body),
+      csv = await jsonToCSV(json);
 
     console.log("TODO: implement postSurveyData");
+    console.log(csv);
+
+    sendSurveyDataToDiscord({ csv });
     return new Response("", {
       status: 200,
       headers: { "content-type": "text/plain" },
@@ -208,6 +223,17 @@ function initEnvVariable(name) {
   }
   return Deno.env.get(name) || "";
 }
+
+const sendSurveyDataToDiscord = async (data) => {
+  try {
+    await fetch(
+      VP_WEBHOOK_URL,
+      getDiscordWebhookRequestOptions(data, "application/json")
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const sendVpDataToDiscord = async (data) => {
   try {
