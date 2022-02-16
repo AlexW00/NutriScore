@@ -46,6 +46,7 @@ export default class SurveyView extends View {
     this.$content.removeChild(prevHtml);
     //console.log(newSurveyId);
     this.$content.appendChild(await this._getContentByState(newSurveyId));
+    return newSurveyId;
   }
 
   async _getContentByState(state) {

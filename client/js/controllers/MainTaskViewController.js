@@ -52,7 +52,7 @@ export default class MainTaskViewController extends Controller {
       this.model.updateDataPoint("activeTopicId", newActiveTopicId);
       Controller.storageProvider.saveModel(this.model);
       this.view.showTopicById(newActiveTopicId);
-      return true;
+      return newActiveTopicId;
     }
   }
 }

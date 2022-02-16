@@ -1,10 +1,14 @@
 import SurveyView from "../views/mainTaskSurveyPage/SurveyView.js";
 import Controller from "./Controller.js";
 import EventBus from "../utils/EventBus.js";
+import Event from "../utils/Event.js";
 import nav from "../views/mainTaskSurveyPage/NavigationView.js";
+import SolvedSurveyView from "../views/mainTaskSurveyPage/SolvedSurveyView.js";
 export default class SurveyViewController extends Controller {
   static EVENT_ACTIVATE_NEXT_BUTTON = "EVENT_ACTIVATE_NEXT_BUTTON";
   static EVENT_DEACTIVATE_NEXT_BUTTON = "EVENT_DEACTIVATE_NEXT_BUTTON";
+  static EVENT_SURVEY_LOADED = "EVENT_SURVEY_LOADED";
+  static EVENT_POST_TASK_DISPLAYED = "EVENT_POST_TASK_DISPLAYED";
 
   constructor() {
     // we provide the object store name and the key
@@ -14,6 +18,12 @@ export default class SurveyViewController extends Controller {
   // called when everything is initalised, now create and return the view
   // set listeners and update view/model or Controller.storageProvider here
   _onCreateView(model) {
+    const DEV_MODE = false;
+    const hasCompletedSurvey = localStorage.getItem("hasCompletedSurvey");
+    if (hasCompletedSurvey === "true" && !DEV_MODE) {
+      return new SolvedSurveyView();
+    }
+
     const view = new SurveyView(model.data);
     this.model = model;
     EventBus.addEventListener(nav.EVENT_LEFT_BUTTON_CLICKED, () => {
@@ -43,11 +53,17 @@ export default class SurveyViewController extends Controller {
         view.navController.deactivateNextButton();
       }
     );
-    view
-      .html()
-      .then(() => view.navController.updateButtons(model.data.activeSurveyId));
+    view.html().then(() => {
+      view.navController.updateButtons(model.data.activeSurveyId);
+      EventBus.notifyAll(
+        new Event(SurveyViewController.EVENT_SURVEY_LOADED),
+        this,
+        null
+      );
+    });
 
-    // TODO: show confirmation and end survey here
+    console.log("survey loaded");
+
     return view;
   }
 
@@ -70,14 +86,29 @@ export default class SurveyViewController extends Controller {
   }
 
   _sendDataToServer = (surveyData, vpData) => {
+    // save localstorage that we have sent the data to the server
+
+    localStorage.setItem("hasCompletedSurvey", true);
     console.log(surveyData, vpData);
-    this._sendSurveyDataToServer(surveyData).then((wasSuccessful) => {
-      console.log("Sent survey data: ", wasSuccessful);
-    });
-    this._sendVpDataToServer(vpData).then((wasSuccessful) => {
-      console.log("Sent vp data: ", wasSuccessful);
+    const jobs = [];
+    jobs.push(this._sendSurveyDataToServer(surveyData));
+
+    if (this._vpDataIsValid(vpData))
+      jobs.push(this._sendVpDataToServer(vpData));
+
+    Promise.all(jobs).then(() => {
+      // refresh site
+      window.location.reload();
     });
   };
+
+  _vpDataIsValid(vpData) {
+    for (const key of Object.keys(vpData)) {
+      if (!vpData[key] || vpData[key] === "nan" || vpData[key] === "")
+        return false;
+      else return true;
+    }
+  }
 
   _sendJson = (json, url) => {
     return fetch(url, {
@@ -127,6 +158,12 @@ export default class SurveyViewController extends Controller {
       console.log(this.model.data.activeSurveyId);
       this.view.navController.updateButtons(this.model.data.activeSurveyId);
 
+      if (this.model.data.activeSurveyId === "postTask")
+        EventBus.notifyAll(
+          new Event(SurveyViewController.EVENT_POST_TASK_DISPLAYED),
+          this,
+          null
+        );
       Controller.storageProvider.saveModel(this.model);
       this.view.updateActiveSurvey(
         this.model.data.surveyIds[currentSurveyIndex],

@@ -37,6 +37,7 @@ export default class SurveyNavigationViewController extends Controller {
   }
 
   activateNextButton() {
+    console.trace();
     this.$view.activateNextButton();
   }
 

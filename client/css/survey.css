@@ -389,6 +389,7 @@ input:hover {
 }
 
 .hidden {
+  display: none;
   visibility: hidden;
 }
 
@@ -415,4 +416,12 @@ input:hover {
   box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.4);
   position: absolute;
   width: 120px;
+}
+
+.solved-survey {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 5vh 25vw;
+  color: rgb(0, 36, 68);
+  font-size: x-large;
+  text-align: center;
 }

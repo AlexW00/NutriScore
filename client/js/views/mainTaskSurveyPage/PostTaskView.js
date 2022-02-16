@@ -67,25 +67,73 @@ export default class PostTaskView extends View {
     this.initCrediScore();
     this.initVPStunden();
 
-    this.toggleTextCategoriesEnough();
-    this.toggleTextCategoriesGood();
-    this.toggleTextColorHelpful();
+    if (this.data.CS_is_categories_enough_els === undefined) {
+      this.hideTextCategoriesEnough();
+    }
+    if (this.data.CS_category_good_els === undefined) {
+      this.hideTextCategoriesGood();
+    }
+    if (this.data.CS_color_helpful_els === undefined) {
+      this.hideTextColorHelpful();
+    }
 
     this.fillDataIn();
 
     return this.$root;
   }
 
-  toggleTextCategoriesEnough() {
-    this.$CS_categories_not_enough.classList.toggle("hidden");
+  clearTextCategoriesEnough() {
+    this.$CS_categories_not_enough.value = "";
   }
 
-  toggleTextCategoriesGood() {
-    this.$CS_category_not_good.classList.toggle("hidden");
+  clearTextCategoriesGood() {
+    this.$CS_category_not_good.value = "";
   }
 
-  toggleTextColorHelpful() {
-    this.$CS_color_not_helpful.classList.toggle("hidden");
+  clearTextColorHelpful() {
+    this.$CS_color_not_helpful.value = "";
+  }
+
+  hideTextCategoriesEnough() {
+    this.$root
+      .querySelector("[data-question-id='Stufen_Ausreichend_NO']")
+      .classList.add("hidden");
+    this.$CS_categories_not_enough.classList.add("hidden");
+  }
+
+  showTextCategoriesEnough() {
+    this.$root
+      .querySelector("[data-question-id='Stufen_Ausreichend_NO']")
+      .classList.remove("hidden");
+    this.$CS_categories_not_enough.classList.remove("hidden");
+  }
+
+  hideTextCategoriesGood() {
+    this.$root
+      .querySelector("[data-question-id='Anzeige_Kategorien_Passend_NO']")
+      .classList.add("hidden");
+    this.$CS_category_not_good.classList.add("hidden");
+  }
+
+  showTextCategoriesGood() {
+    this.$root
+      .querySelector("[data-question-id='Anzeige_Kategorien_Passend_NO']")
+      .classList.remove("hidden");
+    this.$CS_category_not_good.classList.remove("hidden");
+  }
+
+  hideTextColorHelpful() {
+    this.$root
+      .querySelector("[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']")
+      .classList.add("hidden");
+    this.$CS_color_not_helpful.classList.add("hidden");
+  }
+
+  showTextColorHelpful() {
+    this.$root
+      .querySelector("[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']")
+      .classList.remove("hidden");
+    this.$CS_color_not_helpful.classList.remove("hidden");
   }
 
   //D_age, D_genderEls, D_job,
@@ -97,13 +145,13 @@ export default class PostTaskView extends View {
     this.$D_age.value = this.data.D_age;
     this.checkLikert(this.data.D_genderEls, this.$D_genderEls);
     //console.log(this.$D_genderEls);
-    this.$D_job.value = this.data.D_job;
+    this.$D_job.value = this.data.D_job ?? "";
 
     //CrediScore data
-    this.$CS_categories_not_enough.innerText =
-      this.data.CS_categories_not_enough;
-    this.$CS_category_not_good.innerText = this.data.CS_category_not_good;
-    this.$CS_color_not_helpful.innerText = this.data.CS_color_not_helpful;
+    this.$CS_categories_not_enough.value =
+      this.data.CS_categories_not_enough ?? "";
+    this.$CS_category_not_good.value = this.data.CS_category_not_good ?? "";
+    this.$CS_color_not_helpful.value = this.data.CS_color_not_helpful ?? "";
 
     this.checkLikert(this.data.CS_helpful_els, this.$CS_helpful_els);
     this.checkLikert(

@@ -227,8 +227,12 @@ function initEnvVariable(name) {
 const sendSurveyDataToDiscord = async (data) => {
   try {
     await fetch(
-      VP_WEBHOOK_URL,
-      getDiscordWebhookRequestOptions(data, "application/json")
+      SURVEY_WEBHOOK_URL,
+      getDiscordWebhookRequestOptions(
+        data,
+        "application/json",
+        "SurveyData_Bot"
+      )
     );
   } catch (error) {
     console.log(error);
@@ -237,16 +241,18 @@ const sendSurveyDataToDiscord = async (data) => {
 
 const sendVpDataToDiscord = async (data) => {
   try {
-    await fetch(
+    const r = await fetch(
       VP_WEBHOOK_URL,
-      getDiscordWebhookRequestOptions(data, "application/json")
+      getDiscordWebhookRequestOptions(data, "application/json", "VP_Bot")
     );
+    console.log(r);
   } catch (error) {
     console.log(error);
   }
 };
 
-function getDiscordWebhookRequestOptions(webHookContent, contentType) {
+function getDiscordWebhookRequestOptions(webHookContent, contentType, botName) {
+  console.log(getDiscordWebhookBody(webHookContent, botName));
   return {
     method: "POST",
     mode: "cors", // no-cors, *cors, same-origin
@@ -258,14 +264,37 @@ function getDiscordWebhookRequestOptions(webHookContent, contentType) {
     },
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-    body: getDiscordWebhookBody(webHookContent),
+    body: getDiscordWebhookBody(webHookContent, botName),
   };
 }
 
-function getDiscordWebhookBody(webHookContent) {
+function getDiscordWebhookBody(webHookContent, botName) {
   return JSON.stringify({
-    username: "SurveyBot",
-    content: JSON.stringify(webHookContent),
+    username: botName,
+    avatar_url:
+      botName === "VP_Bot"
+        ? "https://i.imgur.com/R66g1Pe.jpg"
+        : "http://www.rw-designer.com/icon-image/21557-128x128x32.png",
+    embeds: generateDiscordEmbed(webHookContent, botName),
+  });
+}
+
+function generateDiscordEmbed(webHookContent, botName) {
+  return [
+    {
+      title: `🎉 New ${botName === "VP_Bot" ? "VP" : "Survey"} data`,
+      fields: generateDiscordEmbedFields(webHookContent),
+      color: botName === "VP_Bot" ? 0x00ff00 : 0x3399ff,
+    },
+  ];
+}
+
+function generateDiscordEmbedFields(webHookContent) {
+  return Object.keys(webHookContent).map((key) => {
+    return {
+      name: key,
+      value: webHookContent[key],
+    };
   });
 }
 

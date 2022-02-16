@@ -1,6 +1,6 @@
 export default {
   dbName: "NS_DB",
-  version: 2.3,
+  version: 2.4,
   objectStores: {
     preTask: {
       key: "x",
@@ -137,6 +137,7 @@ export default {
         "CS_helpful_els",
         "CS_is_categories_enough_els",
         "CS_visualUnderstandable_els",
+        "CS_category_not_good",
         "CS_color_helpful_els",
         "CS_category_good_els",
       ],
@@ -158,21 +159,47 @@ export default {
       },
       exportDataMapping: (data) => {
         return {
-          D_age: data.D_age ?? "nan",
-          D_genderEls: data.D_genderEls ?? "nan",
-          D_job: data.D_job ?? "nan",
-          CS_categories_not_enough: data.CS_categories_not_enough ?? "nan",
-          CS_color_not_helpful: data.CS_color_not_helpful ?? "nan",
-          CS_helpful_els: data.CS_helpful_els ?? "nan",
-          CS_is_categories_enough_els:
-            data.CS_is_categories_enough_els ?? "nan",
-          CS_visualUnderstandable_els:
-            data.CS_visualUnderstandable_els ?? "nan",
-          CS_color_helpful_els: data.CS_color_helpful_els ?? "nan",
-          CS_category_good_els: data.CS_category_good_els ?? "nan",
-          CS_category_not_good: data.CS_category_not_good ?? "nan",
+          D_age: isNullOrEmptyString(data.D_age) ? "nan" : data.D_age,
+          D_genderEls: isNullOrEmptyString(data.D_genderEls)
+            ? "nan"
+            : data.D_genderEls,
+          D_job: isNullOrEmptyString(data.D_job) ? "nan" : data.D_job,
+          CS_categories_not_enough: isNullOrEmptyString(
+            data.CS_categories_not_enough
+          )
+            ? "nan"
+            : data.CS_categories_not_enough,
+          CS_color_not_helpful: isNullOrEmptyString(data.CS_color_not_helpful)
+            ? "nan"
+            : data.CS_color_not_helpful,
+          CS_helpful_els: isNullOrEmptyString(data.CS_helpful_els)
+            ? "nan"
+            : data.CS_helpful_els,
+          CS_is_categories_enough_els: isNullOrEmptyString(
+            data.CS_is_categories_enough_els
+          )
+            ? "nan"
+            : data.CS_is_categories_enough_els,
+          CS_visualUnderstandable_els: isNullOrEmptyString(
+            data.CS_visualUnderstandable_els
+          )
+            ? "nan"
+            : data.CS_visualUnderstandable_els,
+          CS_color_helpful_els: isNullOrEmptyString(data.CS_color_helpful_els)
+            ? "nan"
+            : data.CS_color_helpful_els,
+          CS_category_good_els: isNullOrEmptyString(data.CS_category_good_els)
+            ? "nan"
+            : data.CS_category_good_els,
+          CS_category_not_good: isNullOrEmptyString(data.CS_category_not_good)
+            ? "nan"
+            : data.CS_category_not_good,
         };
       },
     },
   },
+};
+
+const isNullOrEmptyString = (str) => {
+  return str === null || str === undefined || str === "";
 };
