@@ -11,7 +11,8 @@ export default class SurveyNavigationViewController extends Controller {
     const view = new NavigationView({
       left: "Zurück",
       right: "Weiter",
-      warningMessage: "* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen können!",
+      warningMessage:
+        "* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen können!",
     });
 
     view.addEventListener(
@@ -37,13 +38,13 @@ export default class SurveyNavigationViewController extends Controller {
 
   activateNextButton() {
     if (this.$view.$rightButton) this.$view.activateNextButton();
-    else setInterval(this.$view.activateNextButton, 200);
+    else setInterval(this.activateNextButton, 200);
   }
 
   deactivateNextButton() {
     console.trace();
     if (this.$view.$rightButton) this.$view.deactivateNextButton();
-    else setInterval(this.$view.deactivateNextButton, 200);
+    else setInterval(this.deactivateNextButton, 200);
   }
 
   setText(left, right) {
