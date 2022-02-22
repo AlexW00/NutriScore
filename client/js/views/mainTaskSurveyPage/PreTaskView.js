@@ -20,8 +20,7 @@ export default class PreTaskView extends View {
     this.notifyAll(
       new Event(
         PreTaskView.EVENT_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING_CLICKED,
-        this,
-        {
+        this, {
           value: event.target.getAttribute("value"),
         }
       )
@@ -46,9 +45,7 @@ export default class PreTaskView extends View {
     this.$NutriScoreGlaubwuerdigkeitsRatingInputEls =
       this.$root.querySelectorAll("[name='glaubwürdig']");
     for (
-      let i = 0;
-      i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length;
-      i++
+      let i = 0; i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length; i++
     ) {
       this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].addEventListener(
         "click",
@@ -82,7 +79,7 @@ export default class PreTaskView extends View {
     }
 
     if (this.data.kenntNutri == 1) this.showNutriScoreGlaubwürdigkeitsRating();
-    else if (this.data.kenntNutri == 0)
+    else if (this.data.kenntNutri == 0 || this.data.kenntNutri == "nan")
       this.hideNutriScoreGlaubwürdigkeitsRating();
     return this.$root;
   }
@@ -95,9 +92,7 @@ export default class PreTaskView extends View {
     this.$nutriScoreGlaubwuerdigkeitsRating.classList.add("hidden");
     // this.model.set("nutriScoreGlaubwuerdigkeitsRating", -1); // add to viewcontroller
     for (
-      let i = 0;
-      i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length;
-      i++
+      let i = 0; i < this.$NutriScoreGlaubwuerdigkeitsRatingInputEls.length; i++
     ) {
       this.$NutriScoreGlaubwuerdigkeitsRatingInputEls[i].checked = false;
     }
@@ -105,8 +100,7 @@ export default class PreTaskView extends View {
     this.notifyAll(
       new Event(
         PreTaskView.EVENT_HIDE_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING,
-        this,
-        {}
+        this, {}
       )
     );
   };
@@ -116,8 +110,7 @@ export default class PreTaskView extends View {
     this.notifyAll(
       new Event(
         PreTaskView.EVENT_SHOW_NUTRISCORE_GLAUBWÜRDIGKEIT_RATING,
-        this,
-        {}
+        this, {}
       )
     );
   }
