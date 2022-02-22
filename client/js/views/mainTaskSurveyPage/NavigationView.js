@@ -64,6 +64,7 @@ export default class NavigationView extends View {
   }
 
   activateNextButton() {
+    console.log(this, "test");
     this.$rightButton.classList.remove("nonvisible");
     this.$warning.classList.add("nonvisible");
   }
