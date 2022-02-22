@@ -4,6 +4,7 @@ import EventBus from "../utils/EventBus.js";
 import Event from "../utils/Event.js";
 import nav from "../views/mainTaskSurveyPage/NavigationView.js";
 import SolvedSurveyView from "../views/mainTaskSurveyPage/SolvedSurveyView.js";
+import WindowTooSmallView from "../views/mainTaskSurveyPage/WindowTooSmallView.js";
 export default class SurveyViewController extends Controller {
   static EVENT_ACTIVATE_NEXT_BUTTON = "EVENT_ACTIVATE_NEXT_BUTTON";
   static EVENT_DEACTIVATE_NEXT_BUTTON = "EVENT_DEACTIVATE_NEXT_BUTTON";
@@ -18,7 +19,11 @@ export default class SurveyViewController extends Controller {
   // called when everything is initalised, now create and return the view
   // set listeners and update view/model or Controller.storageProvider here
   _onCreateView(model) {
-    const DEV_MODE = false;
+    const DEV_MODE = true;
+    const windowIsTooSmall = window.innerWidth < 1045;
+    console.log("windowIsTooSmall", windowIsTooSmall);
+    if (windowIsTooSmall) return new WindowTooSmallView();
+
     const hasCompletedSurvey = localStorage.getItem("hasCompletedSurvey");
     if (hasCompletedSurvey === "true" && !DEV_MODE) {
       return new SolvedSurveyView();

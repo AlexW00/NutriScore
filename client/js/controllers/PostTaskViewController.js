@@ -45,7 +45,7 @@ export default class PostTaskViewController extends Controller {
     );
 
     if (
-      model.data.CS_is_categories_enough_els !== "nan" &&
+      model.data.CS_is_categories_enough_els !== undefined &&
       model.data.CS_is_categories_enough_els !== "1"
     ) {
       view.showTextCategoriesEnough();
@@ -54,16 +54,17 @@ export default class PostTaskViewController extends Controller {
     }
 
     if (
-      model.data.CS_category_good_els !== "nan" &&
+      model.data.CS_category_good_els !== undefined &&
       model.data.CS_category_good_els !== "1"
     ) {
+      console.log(model.data.CS_category_good_els);
       view.showTextCategoriesGood();
     } else {
       view.hideTextCategoriesGood();
     }
 
     if (
-      model.data.CS_color_helpful_els !== "nan" &&
+      model.data.CS_color_helpful_els !== undefined &&
       model.data.CS_color_helpful_els !== "1"
     ) {
       view.showTextColorHelpful();
@@ -248,6 +249,7 @@ export default class PostTaskViewController extends Controller {
       model.CS_category_good_els,
     ];
 
+    console.log(dataToCheck);
     for (let i = 0; i < dataToCheck.length; i++) {
       if (
         dataToCheck[i] === undefined ||

@@ -67,7 +67,7 @@ export default class PreTaskViewController extends Controller {
     );
 
     if (model.data.kenntNutri == "nan") {
-      console.log("ERROR: kenntNutri is not 0 or 1");
+      //console.log("ERROR: kenntNutri is not 0 or 1");
       EventBus.notifyAll(
         new Event(SurveyViewController.EVENT_DEACTIVATE_NEXT_BUTTON, this, {})
       );

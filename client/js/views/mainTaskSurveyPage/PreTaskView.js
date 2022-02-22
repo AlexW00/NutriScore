@@ -82,7 +82,7 @@ export default class PreTaskView extends View {
     }
 
     if (this.data.kenntNutri == 1) this.showNutriScoreGlaubwürdigkeitsRating();
-    else if (this.data.kenntNutri == 0)
+    else if (this.data.kenntNutri == 0 || this.data.kenntNutri == "nan")
       this.hideNutriScoreGlaubwürdigkeitsRating();
     return this.$root;
   }

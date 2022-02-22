@@ -68,6 +68,7 @@ export default class PostTaskView extends View {
     this.initVPStunden();
 
     if (this.data.CS_is_categories_enough_els === undefined) {
+      //console.log(this.data.CS_is_categories_enough_els, "test");
       this.hideTextCategoriesEnough();
     }
     if (this.data.CS_category_good_els === undefined) {
@@ -95,45 +96,48 @@ export default class PostTaskView extends View {
   }
 
   hideTextCategoriesEnough() {
-    this.$root
-      .querySelector("[data-question-id='Stufen_Ausreichend_NO']")
-      .classList.add("hidden");
-    this.$CS_categories_not_enough.classList.add("hidden");
+    let question = this.$root.querySelector(
+      "[data-question-id='Stufen_Ausreichend_NO']"
+    );
+    question.classList.add("hidden");
   }
 
   showTextCategoriesEnough() {
-    this.$root
-      .querySelector("[data-question-id='Stufen_Ausreichend_NO']")
-      .classList.remove("hidden");
-    this.$CS_categories_not_enough.classList.remove("hidden");
+    let el = this.$root.querySelector(
+      "[data-question-id='Stufen_Ausreichend_NO']"
+    );
+    el.classList.remove("hidden");
   }
 
   hideTextCategoriesGood() {
-    this.$root
-      .querySelector("[data-question-id='Anzeige_Kategorien_Passend_NO']")
-      .classList.add("hidden");
-    this.$CS_category_not_good.classList.add("hidden");
+    let el = this.$root.querySelector(
+      "[data-question-id='Anzeige_Kategorien_Passend_NO']"
+    );
+
+    el.classList.add("hidden");
+    //console.log(el, "richtig");
   }
 
   showTextCategoriesGood() {
-    this.$root
-      .querySelector("[data-question-id='Anzeige_Kategorien_Passend_NO']")
-      .classList.remove("hidden");
-    this.$CS_category_not_good.classList.remove("hidden");
+    let el = this.$root.querySelector(
+      "[data-question-id='Anzeige_Kategorien_Passend_NO']"
+    );
+    //console.trace();
+    el.classList.remove("hidden");
   }
 
   hideTextColorHelpful() {
-    this.$root
-      .querySelector("[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']")
-      .classList.add("hidden");
-    this.$CS_color_not_helpful.classList.add("hidden");
+    let el = this.$root.querySelector(
+      "[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']"
+    );
+    el.classList.add("hidden");
   }
 
   showTextColorHelpful() {
-    this.$root
-      .querySelector("[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']")
-      .classList.remove("hidden");
-    this.$CS_color_not_helpful.classList.remove("hidden");
+    let el = this.$root.querySelector(
+      "[data-question-id='Farbliche_Unterteilung_Hilfreich_NO']"
+    );
+    el.classList.remove("hidden");
   }
 
   //D_age, D_genderEls, D_job,
