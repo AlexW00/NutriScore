@@ -11,6 +11,8 @@ const VP_WEBHOOK_URL = initEnvVariable("VP_WEBHOOK_URL"),
   SURVEY_WEBHOOK_URL = initEnvVariable("SURVEY_WEBHOOK_URL");
 let nextNsIndexIsJust = false;
 
+console.log("Starting server...");
+
 async function handleRequest(request) {
   const { pathname } = new URL(request.url);
 
