@@ -227,17 +227,29 @@ const sendSurveyDataToDiscord = async (data) => {
         "application/json",
         "SurveyData_Bot"
       )
-    );
-  } catch (error) {}
+    ).then((res) => {
+      if (res.status < 300 && res.status >= 200)
+        console.log(`Sent survey data to Discord!`);
+      console.log("res.status faulty", data);
+    });
+  } catch (error) {
+    console.error("error", error, data);
+  }
 };
 
 const sendVpDataToDiscord = async (data) => {
   try {
-    const r = await fetch(
+    await fetch(
       VP_WEBHOOK_URL,
       getDiscordWebhookRequestOptions(data, "application/json", "VP_Bot")
-    );
-  } catch (error) {}
+    ).then((res) => {
+      if (res.status < 300 && res.status >= 200)
+        console.log(`Sent VP data to Discord!`);
+      console.log("res.status faulty", data);
+    });
+  } catch (error) {
+    console.error("error", error, data);
+  }
 };
 
 function getDiscordWebhookRequestOptions(webHookContent, contentType, botName) {
@@ -285,5 +297,3 @@ function generateDiscordEmbedFields(webHookContent) {
     };
   });
 }
-
-// TODO: implement custom routes if necessary
