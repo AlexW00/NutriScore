@@ -1,0 +1,21 @@
+{
+  "id": "1",
+  "query": "fake query 1",
+  "hasCrediScore": true,
+  "preKnowledge": -1,
+  "snippets": [{
+      "docId": "11",
+      "title": "fake title 1",
+      "url": "fake.com",
+      "description": "fake description",
+      "score": "A"
+    },
+    {
+      "docId": "12",
+      "title": "fake title 2",
+      "url": "fake.com",
+      "description": "fake description",
+      "score": "E"
+    }
+  ]
+}

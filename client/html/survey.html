@@ -1,11 +1,328 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <base href="/client/html/">
-        <script src="../js/controllers/surveyController.js" type="module"></script>
-    </head>
-    <body>
-        <h1>Survey page</h1>
-        <p>This is the Survey page.</p>
-        <div id="content"></div>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/client/html/">
+    <link rel="stylesheet" type="text/css" href="../css/survey.css" />
+    <script src="../js/controllers/surveyController.js" type="module"></script>
+    <meta charset="utf-8" />
+</head>
+
+
+<body>
+
+<template id="preKnowledge">
+    <div class="preKnowledge">
+        <div class="preKnowledgeInfo">
+            Wie schätzen sie ihr Vorwissen zu diesem Thema ein?
+        </div>
+    </div>
+</template>
+
+<template id="question-bar">
+    <div class="question-bar">
+        <!-- Change Text -->
+        <span class="question">
+            Was gibt es für Snippets?
+            <span class="search-icon">🔍</span>
+        </span>
+    </div>
+</template>
+
+<template id="navigation">
+    <div class="navigation">
+        <div class="button-container">
+            <!-- Change Names -->
+            <div class="button-prev">ZURÜCK</div>
+            <div class="button-next">WEITER</div>
+        </div><!-- Remove / hide warning -->
+        <span class="warning">* Sie müssen alle Ergebnisse bewerten bevor sie die nächste Seite aufrufen
+            können!</span>
+    </div>
+</template>
+
+<template id="crediscore">
+    <!-- CrediScore nonvisible? -->
+    <span class="crediscore" >
+        <div class="crediscore-align">
+            <span class="crediscore-name">
+                CrediScore
+            </span>
+            <span class="crediscore-class">
+                <!-- Set selected CrediScore Class -->
+                <ul>
+                    <li class="class-A">
+                        A
+                    </li>
+                    <li class="class-B">
+                        B
+                    </li>
+                    <li class="class-C">
+                        C
+                    </li>
+                    <li class="class-D">
+                        D
+                    </li>
+                    <li class="class-E">
+                        E
+                    </li>
+                </ul>
+            </span>
+        </div>
+    </span>
+</template>
+
+<template id="result">
+    <!-- Needs to be appended in div class results -->
+    <div class="result" data-id="">
+        <!-- crediscore -->
+        <span class="snippet">
+            <!-- Insert id? -->
+            <div class="url">
+                <!-- Replace -->
+                URL
+            </div>
+            <div class="title">
+                <!-- Replace -->
+                TITLE
+            </div>
+            <div class="info">
+                <!-- Replace -->
+                TEXT
+            </div>
+            <div class="likert-info">
+                Wie glaubwürdig schätzen sie den Inhalt der Webseite anhand dieses Ergebnisses ein?
+            </div>
+            <!-- <ul class="likertscala"> -->
+            <!-- <li class="likertscala-info">Sehr Unglaubwürdig</li> -->
+            <!-- <li><input type="radio" value="0" /></li> -->
+            <!-- set Attribute name="snippet_id",  Replace snippet_id -->
+            <!-- <li><input type="radio" value="1" /></li> -->
+            <!-- <li><input type="radio" value="2" /></li> -->
+            <!-- <li><input type="radio" value="3" /></li> -->
+            <!-- <li><input type="radio" value="4" /></li> -->
+            <!-- <li><input type="radio" value="5" /></li> -->
+            <!-- <li><input type="radio" value="6" /></li> -->
+            <!-- <li><input type="radio" value="7" /></li> -->
+            <!-- <li><input type="radio" value="8" /></li> -->
+            <!-- <li><input type="radio" value="9" /></li> -->
+            <!-- <li><input type="radio" value="10" /></li> -->
+            <!-- <li class="likertscala-info">Sehr Glaubwürdig</li> -->
+            <!-- </ul> -->
+        </span>
+    </div>
+</template>
+
+<template id="postTask"> 
+    <div class="tasks">
+        <div class="task">
+            <div class="task-Title">
+                Demographische Fragen
+            </div>
+            <div class="task-item" data-question-id="Alter">
+                <div class="task-description">
+                    Wie alt sind Sie?
+                </div>
+                <div class="task-input">
+                    <input type="number" min="7" max="99" step="1">
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Geschlecht">
+                <div class="task-description">
+                    Welchem Geschlecht fühlen sie sich zugeordnet?
+                </div>
+                <div class="task-input">
+                    <input type="radio" name="Geschlecht" value="0" />
+                    <label for="0">Männlich</label><br>
+                    <input type="radio" name="Geschlecht" value="1" />
+                    <label for="1">Weiblich</label><br>
+                    <input type="radio" name="Geschlecht" value="2" />
+                    <label for="2">Divers</label><br>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Beruf">
+                <div class="task-description">
+                    Welchen Beruf führen Sie aus (Studierende/Forschende: Fach angeben)?
+                </div>
+                <div class="task-input">
+                    <input type="text" name="Beruf" maxlength="20"/>
+                    <label for="Beruf">Beruf/Fach</label><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="task">
+            <div class="task-Title">
+                Fragen zum CrediScore
+            </div>
+            <div class="task-item" data-question-id="Bewertung_Glaubwürdigkeit_Hilfreich">
+                <div class="task-description">
+                    Wie hilfreich in der Bewertung der Glaubwürdigkeit finden sie den CrediScore?
+                </div>
+                <div class="task-input">
+                    <label for="0">Gar nicht hilfreich</label>
+                    <input type="radio" name="hilfreich" value="0" />
+                    <input type="radio" name="hilfreich" value="1" />
+                    <input type="radio" name="hilfreich" value="2" />
+                    <input type="radio" name="hilfreich" value="3" />
+                    <input type="radio" name="hilfreich" value="4" />
+                    <input type="radio" name="hilfreich" value="5" />
+                    <input type="radio" name="hilfreich" value="6" />
+                    <input type="radio" name="hilfreich" value="7" />
+                    <input type="radio" name="hilfreich" value="8" />
+                    <input type="radio" name="hilfreich" value="9" />
+                    <input type="radio" name="hilfreich" value="10" />
+                    <label for="2">Sehr hilfreich</label>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Darstellung_Visuell_Einschätzung">
+                <div class="task-description">
+                    Wie visuell verständlich schätzen sie die Darstellung des CrediScore ein?
+                </div>
+                <div class="task-input">
+                    <label for="0">Gar nicht verständlich</label>
+                    <input type="radio" name="verständlich" value="0" />
+                    <input type="radio" name="verständlich" value="1" />
+                    <input type="radio" name="verständlich" value="2" />
+                    <input type="radio" name="verständlich" value="3" />
+                    <input type="radio" name="verständlich" value="4" />
+                    <input type="radio" name="verständlich" value="5" />
+                    <input type="radio" name="verständlich" value="6" />
+                    <input type="radio" name="verständlich" value="7" />
+                    <input type="radio" name="verständlich" value="8" />
+                    <input type="radio" name="verständlich" value="9" />
+                    <input type="radio" name="verständlich" value="10" />
+                    <label for="2">Sehr verständlich</label>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Stufen_Ausreichend_YES_NO">
+                <div class="task-description">
+                    Ist die Anzahl an Stufen (A-E) ausreichend?
+                </div>
+                <div class="task-input">
+                    <label for="0">Nein</label>
+                    <input type="radio" name="Stufen ausreichend" value="0" />
+                    <input type="radio" name="Stufen ausreichend" value="1" />
+                    <label for="1">Ja</label><br>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Stufen_Ausreichend_NO">
+                <div class="task-description">
+                    Wenn Nein, welche Abstufung wäre passender?
+                </div>
+                <div class="task-input">
+                    <input type="text" name="Abstufung passender" maxlength="300" />
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Anzeige_Kategorien_Passend_YES_NO">
+                <div class="task-description">
+                    Ist die Art der Anzeige (5 Kategorien) passend?
+                </div>
+                <div class="task-input">
+                    <label for="0">Nein</label>
+                    <input type="radio" name="Anzeige passend" value="0" />
+                    <input type="radio" name="Anzeige passend" value="1" />
+                    <label for="1">Ja</label><br>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Anzeige_Kategorien_Passend_NO">
+                <div class="task-description">
+                    Wenn Nein, was würden sie stattdessen vorschlagen?
+                </div>
+                <div class="task-input">
+                    <input type="text" name="Anzeige Vorschlag" maxlength="300"/>
+                </div>
+            </div>
+
+
+
+            <div class="task-item" data-question-id="Farbliche_Unterteilung_Hilfreich_YES_NO">
+                <div class="task-description">
+                    Ist die farbliche Unterteilung hilfreich?
+                </div>
+                <div class="task-input">
+                    <label for="0">Nein</label>
+                    <input type="radio" name="Farbe hilfreich" value="0" />
+                    <input type="radio" name="Farbe hilfreich" value="1" />
+                    <label for="1">Ja</label><br>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Farbliche_Unterteilung_Hilfreich_NO">
+                <div class="task-description">
+                    Wenn Nein, wie würden Sie die Anzeige gestalten?
+                </div>
+                <div class="task-input">
+                    <input type="text" name="Gestaltungsvorschlag" maxlength="300"/>
+                </div>
+            </div>
+        </div>
+        <div class="task">
+            <div class="task-Title">
+                Studierende der Universität Regensburg:<br>
+                Versuchspersonenstunden Anrechnung im Fachbereich
+                Medieninformatik / Informationswissenschaft
+            </div>
+            <div class="task-item" data-question-id="Vorname">
+                <div class="task-description">
+                    Wenn sie kein*e Student*in sind, oder keine VP-Stunden erhalten wollen, können Sie diese Felder frei
+                    lassen.<br>
+                    Die Daten werden separat übertragen und sind nicht mit ihren Umfragewerten verknüpft.
+                </div>
+                <div class="task-input">
+                    <input type="text" name="Vorname">
+                    <label for="Vorname">Vorname</label><br>
+                    <input type="text" name="Nachname">
+                    <label for="Nachname">Nachname</label><br>
+                    <input type="text" name="Matrikelnummer">
+                    <label for="Matrikelnummer">Matrikelnummer</label><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template id="preTask">
+    <div class="tasks">
+        <div class="task">
+            <div class="task-Title">
+                Fragen zum Nutri-Score aus der Lebensmittelbranche
+            </div>
+            <div class="task-item" data-question-id="NutriScore_kennen_YES_NO">
+                <div class="task-description">
+                    Kennen Sie den NutriScore aus der Lebensmittelbranche?
+                </div>
+                <div class="task-input">
+                    <label for="0">Nein</label>
+                    <input type="radio" name="NutriScore kennen" value="0" />
+                    <input type="radio" name="NutriScore kennen" value="1" />
+                    <label for="1">Ja</label><br>
+                </div>
+            </div>
+            <div class="task-item" data-question-id="Nutriscore_Glaubwürdigkeits_Rating">
+                <div class="task-description">
+                    Wie glaubwürdig finden Sie den NutriScore?
+                </div>
+                <div class="task-input">
+                    <label for="0">Gar nicht glaubwürdig</label>
+                    <input type="radio" name="glaubwürdig" value="0" />
+                    <input type="radio" name="glaubwürdig" value="1" />
+                    <input type="radio" name="glaubwürdig" value="2" />
+                    <input type="radio" name="glaubwürdig" value="3" />
+                    <input type="radio" name="glaubwürdig" value="4" />
+                    <input type="radio" name="glaubwürdig" value="5" />
+                    <input type="radio" name="glaubwürdig" value="6" />
+                    <input type="radio" name="glaubwürdig" value="7" />
+                    <input type="radio" name="glaubwürdig" value="8" />
+                    <input type="radio" name="glaubwürdig" value="9" />
+                    <input type="radio" name="glaubwürdig" value="10" />
+                    <label for="10">Sehr glaubwürdig</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+</body>
+
 </html>

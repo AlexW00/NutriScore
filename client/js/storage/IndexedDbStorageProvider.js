@@ -7,41 +7,72 @@
 // 2. await IndexedDbStorageProvider.openDB(YOUR_INITIAL_DATA);
 // 3. use public methods to add, get, update, delete items
 
+import DB_CONFIG from "./DB_CONFIG.js";
+import exportToJson from "./exportIndexedDb.js";
 class IndexedDbStorageProvider {
   _database = null;
-  DB_CONFIG = {};
-
+  isInitialised = false;
+  DEV_MODE = false; // toggle to true to get fake data
   // ====================================================== //
   // ================== Public methods   ================== //
   // ====================================================== //
 
+  getInstance() {
+    return new Promise((resolve, reject) => {
+      if (!this.isInitialised) this._openDB().then(() => resolve(this));
+      else resolve(this);
+    });
+  }
+
   async saveModel(model) {
-    const data = model.data;
-    const storeName = model.storeName;
-    const wasAdded = await this.addItem(storeName, data);
-    if (wasAdded) return true;
-    else return await this.updateItem(storeName, data);
+    //console.log(model.storeName, model.data);
+    try {
+      const wasSucessful = await this.updateItem(model.storeName, model.data);
+      return wasSucessful;
+    } catch (error) {
+      //console.log(error);
+      return false;
+    }
   }
 
   retrieveModel(modelName) {
     // TODO: Implement
   }
 
-  exportData() {
-    // TODO: Implement, export database to csv
+  // exports the DB to as an object (→ JSON)
+  // data mapping defined in DB_CONFIG
+  async exportData() {
+    const fullExport = await exportToJson(this._database).then((r) =>
+        JSON.parse(r)
+      ),
+      exportData = {};
+    // use exportDataMapping for every object store to map the data
+    for (const key of Object.keys(fullExport)) {
+      const exportDataMapping = DB_CONFIG.objectStores[key].exportDataMapping,
+        exportDataPoint = fullExport[key].map((item) =>
+          exportDataMapping(item)
+        );
+      if (exportDataPoint[0])
+        if (exportDataPoint.length === 1) exportData[key] = exportDataPoint[0];
+        // retunr only the first item if it's the only one
+        else exportData[key] = exportDataPoint;
+    }
+    return exportData;
   }
 
   // returns an item that matches the (composite) key in the store (defined in DB_CONFIG)
-  // primary key: keys = ["key"]
-  // composite key: keys = ["key1", "key2"]
-  getItem(storeName, keys) {
+  // primary key: key = ["key"]
+  // composite key: key = ["key1", "key2"]
+  getItem(storeName, key) {
     return new Promise((resolve, reject) => {
-      const objectStore = this._getObjectStore(storeName, "readonly");
-      const request = objectStore.get(keys);
+      const k = key,
+        objectStore = this._getObjectStore(storeName, "readonly"),
+        request = objectStore.get(k);
       request.onsuccess = (e) => {
         resolve(e.target.result);
       };
       request.onerror = (e) => {
+        //console.log(e);
         reject(e.target.error.message);
       };
     });
@@ -52,6 +83,7 @@ class IndexedDbStorageProvider {
   addItem(storeName, item) {
     return new Promise((resolve, reject) => {
       const objectStore = this._getObjectStore(storeName, "readwrite");
+
       const request = objectStore.add(item);
       request.onsuccess = (e) => {
         resolve(true);
@@ -63,13 +95,16 @@ class IndexedDbStorageProvider {
   }
 
   updateItem(storeName, item) {
+    //console.log("updateItem", storeName, item);
     return new Promise((resolve, reject) => {
       const objectStore = this._getObjectStore(storeName, "readwrite");
       const request = objectStore.put(item);
       request.onsuccess = (e) => {
+        //console.log("updateItem success", e);
         resolve(true);
       };
       request.onerror = (e) => {
+        //console.log("error!!", e);
         resolve(false);
       };
     });
@@ -77,20 +112,20 @@ class IndexedDbStorageProvider {
 
   // checks if an object with the given key exists in the store
   // returns: Promise → true if exists, false if not
-  keyExists(storeName, keys) {
+  keyExists(storeName, key) {
     return new Promise((resolve, reject) => {
       const transaction = this._database.transaction(storeName, "readwrite");
       const objectStore = transaction.objectStore(storeName);
-      const req = objectStore.openCursor(keys);
+      const req = objectStore.openCursor(key);
       req.onsuccess = function (e) {
         const cursor = e.target.result;
         if (cursor) {
           // key already exist
-          console.log("key already exist");
+          //console.log("key already exist");
           resolve(true);
         } else {
           // key not exist
-          console.log("key not exist");
+          //console.log("key not exist");
           resolve(false);
         }
       };
@@ -106,10 +141,7 @@ class IndexedDbStorageProvider {
   }
 
   // opens the database
-  async openDB(initialData) {
-    this.DB_CONFIG = await fetch("/client/js/storage/DB_CONFIG.json").then(
-      (response) => response.json()
-    );
+  _openDB() {
     return new Promise((resolve, reject) => {
       // create indexdb
       const indexedDB =
@@ -118,19 +150,21 @@ class IndexedDbStorageProvider {
         window.webkitIndexedDB ||
         window.msIndexedDB;
 
-      const request = indexedDB.open(
-        this.DB_CONFIG.dbName,
-        this.DB_CONFIG.version
-      );
+      const request = indexedDB.open(DB_CONFIG.dbName, DB_CONFIG.version);
 
       request.onupgradeneeded = (e) => {
+        this.didUpgrade = true;
         this._database = e.target.result;
-        this._initObjectStores(e, initialData); // DB doesn't exist yet, create it
-        resolve(true);
+        this._initObjectStores();
+
+        // DB doesn't exist yet, create it
       };
       request.onsuccess = (e) => {
         this._database = e.target.result;
-        resolve(true);
+        this.isInitialised = true;
+        //console.log("succeed res");
+        if (this.didUpgrade) this._initData().then(() => resolve(true));
+        else resolve(true);
       };
       request.onerror = (e) => {
         console.error(e.target.error.message);
@@ -144,36 +178,85 @@ class IndexedDbStorageProvider {
   // ====================================================== //
 
   // create the object stores defined in DB_CONFIG
-  _initObjectStores(e, initialData) {
+  async _initObjectStores() {
     // create all necessary object stores here (= tables)
-    // TODO: insert initial data here
-    this.DB_CONFIG.objectStores.forEach((objectStoreConfig) => {
-      this._createObjectStore(
-        objectStoreConfig.name,
-        objectStoreConfig.keyPath,
-        (e) => {
-          objectStoreConfig.indixes.forEach((index) => {
-            objectStore.createIndex(index, index, {
-              unique: false,
-            });
+    // TODO: request intial data
+    const objectStores = DB_CONFIG.objectStores,
+      jobs = [];
+    for (const key of Object.keys(objectStores)) {
+      const objectStoreConfig = objectStores[key];
+      const os = this._createObjectStore(key, objectStoreConfig.key);
+      for (const index of objectStoreConfig.indexes) {
+        try {
+          os.createIndex(index, index, {
+            unique: false,
           });
+        } catch (e) {
+          //console.log(e);
+          console.trace();
         }
+      }
+      jobs.push(
+        new Promise((resolve) => {
+          os.transaction.oncomplete = () => resolve(true);
+        })
       );
-    });
+    }
+    await Promise.all(jobs); // wait for all jobs to finish
+    return true;
+  }
+
+  async _initData() {
+    const data = this.DEV_MODE
+      ? await this._getFakeData()
+      : await this._getData();
+
+    await this._mapData("mainTask_Surveys", {});
+    await this._mapData("mainTask_Topics", data.topics);
+    await this._mapData("preTask", data.uuid);
+    await this._mapData("postTask");
+
+    for (const topic of data.topics) {
+      await this._mapData("mainTask_Topic", topic);
+      for (const snippet of topic.snippets) {
+        await this._mapData("mainTask_Snippet", snippet);
+        await this._mapData("mainTask_SnippetRating", snippet);
+      }
+    }
+    return true;
+  }
+
+  async _mapData(storeName, data) {
+    const mappedData =
+      DB_CONFIG.objectStores[storeName].importDataMapping(data);
+    await this.addItem(storeName, mappedData);
   }
 
   // creates an object store
-  _createObjectStore = (name, keyPath, onCreate) => {
-    const objectStore = this._database.createObjectStore(name, {
-      keyPath: keyPath.keys,
+  _createObjectStore = (name, key) => {
+    return this._database.createObjectStore(name, {
+      keyPath: key,
     });
-    objectStore.transaction.oncomplete = onCreate;
   };
 
   // returns the object store with the given name
   _getObjectStore(storeName, mode) {
     return this._database.transaction(storeName, mode).objectStore(storeName);
   }
+
+  async _getFakeData() {
+    return await fetch("/getFakeData").then((r) => r.json());
+  }
+
+  async _getData() {
+    return await fetch("/getData").then((r) => r.json());
+  }
+
+  // turns a single key into an array and keeps arrays as arrays
+  // necessary because get function requires an array of key to find items, even tho it might only be 1 key
+  /* _formatKey(key) {
+    return key.constructor === Array ? key : [key];
+  } */
 }
 
 export default new IndexedDbStorageProvider();

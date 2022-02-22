@@ -6,12 +6,7 @@ export default class Model {
     this.storeName = storeName;
   }
 
-  updateDataPoint(key, value, provider) {
+  updateDataPoint(key, value) {
     this.data[key] = value;
-    provider.saveModel(this); // save to indexedDB
-  }
-
-  saveModel(provider) {
-    provider.saveModel(this); // save to indexedDB
   }
 }
