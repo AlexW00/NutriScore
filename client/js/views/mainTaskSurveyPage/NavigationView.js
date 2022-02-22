@@ -64,13 +64,9 @@ export default class NavigationView extends View {
   }
 
   activateNextButton() {
-    setInterval(() => {
-      this.$rightButton.classList.remove("nonvisible");
-      this.$warning.classList.add("nonvisible");
-      if (this.$rightButton !== undefined) {
-        clearInterval();
-      }
-    }, 200);
+    console.log(this, "test");
+    this.$rightButton.classList.remove("nonvisible");
+    this.$warning.classList.add("nonvisible");
   }
 
   deactivateNextButton() {
