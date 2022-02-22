@@ -23,7 +23,6 @@ export default class LikertScaleSnippetViewController extends Controller {
       LikertScaleView.EVENT_RESULT_LIKERT_CLICKED,
       (event) => {
         model.updateDataPoint("snippetRating", event.data.value); // update the model object
-        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           // save model to db
           EventBus.notifyAll(
@@ -31,7 +30,6 @@ export default class LikertScaleSnippetViewController extends Controller {
               snippetId: this.key,
             })
           );
-          //console.log(didSucceed);
         });
       }
     );

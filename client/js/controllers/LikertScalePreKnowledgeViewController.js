@@ -22,7 +22,6 @@ export default class LikertScalePreKnowledgeViewController extends Controller {
       LikertScaleView.EVENT_RESULT_LIKERT_CLICKED,
       (event) => {
         model.updateDataPoint("preKnowledge", event.data.value); // update the model object
-        //console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           EventBus.notifyAll(
             new Event(LikertScaleView.EVENT_RESULT_LIKERT_CLICKED, undefined, {
@@ -30,7 +29,6 @@ export default class LikertScalePreKnowledgeViewController extends Controller {
               preKnowledge: event.data.value,
             })
           );
-          //console.log(didSucceed);
         });
       }
     );

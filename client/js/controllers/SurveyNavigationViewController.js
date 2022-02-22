@@ -37,7 +37,6 @@ export default class SurveyNavigationViewController extends Controller {
   }
 
   activateNextButton() {
-    console.log("activateNextButton");
     if (this.$view && this.$view.$rightButton) this.$view.activateNextButton();
     else
       setTimeout(() => {
@@ -46,7 +45,6 @@ export default class SurveyNavigationViewController extends Controller {
   }
 
   deactivateNextButton() {
-    console.log("deactivateNextButton");
     if (this.$view && this.$view.$rightButton)
       this.$view.deactivateNextButton();
     else

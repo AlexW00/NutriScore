@@ -19,9 +19,9 @@ export default class SurveyViewController extends Controller {
   // called when everything is initalised, now create and return the view
   // set listeners and update view/model or Controller.storageProvider here
   _onCreateView(model) {
-    const DEV_MODE = true;
+    const DEV_MODE = false;
     const windowIsTooSmall = window.innerWidth < 1045;
-    console.log("windowIsTooSmall", windowIsTooSmall);
+    //console.log("windowIsTooSmall", windowIsTooSmall);
     if (windowIsTooSmall) return new WindowTooSmallView();
 
     const hasCompletedSurvey = localStorage.getItem("hasCompletedSurvey");
@@ -60,7 +60,7 @@ export default class SurveyViewController extends Controller {
     );
     view.html().then(() => {
       view.navController.updateButtons(model.data.activeSurveyId);
-      console.log("send survey load", model.data);
+      //console.log("send survey load", model.data);
       EventBus.notifyAll(
         new Event(SurveyViewController.EVENT_SURVEY_LOADED, this, model.data)
       );

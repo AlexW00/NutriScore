@@ -12,7 +12,6 @@ export default class PostTaskViewController extends Controller {
   }
 
   _onCreateView(model) {
-    //console.log(model);
     const view = new PostTaskView({
       D_age: model.data.D_age,
       D_genderEls: model.data.D_genderEls,
@@ -57,7 +56,6 @@ export default class PostTaskViewController extends Controller {
       model.data.CS_category_good_els !== undefined &&
       model.data.CS_category_good_els !== "1"
     ) {
-      console.log(model.data.CS_category_good_els);
       view.showTextCategoriesGood();
     } else {
       view.hideTextCategoriesGood();

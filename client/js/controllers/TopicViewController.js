@@ -58,7 +58,7 @@ export default class TopicViewController extends Controller {
 
   didAnswerAllQuestions = async () => {
     let doSendEvent = true;
-    console.log(this.model);
+    //console.log(this.model);
     if (this.model.data.isShowingPreknowledge) {
       doSendEvent = this.model.data.preKnowledge !== undefined;
     } else {
