@@ -167,7 +167,7 @@ class IndexedDbStorageProvider {
         else resolve(true);
       };
       request.onerror = (e) => {
-        console.error(e.target.error.message);
+        // console.error(e.target.error.message);
         reject(e.target.error.message);
       };
     });
@@ -193,7 +193,7 @@ class IndexedDbStorageProvider {
           });
         } catch (e) {
           //console.log(e);
-          console.trace();
+          // console.trace();
         }
       }
       jobs.push(

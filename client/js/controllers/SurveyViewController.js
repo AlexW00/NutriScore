@@ -55,14 +55,13 @@ export default class SurveyViewController extends Controller {
     );
     view.html().then(() => {
       view.navController.updateButtons(model.data.activeSurveyId);
+      console.log("send survey load", model.data);
       EventBus.notifyAll(
-        new Event(SurveyViewController.EVENT_SURVEY_LOADED),
-        this,
-        null
+        new Event(SurveyViewController.EVENT_SURVEY_LOADED, this, model.data)
       );
     });
 
-    console.log("survey loaded");
+    // console.log("survey loaded");
 
     return view;
   }
@@ -89,7 +88,7 @@ export default class SurveyViewController extends Controller {
     // save localstorage that we have sent the data to the server
 
     localStorage.setItem("hasCompletedSurvey", true);
-    console.log(surveyData, vpData);
+    // console.log(surveyData, vpData);
     const jobs = [];
     jobs.push(this._sendSurveyDataToServer(surveyData));
 
@@ -126,7 +125,7 @@ export default class SurveyViewController extends Controller {
         if (response.status === 200) return true;
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
         return false;
       });
   };
@@ -137,7 +136,7 @@ export default class SurveyViewController extends Controller {
         if (response.status === 200) return true;
       })
       .catch((e) => {
-        console.log(e);
+        // console.log(e);
         return false;
       });
   };
@@ -155,7 +154,7 @@ export default class SurveyViewController extends Controller {
         "activeSurveyId",
         this.model.data.surveyIds[currentSurveyIndex + (doGoNext ? 1 : -1)]
       );
-      console.log(this.model.data.activeSurveyId);
+      // console.log(this.model.data.activeSurveyId);
       this.view.navController.updateButtons(this.model.data.activeSurveyId);
 
       if (this.model.data.activeSurveyId === "postTask")

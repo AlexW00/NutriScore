@@ -40,6 +40,6 @@ setTimeout(() => {
   IndexedDbStorageProvider.getInstance()
     .then((sp) => sp.exportData())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
     });
 }, 2000);

@@ -37,12 +37,14 @@ export default class SurveyNavigationViewController extends Controller {
   }
 
   activateNextButton() {
-    console.trace();
-    this.$view.activateNextButton();
+    if (this.$view.$rightButton) this.$view.activateNextButton();
+    else setInterval(this.activateNextButton, 200);
   }
 
   deactivateNextButton() {
-    this.$view.deactivateNextButton();
+    console.trace();
+    if (this.$view.$rightButton) this.$view.deactivateNextButton();
+    else setInterval(this.deactivateNextButton, 200);
   }
 
   setText(left, right) {

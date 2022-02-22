@@ -14,7 +14,7 @@ export default {
         return {
           x: "preTask",
           userId: uuid,
-          kenntNutri: false,
+          kenntNutri: "nan",
           nutriScoreGlaubwuerdigkeitsRating: -1,
         };
       },

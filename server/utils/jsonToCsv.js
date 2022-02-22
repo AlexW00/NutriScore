@@ -84,7 +84,7 @@ export default async function jsonToCSV(json) {
 
   let preKnowledgeReihenfolge = ["102", "105", "114", "122", "128", "143"];
   for (let i = 0; i < preKnowledgeReihenfolge.length; i++) {
-    console.log(preKnowledgeReihenfolge[i]);
+    // console.log(preKnowledgeReihenfolge[i]);
     result =
       result +
       preKnowledge["pre_knowledge_" + preKnowledgeReihenfolge[i]] +
@@ -121,7 +121,7 @@ function getRatingForID(array, id) {
 function add(string, obj) {
   let text = string;
   let keys = Object.keys(obj);
-  console.log(keys);
+  // console.log(keys);
   for (let i = 0; i < keys.length; i++) {
     text = text + "," + obj[keys[i]];
   }

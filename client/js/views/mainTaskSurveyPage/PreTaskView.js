@@ -1,5 +1,7 @@
 import View from "../View.js";
 import Event from "../../utils/Event.js";
+import EventBus from "../../utils/EventBus.js";
+import SurveyViewController from "../../controllers/SurveyViewController.js";
 
 // ====================================================== //
 // ===================== PreTaskView ==================== //
@@ -80,8 +82,8 @@ export default class PreTaskView extends View {
     }
 
     if (this.data.kenntNutri == 1) this.showNutriScoreGlaubwürdigkeitsRating();
-    else this.hideNutriScoreGlaubwürdigkeitsRating();
-
+    else if (this.data.kenntNutri == 0)
+      this.hideNutriScoreGlaubwürdigkeitsRating();
     return this.$root;
   }
 

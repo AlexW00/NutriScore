@@ -32,8 +32,9 @@ export default class PostTaskViewController extends Controller {
     view.html();
 
     EventBus.addEventListener(SurveyViewController.EVENT_SURVEY_LOADED, (e) => {
-      console.log("hiooooioio", e);
-      this.checkButton();
+      if (e.data.activeSurveyId === "postTask") {
+        this.checkButton();
+      }
     });
 
     EventBus.addEventListener(
@@ -108,7 +109,7 @@ export default class PostTaskViewController extends Controller {
       (event) => {
         model.updateDataPoint("CS_categories_not_enough", event.data.value);
 
-        console.log(model);
+        // console.log(model);
         Controller.storageProvider.saveModel(model).then((didSucceed) => {
           this.checkButton();
         });
@@ -153,9 +154,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_CATEGORIES_ENOUGH,
       (event) => {
         model.updateDataPoint("CS_is_categories_enough_els", event.data.value);
-        console.log(event.data.value);
+        // console.log(event.data.value);
         if (event.data.value === "0") {
-          console.log("toggle categories enough");
+          // console.log("toggle categories enough");
           view.showTextCategoriesEnough();
         } else {
           view.hideTextCategoriesEnough();
@@ -186,7 +187,7 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_COLOR_HELPFUL,
       (event) => {
         model.updateDataPoint("CS_color_helpful_els", event.data.value);
-        console.log(event.data.value);
+        // console.log(event.data.value);
         if (event.data.value === "0") {
           view.showTextColorHelpful();
         } else {
@@ -206,9 +207,9 @@ export default class PostTaskViewController extends Controller {
       PostTaskView.EVENT_CREDISCORE_IS_CATEGORY_GOOD,
       (event) => {
         model.updateDataPoint("CS_category_good_els", event.data.value);
-        console.log(event.data.value);
+        // console.log(event.data.value);
         if (event.data.value === "0") {
-          console.log("toggle CategoriesGood");
+          // console.log("toggle CategoriesGood");
           view.showTextCategoriesGood();
         } else {
           view.hideTextCategoriesGood();
@@ -233,7 +234,7 @@ export default class PostTaskViewController extends Controller {
       "postTask",
       "postTask"
     );
-    console.log(model);
+    // console.log(model);
     let showButton = true;
 
     const dataToCheck = [
@@ -261,7 +262,7 @@ export default class PostTaskViewController extends Controller {
 
   checkButton = () => {
     this.didAnswerAllQuestions().then((result) => {
-      console.log(result);
+      // console.log(result);
       if (result) {
         EventBus.notifyAll(
           new Event(

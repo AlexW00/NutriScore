@@ -178,8 +178,8 @@ const postSurveyData = async (request) => {
       json = JSON.parse(body),
       csv = await jsonToCSV(json);
 
-    console.log("TODO: implement postSurveyData");
-    console.log(csv);
+    // console.log("TODO: implement postSurveyData");
+    // console.log(csv);
 
     sendSurveyDataToDiscord({ csv });
     return new Response("", {
@@ -187,7 +187,7 @@ const postSurveyData = async (request) => {
       headers: { "content-type": "text/plain" },
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return new Response("", {
       status: 500,
       headers: { "content-type": "text/plain" },
@@ -207,7 +207,7 @@ const postVpData = async (request) => {
       headers: { "content-type": "text/plain" },
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return new Response("", {
       status: 500,
       headers: { "content-type": "text/plain" },
@@ -219,7 +219,7 @@ const postVpData = async (request) => {
 
 function initEnvVariable(name) {
   if (!Deno.env.get(name)) {
-    console.error(`Environment variable ${name} not set!!!`);
+    // console.error(`Environment variable ${name} not set!!!`);
   }
   return Deno.env.get(name) || "";
 }
@@ -235,7 +235,7 @@ const sendSurveyDataToDiscord = async (data) => {
       )
     );
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
@@ -245,14 +245,14 @@ const sendVpDataToDiscord = async (data) => {
       VP_WEBHOOK_URL,
       getDiscordWebhookRequestOptions(data, "application/json", "VP_Bot")
     );
-    console.log(r);
+    // console.log(r);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
 function getDiscordWebhookRequestOptions(webHookContent, contentType, botName) {
-  console.log(getDiscordWebhookBody(webHookContent, botName));
+  // console.log(getDiscordWebhookBody(webHookContent, botName));
   return {
     method: "POST",
     mode: "cors", // no-cors, *cors, same-origin
