@@ -6,7 +6,10 @@ const latinSquare = [
   [5, 4, 2, 0, 3, 1],
   [2, 1, 5, 3, 0, 4],
 ];
-let currentIndex = 0;
+
+// random number between 0 and latinSquare.length - 1 for initial index
+let currentIndex = Math.floor(Math.random() * latinSquare.length);
+console.log(currentIndex);
 
 const shuffleAsLatinSquare = (array, newShuffle) => {
   if (array.length !== latinSquare.length)

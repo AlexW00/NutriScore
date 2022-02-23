@@ -232,7 +232,7 @@ const sendSurveyDataToDiscord = async (data) => {
     ).then((res) => {
       if (res.status < 300 && res.status >= 200)
         console.log(`Sent survey data to Discord!`);
-      console.log("res.status faulty", data);
+      else console.log("res.status faulty", JSON.stringify(data));
     });
   } catch (error) {
     console.error("error", error, data);
@@ -247,7 +247,7 @@ const sendVpDataToDiscord = async (data) => {
     ).then((res) => {
       if (res.status < 300 && res.status >= 200)
         console.log(`Sent VP data to Discord!`);
-      console.log("res.status faulty", data);
+      else console.log("res.status faulty", JSON.stringify(data));
     });
   } catch (error) {
     console.error("error", error, data);
