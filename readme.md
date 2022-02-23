@@ -6,7 +6,7 @@ Install [Deno](https://deno.land/)
 ## Deployment
 
 1. Push code to `main` branch
-2. View at → https://eds.deno.dev/
+2. View at → https://ib-survey.deno.dev/
 
 ## Routes:
 
